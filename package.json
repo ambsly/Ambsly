@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "react-dev": "webpack --mode development --watch"
+    "react-dev": "webpack --mode development --watch",
+    "start": "nodemon server/index.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -24,15 +25,22 @@
     "axios": "^0.21.1",
     "express": "^4.17.1",
     "jquery": "^3.6.0",
+    "nodemon": "^2.0.12",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.8",
-    "@babel/preset-react": "^7.14.5",
     "@babel/core": "^7.14.8",
     "@babel/preset-env": "^7.14.8",
+    "@babel/preset-react": "^7.14.5",
     "babel-loader": "^8.2.2",
+    "eslint": "^7.31.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "webpack": "^5.45.1",
     "webpack-cli": "^4.7.2"
   }

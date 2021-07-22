@@ -1,19 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ShirleyComponent1 from './shirleyComponent1.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {};
   }
 
   render() {
     return (
-      <div>
-        <div> Hello World! </div>
-        <ShirleyComponent1 />
-      </div>
-    )
+      <div> Hello, World! </div>
+    );
   }
 }
 
