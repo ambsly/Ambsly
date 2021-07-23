@@ -22,14 +22,11 @@ app.get('/products', (req, res) => {
 
 app.get('/reviews/:id', (req, res) => {
   const endpointID = req.params.id;
-  console.log('endpointID: ', endpointID);
   Calls.getReviewsFor(endpointID)
     .then((results) => {
-      console.log('results.data: ', results.data);
-      res.send(results.data);
+      res.status(200).send(results.data);
     })
     .catch((err) => {
-      console.log('err!');
       res.send(err);
     });
 });
