@@ -20,6 +20,20 @@ app.get('/products', (req, res) => {
     });
 });
 
+app.get('/reviews/:id', (req, res) => {
+  const endpointID = req.params.id;
+  console.log('endpointID: ', endpointID);
+  Calls.getReviewsFor(endpointID)
+    .then((results) => {
+      console.log('results.data: ', results.data);
+      res.send(results.data);
+    })
+    .catch((err) => {
+      console.log('err!');
+      res.send(err);
+    });
+});
+
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
 });
