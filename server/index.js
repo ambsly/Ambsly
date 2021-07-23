@@ -20,6 +20,17 @@ app.get('/products', (req, res) => {
     });
 });
 
+app.get('/display', (req, res) => {
+  Calls.getDisplay(req.query.productId)
+    .then((results) => {
+      res.status(200).send(results.data);
+    })
+    .catch((err) => {
+      // console.log('Error: ', err);
+      res.status(500).send(err);
+    });
+});
+
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
 });

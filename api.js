@@ -16,6 +16,14 @@ const getProducts = () => {
   return axios(productOptions);
 };
 
+const getDisplay = (id) => {
+  const productOptions = Object.create(options);
+  productOptions.url += `products/${id}/styles`;
+
+  return axios(productOptions);
+};
+
 module.exports = {
   getProducts,
+  getDisplay,
 };

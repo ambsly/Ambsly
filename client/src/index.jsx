@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import ProductDetails from './components/productDetails/index.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-
+        <ProductDetails productData={this.state.products[3]} />
       </div>
     );
   }
