@@ -19,6 +19,37 @@ app.get('/products', (req, res) => {
       res.status(500).send(err);
     });
 });
+app.get('/products/:product_id', (req, res) => {
+  Calls.getProductbyId(req.params.product_id)
+    .then((results) => {
+      res.status(200).send(results.data);
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+      res.status(500).send(err);
+    });
+});
+
+app.get('/products/:product_id/related', (req, res) => {
+  const promise = Calls.getRelatedProductIds(req.params.product_id);
+
+  promise
+    .then((results) => {
+      Calls.getRelatedProductsWithIDs(results.data, (err, arrayWithData) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send(err);
+        } else {
+          console.log(arrayWithData);
+          res.status(200).send(arrayWithData);
+        }
+      });
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+      res.status(500).send(err);
+    });
+});
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
