@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import RatingsAndReviews from './components/Ratings_Reviews/RatingsReviews.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-
+        <RatingsAndReviews />
       </div>
     );
   }
