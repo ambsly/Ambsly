@@ -26,7 +26,7 @@ const ProductDisplay = ({ currentStyle }) => {
                 type="image"
                 src={image.url}
                 alt=""
-                width="50"
+                height="50"
                 onClick={imageSelector}
               />
             </td>

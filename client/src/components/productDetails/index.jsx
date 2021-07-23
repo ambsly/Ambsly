@@ -36,7 +36,7 @@ const ProductDetails = ({ productData }) => {
     <>
       <ProductDisplay currentStyle={currentStyle} />
       <br />
-      <ProductOverview productData={productData} />
+      <ProductOverview productData={productData} currentStyle={currentStyle} style={styles} />
     </>
   );
 };
