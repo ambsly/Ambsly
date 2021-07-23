@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
 const ProductDisplay = ({ currentStyle }) => {
-  const [currentImage, setCurrentImage] = useState();
-
-  const imageSelector = (e) => {
-    setCurrentImage(e.target.src);
-  };
-
   if (currentStyle) {
+    const [currentImage, setCurrentImage] = useState('');
+
+    useEffect(() => {
+      setCurrentImage(currentStyle.photos[0].url);
+    }, []);
+
+    const imageSelector = (e) => {
+      setCurrentImage(e.target.src);
+    };
+
     return (
       <div className="gallery">
         <img
@@ -15,21 +19,19 @@ const ProductDisplay = ({ currentStyle }) => {
           alt=""
           height="300"
         />
-        <table>
+        <tr>
           {currentStyle.photos.map((image, key) => (
-            <tr key={key}>
-              <td className="imageTable">
-                <input
-                  type="image"
-                  src={image.url}
-                  alt=""
-                  width="50"
-                  onClick={imageSelector}
-                />
-              </td>
-            </tr>
+            <td className="imagePreview" key={key}>
+              <input
+                type="image"
+                src={image.url}
+                alt=""
+                width="50"
+                onClick={imageSelector}
+              />
+            </td>
           ))}
-        </table>
+        </tr>
       </div>
     );
   }

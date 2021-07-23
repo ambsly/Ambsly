@@ -6,7 +6,7 @@ import ProductOverview from './productOverview.jsx';
 const ProductDetails = ({ productData }) => {
   if (!productData) {
     return (
-      <div> rendering... </div>
+      <div> Hang tight... </div>
     );
   }
 

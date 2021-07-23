@@ -10,9 +10,7 @@ class App extends React.Component {
     this.state = {
       products: [],
     };
-  }
 
-  componentDidMount() {
     axios.get('/products')
       .then((results) => {
         this.setState({
@@ -25,10 +23,14 @@ class App extends React.Component {
       });
   }
 
+  // componentDidMount() {
+
+  // }
+
   render() {
     return (
       <div>
-        <ProductDetails productData={this.state.products[3]} />
+        <ProductDetails productData={this.state.products[4]} />
       </div>
     );
   }

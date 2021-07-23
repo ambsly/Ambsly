@@ -4,15 +4,12 @@ const ProductOverview = ({ productData }) => {
   const { category } = productData;
   const { name } = productData;
   const { default_price } = productData;
-  // console.log('Hello?', category, name, default_price);
 
   return (
     <div>
       {category}
-      <br />
-      {name}
-      <br />
-      {default_price}
+      <h3>{name}</h3>
+      $ {default_price}
     </div>
   );
 };
