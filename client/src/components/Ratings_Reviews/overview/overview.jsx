@@ -4,8 +4,8 @@ import SizeComfortMeter from './sizecomfortmeter.jsx';
 
 const Overview = () => (
   <div>
-    <div>Ratings and Reviews</div>
-    <div>4  ⭐⭐⭐⭐</div>
+    <span>4  </span>
+    <span>⭐⭐⭐⭐</span>
     <div>100% of reviews recommend this product</div>
     <StarsBreakdown />
     <SizeComfortMeter />
