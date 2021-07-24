@@ -9,28 +9,29 @@ class App extends React.Component {
 
     this.state = {
       products: [],
+      currentProduct: null,
     };
+  }
 
+  componentDidMount() {
     axios.get('/products')
       .then((results) => {
         this.setState({
           products: results.data,
+          currentProduct: results.data[3],
         });
-        console.log('Products from componentDidMount: ', this.state.products);
       })
       .catch((err) => {
         console.log('Error retrieving product data: ', err);
       });
   }
 
-  // componentDidMount() {
-
-  // }
-
   render() {
+    const { currentProduct } = this.state;
+    const { products } = this.state;
     return (
       <div>
-        <ProductDetails productData={this.state.products[4]} />
+        <ProductDetails productData={currentProduct} />
       </div>
     );
   }

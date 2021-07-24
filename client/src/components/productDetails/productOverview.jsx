@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ProductStyles from './productStyles.jsx';
+import ProductSelection from './productSelection.jsx';
 
 const ProductOverview = ({ productData, currentStyle, styles }) => {
   if (!currentStyle) {
@@ -17,17 +18,23 @@ const ProductOverview = ({ productData, currentStyle, styles }) => {
     setStyle(currentStyle.name);
   }, []);
 
-  console.log("Styles from overview: ", styles)
-
   return (
     <div>
-      {category}
+      <span>★★★★★ Read all reviews</span>
+      <br />
+      <br />
+      <span><i>{category} </i></span>
       <h3>{name}</h3>
-      $ {default_price}
+      <span>$ {default_price} </span>
       <br />
       <br />
-      STYLES // {style}
+      <span>
+        SELECTED STYLE //
+        <br />
+        <b>{style}</b>
+      </span>
       <ProductStyles styles={styles} />
+      <ProductSelection />
     </div>
   );
 };

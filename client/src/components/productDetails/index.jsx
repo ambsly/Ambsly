@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 import ProductDisplay from './productDisplay.jsx';
 import ProductOverview from './productOverview.jsx';
 
@@ -32,11 +33,16 @@ const ProductDetails = ({ productData }) => {
       });
   }, []);
 
+  const Container = styled.div`
+    display: flex
+  `;
+
   return (
     <>
-      <ProductDisplay currentStyle={currentStyle} />
-      <br />
-      <ProductOverview productData={productData} currentStyle={currentStyle} style={styles} />
+      <Container>
+        <ProductDisplay currentStyle={currentStyle} />
+        <ProductOverview productData={productData} currentStyle={currentStyle} style={styles} />
+      </Container>
     </>
   );
 };

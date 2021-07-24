@@ -1,22 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-const ProductStyles = ({ styles }) => {
-  // if (!styles) {
-  //   return (
-  //     <></>
-  //   );
-  // }
-
-  // const [styleList, setStyles] = useState([]);
-
-  // useEffect(() => {
-  //   setStyles(styles);
-  // });
-
-  console.log(styles);
-
-  return (
-    <table BORDER="1">
+const ProductStyles = ({ styles }) => (
+  <table border="1">
+    <tbody>
       <tr>
         <td> Style 1 </td>
         <td> Style 2 </td>
@@ -29,12 +15,11 @@ const ProductStyles = ({ styles }) => {
         <td> Style 7 </td>
         <td> Style 8 </td>
       </tr>
-        {/* {styleList.map((style) => (
-          <th height="25px" width="50px" >{style}</th>
-        ))} */}
-
-    </table>
-  )
-};
+      {/* {styleList.map((style) => (
+        <th height="25px" width="50px" >{style}</th>
+      ))} */}
+    </tbody>
+  </table>
+);
 
 export default ProductStyles;
