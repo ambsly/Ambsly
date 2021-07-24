@@ -12,6 +12,13 @@ const ReviewList = () => (
       </select>
     </div>
     <ReviewListItem />
+    <ReviewListItem />
+    <ReviewListItem />
+    <div>
+      <button type="submit">More Reviews</button>
+      <button type="submit">Add a Review   +</button>
+    </div>
+
   </div>
 );
 
