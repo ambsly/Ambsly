@@ -6,7 +6,8 @@
   "scripts": {
     "react-dev": "webpack --mode development --watch",
     "start": "nodemon server/index.js",
-    "test": "jest"
+    "test": "jest",
+    "testwatch": "jest --watchAll"
   },
   "repository": {
     "type": "git",
