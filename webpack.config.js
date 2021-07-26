@@ -8,15 +8,21 @@ module.exports = {
     filename: "bundle.js",
     path: DIST_DIR,
   },
+  resolve: {
+    alias: {
+      components: path.resolve(DIST_DIR, 'src/components'),
+    },
+    extensions: ['.js', '.jsx'],
+  },
   module: {
     rules: [
       {
-        test: /\.m?jsx$/,
+        test: /\.m?(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
+            presets: ['@babel/preset-env', '@babel/preset-react'],
           }
         }
       }
