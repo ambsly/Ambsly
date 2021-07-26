@@ -13,42 +13,6 @@ const Header = styled.div`
   font-size: 24px;
 `;
 
-// class RatingsAndReviews extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       productData: [],
-//     };
-//   }
-
-//   componentDidMount() {
-//     axios.get('/reviews', {
-//       params: { product_id: 25167 },
-//     })
-//       .then((results) => {
-//         console.log('results from within comDidMount', results.data);
-//         this.setState({
-//           productData: results.data,
-//         });
-//       })
-//       .catch((err) => {
-//         console.log('err msg', err);
-//       });
-//   }
-
-//   render() {
-//     return (
-//       <>
-//         <Header>Ratings and Reviews</Header>
-//         <Container>
-//           <Overview productID={this.state.productData} />
-//           <ReviewList />
-//         </Container>
-//       </>
-//     );
-//   }
-// }
-
 const RatingsAndReviews = () => {
   const [productData, setProductData] = useState({});
 
