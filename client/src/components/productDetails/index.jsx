@@ -42,7 +42,7 @@ const ProductDetails = ({ productData }) => {
 
   return (
     <>
-      <Container>
+      <Container className="productDetails">
         <ProductDisplay currentStyle={currentStyle} />
         <ProductOverview productData={productData} currentStyle={currentStyle} style={styles} />
       </Container>

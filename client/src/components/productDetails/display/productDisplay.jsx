@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 const ProductDisplay = ({ currentStyle }) => {
   if (!currentStyle) {
@@ -7,8 +8,8 @@ const ProductDisplay = ({ currentStyle }) => {
         <img
           src=""
           alt=""
-          width="600"
-          height="500"
+          width="600px"
+          height="500px"
         />
       </div>
     );
@@ -24,30 +25,44 @@ const ProductDisplay = ({ currentStyle }) => {
     setCurrentImage(e.target.src);
   };
 
+  const MainImage = styled.img`
+    width: 500px;
+    height: 500px;
+    object-fit: cover;
+  `;
+
+  const ScrollMenu = styled.div`
+    width: 400px;
+    overflow-x: scroll;
+    white-space: nowrap;
+  `;
+
+  const Image = styled.input`
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    background-position: center center;
+  `;
+
   return (
     <div className="gallery">
-      <img
+      <MainImage
         src={currentImage}
         alt=""
-        height="300"
       />
-      <table>
-        <tbody>
-          <tr>
-            {currentStyle.photos.map((image, key) => (
-              <td className="imagePreview" key={key}>
-                <input
-                  type="image"
-                  src={image.url}
-                  alt=""
-                  height="50"
-                  onClick={imageSelector}
-                />
-              </td>
-            ))}
-          </tr>
-        </tbody>
-      </table>
+      <br />
+      <ScrollMenu>
+        {currentStyle.photos.map((image, key) => (
+          <Image
+            type="image"
+            src={image.url}
+            alt=""
+            key={key}
+            onClick={imageSelector}
+          />
+        ))}
+      </ScrollMenu>
     </div>
   );
 };
