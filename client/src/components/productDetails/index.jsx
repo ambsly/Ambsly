@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import ProductDisplay from './productDisplay.jsx';
-import ProductOverview from './productOverview.jsx';
+import ProductDisplay from './display/productDisplay.jsx';
+import ProductOverview from './overview/productOverview.jsx';
+import ProductDescription from './description/productDescription.jsx';
 
 const ProductDetails = ({ productData }) => {
   if (!productData) {
     return (
-      <div> Hang tight... </div>
+      <></>
     );
   }
 
@@ -43,6 +44,7 @@ const ProductDetails = ({ productData }) => {
         <ProductDisplay currentStyle={currentStyle} />
         <ProductOverview productData={productData} currentStyle={currentStyle} style={styles} />
       </Container>
+      <ProductDescription productData={productData} currentStyle={currentStyle} />
     </>
   );
 };
