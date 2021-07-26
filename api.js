@@ -16,6 +16,15 @@ const getProducts = () => {
   return axios(productOptions);
 };
 
+const getReviewsFor = (productID) => {
+  const productOptions = Object.create(options);
+  productOptions.url += 'reviews';
+  productOptions.params = { product_id: productID };
+
+  return axios(productOptions);
+};
+
 module.exports = {
   getProducts,
+  getReviewsFor,
 };
