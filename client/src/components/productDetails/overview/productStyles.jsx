@@ -16,8 +16,8 @@ const ProductStyles = ({ styles }) => (
         <td> Style 8 </td>
       </tr>
       {/* {styleList.map((style) => (
-        <th height="25px" width="50px" >{style}</th>
-      ))} */}
+          <th height="25px" width="50px" >{style}</th>
+        ))} */}
     </tbody>
   </table>
 );

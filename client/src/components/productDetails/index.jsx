@@ -38,6 +38,8 @@ const ProductDetails = ({ productData }) => {
     display: flex
   `;
 
+  // console.log('Styles in index', styles);
+
   return (
     <>
       <Container>
