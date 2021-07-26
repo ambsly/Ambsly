@@ -12,18 +12,18 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount() {
-    axios.get('/products')
-      .then((results) => {
-        this.setState({
-          products: results.data,
-        });
-        console.log('Products from componentDidMount: ', this.state.products);
-      })
-      .catch((err) => {
-        console.log('Error retrieving product data: ', err);
-      });
-  }
+  // componentDidMount() {
+  //   axios.get('/products')
+  //     .then((results) => {
+  //       this.setState({
+  //         products: results.data,
+  //       });
+  //       console.log('Products from componentDidMount: ', this.state.products);
+  //     })
+  //     .catch((err) => {
+  //       console.log('Error retrieving product data: ', err);
+  //     });
+  // }
 
   render() {
     return (
