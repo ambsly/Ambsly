@@ -1,60 +1,58 @@
 import React from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
-import RelatedItem from './RelatedItem.jsx';
+import FavoriteCard from './FavoriteCard.jsx';
 
-class Related extends React.Component {
+class Favorites extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       width: 0,
-      productId: this.props.productId,
-      products: [],
+      favorites: JSON.parse(localStorage.getItem('dataArray')),
+      favoritesArray: [],
     };
-    this.track = React.createRef();
     this.onClickLeft = this.onClickLeft.bind(this);
     this.onClickRight = this.onClickRight.bind(this);
-  }
-
-  componentDidUpdate({ productId }) {
-    if (this.props.productId !== productId) {
-      axios.get(`/products/${this.props.productId}/related`)
-        .then((results) => {
-          this.setState({ products: results.data });
-        })
-        .catch((err) => {
-          // eslint-disable-next-line no-console
-          console.log('Error retrieving product data: ', err);
-        });
-    }
+    this.track = React.createRef();
+    console.log(this.state.favorites, 'testing what favorite is ');
   }
 
   onClickLeft() {
-    if (this.state.width !== 0) {
-      this.state.width += +253;
-    }
+    this.state.width += +253;
     this.track.current.style.transform = `translate(${this.state.width}px`;
   }
 
   onClickRight() {
-    console.log('');
     this.state.width += -253;
     this.track.current.style.transform = `translate(${this.state.width}px`;
   }
 
+  componentDidMount() {
+    axios.get('/favorites', {
+      params: {
+        favoriteIDS: this.state.favorites,
+      },
+    })
+      .then((results) => {
+        this.setState({ favoritesArray: results.data });
+      })
+      .catch((err) => {
+      // eslint-disable-next-line no-console
+        console.log('Error retrieving product data: ', err);
+      });
+  }
+
   render() {
-    const RelatedItems = this.state.products.map((item) => (
-      <RelatedItem
+    const FavoriteCards = this.state.favoritesArray.map((item) => (
+      <FavoriteCard
         key={item.id}
         cardInfo={item}
       />
     ));
-    console.log(RelatedItems);
     return (
       <div className="carousel-container">
         <div className="carousel-inner">
           <div className="track" ref={this.track}>
-            {RelatedItems}
+            {FavoriteCards}
           </div>
         </div>
         <div className="nav">
@@ -74,4 +72,4 @@ class Related extends React.Component {
   }
 }
 
-export default Related;
+export default Favorites;

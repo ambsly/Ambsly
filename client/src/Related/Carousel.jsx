@@ -7,10 +7,6 @@ class Carousel extends React.Component {
     this.state = {
       width: 0,
     };
-
-    this.onClickLeft = this.onClickLeft.bind(this);
-    this.onClickRight = this.onClickRight.bind(this);
-    this.track = React.createRef();
   }
 
   onClickLeft() {

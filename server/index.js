@@ -57,6 +57,31 @@ app.get('/products/:product_id/related', (req, res) => {
   resolves(promise);
 });
 
+app.get('/favorites', (req, res) => {
+  console.log(req.query.favoriteIDS);
+  const { favoriteIDS } = req.query;
+  async function resolves(favIDS) {
+    try {
+      const arrofPromisedProducts = Calls.getRelatedProductsWithIDs(favIDS);
+      const arrayOfProducts = await Promise.all(arrofPromisedProducts);
+      const arrOfPromisedStyles = Calls.getProductStyleByIDs(favIDS);
+      const arrayOfStyles = await Promise.all(arrOfPromisedStyles);
+      const returnedStyles = arrayOfStyles.map((results) => results.data);
+      const returnedProducts = arrayOfProducts.map((results) => (results.data));
+
+      for (let i = 0; i < returnedStyles.length; i += 1) {
+        returnedProducts[i].results = returnedStyles[i].results;
+      }
+
+      res.status(200).json(returnedProducts);
+    } catch (err) {
+      console.log('Error: ', err);
+      res.status(500).send(err);
+    }
+  }
+  resolves(favoriteIDS);
+});
+
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
 });

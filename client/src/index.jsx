@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import Carousel from './Related/Carousel.jsx';
-
+import Favorites from './Related/Favorites.jsx';
+import Modal from './Related/Modal.jsx';
 // eslint-disable-next-line import/extensions
 import Related from './Related/Related.jsx';
 
@@ -41,10 +41,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <PizzaContext.Provider value={pizzas}>
-          {/* <Related productId={this.state.products.id} /> */}
-          <Carousel productId={this.state.products.id} />
-        </PizzaContext.Provider>
+        <Related productId={this.state.products.id} />
+        <Favorites />
       </div>
     );
   }
