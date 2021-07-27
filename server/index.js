@@ -59,8 +59,8 @@ app.get('/reviews/meta', (req, res) => {
 
 app.get('/qa/questions', (req, res) => {
   axios.get('/qa/questions', { params: req.query })
-    .then((results) => {
-      res.status(200).send(results.data);
+    .then((response) => {
+      res.status(200).send(response.data.results);
     })
     .catch((err) => res.status(404).send(err));
 });

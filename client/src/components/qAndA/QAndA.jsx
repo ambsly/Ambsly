@@ -32,11 +32,9 @@ const QAndA = () => {
 
   React.useEffect(() => {
     axios.get(`/qa/questions?product_id=${28010}`)
-      .then((data) => {
-        console.log('getting data back?', data.data.results);
-        setQuestions({
-          questions: data.data.results,
-        });
+      .then((res) => {
+        console.log('res.data', res.data);
+        setQuestions(res.data);
       })
       .catch((err) => {
         console.error(err);

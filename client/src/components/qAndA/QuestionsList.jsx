@@ -1,8 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import propTypes from 'prop-types';
+import IndividualQuestion from './IndividualQuestion';
 
 const Section = styled.div`
-  display: flex;
+  display: block;
+  margin-top: 10px;
+`;
+
+const QuestionSection = styled.div`
+  display: block;
   margin-top: 10px;
 `;
 
@@ -14,15 +21,24 @@ const Button = styled.button`
   color: #8A9EA0;
 `;
 
-const QuestionsList = (props) => {
-  console.log('props', props.questions);
+const QuestionsList = ({ questions }) => (
+  <Section>
+    <QuestionSection>
+      {questions.map((question, index) => (
+        <IndividualQuestion key={index} question={question} />
+      ))}
+    </QuestionSection>
+    <Button>More Answered Questions</Button>
+    <Button>Add a Question +</Button>
+  </Section>
+);
 
-  return (
-    <Section>
-      <Button>More Answered Questions</Button>
-      <Button>Add a Question +</Button>
-    </Section>
-  );
+QuestionsList.defaultProps = {
+  questions: [],
+};
+
+QuestionsList.propTypes = {
+  questions: propTypes.arrayOf(propTypes.object),
 };
 
 export default QuestionsList;
