@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import QAndA from './components/qAndA/QAndA';
 
 class App extends React.Component {
   constructor(props) {
@@ -12,12 +13,13 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    const { products } = this.state;
     axios.get('/products')
       .then((results) => {
         this.setState({
           products: results.data,
         });
-        console.log('Products from componentDidMount: ', this.state.products);
+        console.log('Products from componentDidMount: ', products);
       })
       .catch((err) => {
         console.log('Error retrieving product data: ', err);
@@ -27,7 +29,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-
+        <QAndA />
       </div>
     );
   }
