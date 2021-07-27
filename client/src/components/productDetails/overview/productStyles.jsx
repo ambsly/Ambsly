@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const StyleGallery = styled.div`
   max-width: 250px;
+  white-space: nowrap;
 `;
 
 const StyleImage = styled.input`

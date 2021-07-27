@@ -23,7 +23,11 @@ const ProductSelection = ({ currentStyle }) => {
     let range = [];
     for (let i = 0; i < styleList.length; i++) {
       if (styleList[i].size === e.target.value) {
-        range = _.range(1, styleList[i].quantity + 1);
+        let q = styleList[i].quantity + 1;
+        if (styleList[i].quantity > 15) {
+          q = 15;
+        }
+        range = _.range(1, q + 1);
         setQuantity(range);
       }
     }

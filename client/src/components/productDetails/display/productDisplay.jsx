@@ -2,15 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 
 const MainImage = styled.img`
-width: 500px;
+width: 600px;
 height: 500px;
 object-fit: cover;
+margin-left: 25px;
+margin-right: 25px;
+margin-top: 25px
 `;
 
 const ScrollMenu = styled.div`
 width: 400px;
 overflow-x: scroll;
 white-space: nowrap;
+margin-left: 25px;
 `;
 
 const Image = styled.input`

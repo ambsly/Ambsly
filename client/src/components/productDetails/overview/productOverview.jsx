@@ -1,6 +1,11 @@
 import React from 'react';
 import ProductStyles from './productStyles.jsx';
 import ProductSelection from './productSelection.jsx';
+import styled from 'styled-components';
+
+const Container = styled.div`
+margin-top: 25px;
+`
 
 const ProductOverview = ({ productData, currentStyle, styles, changeStyle }) => {
   if (!currentStyle) {
@@ -15,7 +20,7 @@ const ProductOverview = ({ productData, currentStyle, styles, changeStyle }) => 
   const styleName = currentStyle.name;
 
   return (
-    <div>
+    <Container>
       <span>★★★★★ Read all reviews</span>
       <br />
       <br />
@@ -31,7 +36,7 @@ const ProductOverview = ({ productData, currentStyle, styles, changeStyle }) => 
       </span>
       <ProductStyles styles={styles} changeStyle={changeStyle} />
       <ProductSelection currentStyle={currentStyle} />
-    </div>
+    </Container>
   );
 };
 
