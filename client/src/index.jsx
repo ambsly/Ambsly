@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import QAndA from './components/qAndA/QAndA';
+import ProductDetails from './components/productDetails/index.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class App extends React.Component {
 
     this.state = {
       products: [],
+      currentProduct: null,
     };
   }
 
@@ -18,6 +20,7 @@ class App extends React.Component {
       .then((results) => {
         this.setState({
           products: results.data,
+          currentProduct: results.data[4],
         });
         console.log('Products from componentDidMount: ', products);
       })
@@ -27,8 +30,11 @@ class App extends React.Component {
   }
 
   render() {
+    const { currentProduct } = this.state;
+    const { products } = this.state;
     return (
       <div>
+        <ProductDetails productData={currentProduct} />
         <QAndA />
       </div>
     );

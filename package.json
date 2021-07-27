@@ -1,7 +1,7 @@
 {
   "name": "FrontEndCapstone",
   "version": "1.0.0",
-  "description": "",
+  "description": "Creating Feature Branches: https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow",
   "main": "index.js",
   "scripts": {
     "react-dev": "webpack --mode development --watch",
@@ -31,7 +31,8 @@
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "styled-components": "^5.3.0"
+    "styled-components": "^5.3.0",
+    "underscore": "^1.13.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.8",

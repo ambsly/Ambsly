@@ -12,7 +12,12 @@ const options = {
 const getProducts = () => {
   const productOptions = Object.create(options);
   productOptions.url += 'products';
+  return axios(productOptions);
+};
 
+const getDisplay = (id) => {
+  const productOptions = Object.create(options);
+  productOptions.url += `products/${id}/styles`;
   return axios(productOptions);
 };
 
@@ -20,11 +25,11 @@ const getReviewsFor = (productID) => {
   const productOptions = Object.create(options);
   productOptions.url += 'reviews';
   productOptions.params = { product_id: productID };
-
   return axios(productOptions);
 };
 
 module.exports = {
   getProducts,
+  getDisplay,
   getReviewsFor,
 };
