@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ProductStyles from './productStyles.jsx';
 import ProductSelection from './productSelection.jsx';
 
-const ProductOverview = ({ productData, currentStyle, styles }) => {
+const ProductOverview = ({ productData, currentStyle, styles, changeStyle }) => {
   if (!currentStyle) {
     return (
       <></>
@@ -12,11 +12,7 @@ const ProductOverview = ({ productData, currentStyle, styles }) => {
   const { category } = productData;
   const { name } = productData;
   const { default_price } = productData;
-  const [style, setStyle] = useState('');
-
-  useEffect(() => {
-    setStyle(currentStyle.name);
-  }, []);
+  const styleName = currentStyle.name;
 
   return (
     <div>
@@ -31,9 +27,9 @@ const ProductOverview = ({ productData, currentStyle, styles }) => {
       <span>
         SELECTED STYLE //
         <br />
-        <b>{style}</b>
+        <b>{styleName}</b>
       </span>
-      <ProductStyles styles={styles} />
+      <ProductStyles styles={styles} changeStyle={changeStyle} />
       <ProductSelection />
     </div>
   );

@@ -5,6 +5,10 @@ import ProductDisplay from './display/productDisplay.jsx';
 import ProductOverview from './overview/productOverview.jsx';
 import ProductDescription from './description/productDescription.jsx';
 
+const Container = styled.div`
+display: flex
+`;
+
 const ProductDetails = ({ productData }) => {
   if (!productData) {
     return (
@@ -26,6 +30,7 @@ const ProductDetails = ({ productData }) => {
         for (let i = 0; i < data.length; i += 1) {
           if (data[i]['default?']) {
             setCurrentStyle(data[i]);
+            console.log("LOOK HERE", data[i]);
           }
         }
       })
@@ -34,18 +39,22 @@ const ProductDetails = ({ productData }) => {
       });
   }, []);
 
-  const Container = styled.div`
-    display: flex
-  `;
-
-  // console.log('Styles in index', styles);
+  const changeStyle = (newStyle) => {
+    setCurrentStyle(newStyle);
+  };
 
   return (
     <>
       <Container className="productDetails">
         <ProductDisplay currentStyle={currentStyle} />
-        <ProductOverview productData={productData} currentStyle={currentStyle} style={styles} />
+        <ProductOverview
+          productData={productData}
+          currentStyle={currentStyle}
+          styles={styles}
+          changeStyle={changeStyle}
+        />
       </Container>
+      <br />
       <ProductDescription productData={productData} currentStyle={currentStyle} />
     </>
   );
