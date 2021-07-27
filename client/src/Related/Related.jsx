@@ -34,8 +34,16 @@ class Related extends React.Component {
     ));
     console.log(RelatedItems);
     return (
-      <div className="relatedCards">
-        {RelatedItems}
+      <div className="carousel">
+        <div className="track">
+          <div className="relatedCards">
+            {RelatedItems}
+          </div>
+        </div>
+        <div className="nav">
+          <button className="prev">prev</button>
+          <button className="next">next</button>
+        </div>
       </div>
 
     );

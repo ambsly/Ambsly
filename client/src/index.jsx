@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import Carousel from './Related/Carousel.jsx';
 
 // eslint-disable-next-line import/extensions
 import Related from './Related/Related.jsx';
@@ -16,7 +17,7 @@ const pizzas = {
   },
 };
 
-export let PizzaContext = React.createContext(null);
+export const PizzaContext = React.createContext(null);
 
 class App extends React.Component {
   constructor(props) {
@@ -41,7 +42,8 @@ class App extends React.Component {
     return (
       <div>
         <PizzaContext.Provider value={pizzas}>
-          <Related productId={this.state.products.id} />
+          {/* <Related productId={this.state.products.id} /> */}
+          <Carousel productId={this.state.products.id} />
         </PizzaContext.Provider>
       </div>
     );
