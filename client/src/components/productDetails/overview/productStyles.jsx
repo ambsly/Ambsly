@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const StyleGallery = styled.div`
+  max-width: 250px;
+`;
+
 const StyleImage = styled.input`
   padding: 5px;
   width: 50px;
@@ -16,7 +20,7 @@ const ProductStyles = ({ styles, changeStyle }) => {
   }
 
   return (
-    <div>
+    <StyleGallery>
       {styles.map((style, key) => (
         <StyleImage
           type="image"
@@ -27,7 +31,7 @@ const ProductStyles = ({ styles, changeStyle }) => {
           onClick={onStyleClick}
         />
       ))}
-    </div>
+    </StyleGallery>
   );
 };
 

@@ -18,7 +18,7 @@ class App extends React.Component {
       .then((results) => {
         this.setState({
           products: results.data,
-          currentProduct: results.data[4],
+          currentProduct: results.data[0],
         });
       })
       .catch((err) => {
