@@ -64,14 +64,14 @@ const ProductDisplay = ({ currentStyle, mainImage, changeImage }) => {
   }
 
   const [expanded, setExpand] = useState();
-  const [expandIcon, setExpandIcon] = useState('+');
+  const [expandIcon, setExpandIcon] = useState('✛');
 
   const handleExpand = () => {
     setExpand((prevState) => !prevState);
-    if (expandIcon === '+') {
-      setExpandIcon('-');
+    if (expandIcon === '✛') {
+      setExpandIcon('✕');
     } else {
-      setExpandIcon('+');
+      setExpandIcon('✛');
     }
   };
 

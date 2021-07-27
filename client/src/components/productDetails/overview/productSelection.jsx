@@ -57,7 +57,7 @@ const ProductSelection = ({ currentStyle }) => {
     if (favorited === '☆') {
       setFavorited('★');
     } else {
-    setFavorited('☆');
+      setFavorited('☆');
     }
   };
 
