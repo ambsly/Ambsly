@@ -20,7 +20,7 @@ const SearchBar = styled.input`
   display: flex;
   margin: 10px;
   padding: 10px;
-  width: 90vw;
+  width: 100vw;
   border: solid 1px #8A9EA0;
   background-color: #FCFAF0;
   color: #B5B2B0;
@@ -33,7 +33,6 @@ const QAndA = () => {
   React.useEffect(() => {
     axios.get(`/qa/questions?product_id=${28010}`)
       .then((res) => {
-        console.log('res.data', res.data);
         setQuestions(res.data);
       })
       .catch((err) => {

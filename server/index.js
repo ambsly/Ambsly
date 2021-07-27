@@ -57,6 +57,7 @@ app.get('/reviews/meta', (req, res) => {
     });
 });
 
+// Q&A Routes
 app.get('/qa/questions', (req, res) => {
   axios.get('/qa/questions', { params: req.query })
     .then((response) => {
@@ -65,11 +66,14 @@ app.get('/qa/questions', (req, res) => {
     .catch((err) => res.status(404).send(err));
 });
 
-// app.get('/qa/questions/:question_id/answers', (req, res) => {
-//   axios.get('/qa/questions/:question_id/answers', { params: req.query })
-//     .then((results) => res.status(200).send(results.data))
-//     .catch((err) => res.status(404).send(err));
-// });
+app.get('/qa/questions/:question_id/answers', (req, res) => {
+  console.log('req.params', req.query);
+  const questionId = req.query.question_id;
+  console.log('questionId', questionId);
+  axios.get(`/qa/questions/${questionId}/answers`, { params: req.query })
+    .then((response) => res.status(200).send(response.data.results))
+    .catch((err) => res.status(404).send(err));
+});
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);

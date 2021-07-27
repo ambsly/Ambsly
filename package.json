@@ -48,5 +48,8 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "webpack": "^5.45.1",
     "webpack-cli": "^4.7.2"
+  },
+  "prettier": {
+    "singleQuote": true
   }
 }
