@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import _ from 'underscore';
 
 const Container = styled.div`
 display: flex;
@@ -12,35 +13,58 @@ background-color: transparent;
 border: 2px solid black;
 `;
 
-const ProductSelection = ({ styles }) => (
-  <>
-    <Container>
-      <Selector>
-        <label htmlFor="size-selector">SELECT SIZE</label>
-        <select name="size-selector" id="size-selector">
-          <option value="small">Small </option>
-          <option value="medium">Medium </option>
-          <option value="large">Large </option>
-        </select>
-      </Selector>
-      <Selector>
-        <label htmlFor="qty-selector">Qty</label>
-        <select name="qty-selector" id="qty-selector">
-          <option value="1">1 </option>
-          <option value="2">2 </option>
-          <option value="3">3 </option>
-        </select>
-      </Selector>
-    </Container>
-    <Container>
-      <Selector>
-        <button type="button" name="add-to-bag" id="add-to-bag">Add to Bag </button>
-      </Selector>
-      <Selector>
-        <button type="button" name="favorite" id="favorite">☆ </button>
-      </Selector>
-    </Container>
-  </>
-);
+const ProductSelection = ({ currentStyle }) => {
+  const styleList = Object.values(currentStyle.skus);
+
+  const [quantity, setQuantity] = useState([]);
+
+  const sizeSelected = (e) => {
+    // console.log("Look here: ", e.target.quantity);
+    let range = [];
+    for (let i = 0; i < styleList.length; i++) {
+      if (styleList[i].size === e.target.value) {
+        range = _.range(1, styleList[i].quantity + 1);
+        setQuantity(range);
+      }
+    }
+  };
+
+  return (
+    <>
+      <Container>
+        <Selector>
+          <label>SELECT SIZE</label>
+          <select name="size-selector" onChange={sizeSelected}>
+            <option value='--'>--</option>
+            {styleList.map((sku, key) => (
+              <option
+                value={sku.size}
+                id={key}
+                key={key}
+              >{sku.size}</option>
+            ))}
+          </select>
+        </Selector>
+        <Selector>
+          <label>Qty</label>
+          <select name="qty-selector" id="qty-selector">
+            <option value='--'>--</option>
+            {quantity.map((num, key) => (
+              <option value={num} key={key}>{num}</option>
+            ))}
+          </select>
+        </Selector>
+      </Container>
+      <Container>
+        <Selector>
+          <button type="button" name="add-to-bag" id="add-to-bag">Add to Bag </button>
+        </Selector>
+        <Selector>
+          <button type="button" name="favorite" id="favorite">☆ </button>
+        </Selector>
+      </Container>
+    </>
+  );
+};
 
 export default ProductSelection;

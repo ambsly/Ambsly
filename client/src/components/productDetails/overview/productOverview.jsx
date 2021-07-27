@@ -9,8 +9,6 @@ const ProductOverview = ({ productData, currentStyle, styles, changeStyle }) => 
     );
   }
 
-  console.log(productData);
-
   const { category } = productData;
   const { name } = productData;
   const { default_price } = productData;
@@ -32,7 +30,7 @@ const ProductOverview = ({ productData, currentStyle, styles, changeStyle }) => 
         <b>{styleName}</b>
       </span>
       <ProductStyles styles={styles} changeStyle={changeStyle} />
-      <ProductSelection />
+      <ProductSelection currentStyle={currentStyle} />
     </div>
   );
 };
