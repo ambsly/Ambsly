@@ -3,29 +3,45 @@ import PropTypes from 'prop-types';
 import StarsBreakdown from './starsbreakdown.jsx';
 import SizeComfortMeter from './sizecomfortmeter.jsx';
 
-const ratingCalculator = (reviewArr = []) => {
-  let avgRating = 0;
-  let avgRecommendPercent = 0;
-  for (let i = 0; i < reviewArr.length; i++) {
-    avgRating += reviewArr[i].rating;
-    if (reviewArr[i].recommend) {
-      avgRecommendPercent += 100;
+const Overview = ({ product, metaData }) => {
+  const totalRatingsCount = (ratings) => {
+    let total = 0;
+    let n = 1;
+    while (n < 6) {
+      total += ratings;
+      n++;
     }
-  }
-  const finalAvg = Math.round((avgRating / reviewArr.length) * 2) / 2;
-  const finalRecommendedPercent = avgRecommendPercent / reviewArr.length;
-  return [finalAvg, finalRecommendedPercent];
-};
+    return total;
+  };
 
-const Overview = ({ product }) => {
-  // console.log(ratingCalculator(product.results));
-  // console.log('product ', product);
-  const currRating = ratingCalculator(product.results);
+  const averageRating = (ratings) => {
+    // pass in metaData.ratings
+    let totalCount = totalRatingsCount(ratings);
+    let subtotal = 0;
+    let n = 1;
+    while (n < 6) {
+      subtotal += n * Number(ratings);
+      n++;
+    }
+    return subtotal / totalCount;
+    // let total = totalRatingsCount()
+    // let subtotal = 0;
+    // let n = 1;
+    // while n < 6
+    // subtotal += n * Number(metaData.ratings['n'])
+    // return subtotal/total;
+  };
+
+  const recommendPercentageCalculator = (metaData) => {
+    // const recommendedPercent = metaData.recommended.true / (metaData.recommended.true + .false)
+  };
+
+  console.log('metaData prop: ', metaData);
   return (
     <div>
-      <span>{currRating[0]}  </span>
+      <span>4  </span>
       <span>⭐⭐⭐⭐</span>
-      <div>{currRating[1]}% of reviews recommend this product</div>
+      <div>90% of reviews recommend this product</div>
       <StarsBreakdown />
       <SizeComfortMeter />
     </div>

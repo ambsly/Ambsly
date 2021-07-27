@@ -14,29 +14,43 @@ const Header = styled.div`
 `;
 
 const RatingsAndReviews = () => {
-  const [productData, setProductData] = useState({});
+  const [productData, setProductData] = useState(undefined);
+  const [productMetaData, setProductMetaData] = useState(undefined);
 
   useEffect(() => {
     axios.get('/reviews', {
       params: { product_id: 25167 },
     })
-      .then((results) => {
-        setProductData(results.data);
+      .then((reviewsResults) => {
+        setProductData(reviewsResults.data);
       })
       .catch((err) => {
         console.log('somethin not working right w this hook', err);
       });
+
+    axios.get('/reviews/meta', {
+      params: { product_id: 25167 },
+    })
+      .then((results) => {
+        setProductMetaData(results.data);
+      })
+      .catch((err) => {
+        console.log('second get (metadata) isnt working', err);
+      });
   }, []);
 
-  return (
-    <>
-      <Header>Ratings and Reviews</Header>
-      <Container>
-        <Overview product={productData} />
-        <ReviewList />
-      </Container>
-    </>
-  );
+  if (productMetaData && productData) {
+    return (
+      <>
+        <Header>Ratings and Reviews</Header>
+        <Container>
+          <Overview metaData={productMetaData} />
+          <ReviewList product={productData} />
+        </Container>
+      </>
+    );
+  }
+  return null;
 };
 
 export default RatingsAndReviews;
