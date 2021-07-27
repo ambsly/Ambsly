@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-margin-left: 25px;
 width: 600px;
+margin-left: 25px;
 `;
 
 const ProductDescription = ({ productData }) => {

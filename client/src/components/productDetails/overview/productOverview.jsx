@@ -21,7 +21,7 @@ const ProductOverview = ({ productData, currentStyle, styles, changeStyle }) => 
 
   return (
     <Container>
-      <span>★★★★★ Read all reviews</span>
+      <span>[★★★★★ Read all reviews]</span>
       <br />
       <br />
       <span><i>{category} </i></span>
@@ -34,8 +34,15 @@ const ProductOverview = ({ productData, currentStyle, styles, changeStyle }) => 
         <br />
         <b>{styleName}</b>
       </span>
-      <ProductStyles styles={styles} changeStyle={changeStyle} />
+      <ProductStyles styles={styles} currentStyle={currentStyle} changeStyle={changeStyle} />
+      <br />
       <ProductSelection currentStyle={currentStyle} />
+      <br />
+      <div className="share">
+        Share
+        <br />
+        [facebook icon] [twitter icon] [pinterest icon]
+      </div>
     </Container>
   );
 };

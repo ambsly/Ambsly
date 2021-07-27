@@ -1,36 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const StyleGallery = styled.div`
-width: 250px;
+width: 260px;
 `;
 
 const StyleImage = styled.input`
-padding: 5px;
+margin: 5px;
 width: 50px;
 height: 50px;
+box-shadow: 0 0 3px;
 border-radius: 50%;
 object-fit: cover;
-background-position: center center;
+transition: 0.4s;
+opacity: 0.3;
 `;
 
-const ProductStyles = ({ styles, changeStyle }) => {
+const ProductStyles = ({ styles, currentStyle, changeStyle }) => {
   const onStyleClick = (e) => {
     changeStyle(styles[e.target.id]);
-  }
+  };
 
   return (
     <StyleGallery>
-      {styles.map((style, key) => (
-        <StyleImage
-          type="image"
-          src={style.photos[0].thumbnail_url}
-          alt=""
-          id={key}
-          key={key}
-          onClick={onStyleClick}
-        />
-      ))}
+      {styles.map((style, key) => {
+        if (style.style_id === currentStyle.style_id) {
+          return (
+            <StyleImage
+              type="image"
+              src={style.photos[0].thumbnail_url}
+              alt=""
+              id={key}
+              key={key}
+              style={{ opacity: 1 }}
+              onClick={onStyleClick}
+            />
+          );
+        }
+        return (
+          <StyleImage
+            type="image"
+            src={style.photos[0].thumbnail_url}
+            alt=""
+            id={key}
+            key={key}
+            onClick={onStyleClick}
+          />
+        );
+      })}
     </StyleGallery>
   );
 };
