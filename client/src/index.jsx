@@ -1,8 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+
 // eslint-disable-next-line import/extensions
 import Related from './Related/Related.jsx';
+
+const pizzas = {
+  cheese: {
+    cheeseOne: 'mozerella',
+    cheeseTwo: 'cheese',
+  },
+  meat: {
+    meatToppingOne: 'pepperoni',
+    meatToppoingTwo: 'sausage',
+  },
+};
+
+export let PizzaContext = React.createContext(null);
 
 class App extends React.Component {
   constructor(props) {
@@ -26,7 +40,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Related productId={this.state.products.id} />
+        <PizzaContext.Provider value={pizzas}>
+          <Related productId={this.state.products.id} />
+        </PizzaContext.Provider>
       </div>
     );
   }

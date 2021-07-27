@@ -33,22 +33,28 @@ app.get('/products/:product_id', (req, res) => {
 app.get('/products/:product_id/related', (req, res) => {
   const promise = Calls.getRelatedProductIds(req.params.product_id);
 
-  promise
-    .then((results) => {
-      Calls.getRelatedProductsWithIDs(results.data, (err, arrayWithData) => {
-        if (err) {
-          console.log(err);
-          res.status(500).send(err);
-        } else {
-          console.log(arrayWithData);
-          res.status(200).send(arrayWithData);
-        }
-      });
-    })
-    .catch((err) => {
+  async function resolves(promises) {
+    try {
+      const arrOfProdIDs = await promises;
+
+      const arrofPromisedProducts = Calls.getRelatedProductsWithIDs(arrOfProdIDs.data);
+      const arrayOfProducts = await Promise.all(arrofPromisedProducts);
+      const arrOfPromisedStyles = Calls.getProductStyleByIDs(arrOfProdIDs.data);
+      const arrayOfStyles = await Promise.all(arrOfPromisedStyles);
+      const returnedStyles = arrayOfStyles.map((results) => results.data);
+      const returnedProducts = arrayOfProducts.map((results) => (results.data));
+
+      for (let i = 0; i < returnedStyles.length; i += 1) {
+        returnedProducts[i].results = returnedStyles[i].results;
+      }
+
+      res.status(200).json(returnedProducts);
+    } catch (err) {
       console.log('Error: ', err);
       res.status(500).send(err);
-    });
+    }
+  }
+  resolves(promise);
 });
 
 app.listen(port, () => {
