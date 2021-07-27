@@ -6,33 +6,50 @@ import SizeComfortMeter from './sizecomfortmeter.jsx';
 const Overview = ({ metaData }) => {
   let totalRatingsCount = 0;
 
-  const averageRating = (metaDataRatings) => {
+  const averageRating = (ratings) => {
     let subtotal = 0;
     let n = 1;
     while (n < 6) {
-      totalRatingsCount += Number(metaDataRatings[n]);
-      subtotal += n * Number(metaDataRatings[n]);
+      if (ratings[n]) {
+        totalRatingsCount += Number(ratings[n]);
+        subtotal += n * Number(ratings[n]);
+      }
       n++;
     }
-    return Math.round(subtotal / totalRatingsCount * 2) / 2;
+    return Math.round(subtotal / totalRatingsCount * 10) / 10;
   };
 
-  const recommendPercentageCalculator = (data) => (
-    Math.round(Number(data.true) / (Number(data.true) + Number(data.false)) * 100)
-  );
+  const rating = averageRating(metaData.ratings);
+  let ratingStr;
+  if (!rating) {
+    ratingStr = 'No Reviews Yet!';
+  } else {
+    ratingStr = `${rating} ⭐⭐⭐⭐`;
+  }
+
+  const usersRecommendedCalculator = (data) => {
+    let recommendedStr;
+    if (!data.true) {
+      recommendedStr = 'No Recommendations Yet!';
+      return recommendedStr;
+    }
+    if (!data.false) {
+      data.false = 0;
+    }
+    let percent = Math.round(Number(data.true) / (Number(data.true) + Number(data.false)) * 100);
+    recommendedStr = `${percent}% of reviews recommend this product`;
+    return recommendedStr;
+  };
 
   return (
     <div>
       <span>
-        {averageRating(metaData.ratings)}
-        {' '}
+        {ratingStr}
       </span>
-      <span>⭐⭐⭐⭐</span>
       <div>
-        {recommendPercentageCalculator(metaData.recommended)}
-        % of reviews recommend this product
+        {usersRecommendedCalculator(metaData.recommended)}
       </div>
-      <StarsBreakdown />
+      <StarsBreakdown ratings={metaData.ratings} totalRatings={totalRatingsCount} />
       <SizeComfortMeter />
     </div>
   );
