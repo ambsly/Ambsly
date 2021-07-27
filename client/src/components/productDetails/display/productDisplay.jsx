@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const MainImage = styled.img`
@@ -21,7 +21,7 @@ object-fit: cover;
 background-position: center center;
 `;
 
-const ProductDisplay = ({ currentStyle }) => {
+const ProductDisplay = ({ currentStyle, mainImage, changeImage }) => {
   if (!currentStyle) {
     return (
       <div>
@@ -35,16 +35,12 @@ const ProductDisplay = ({ currentStyle }) => {
     );
   }
 
-  // const currentImage = currentStyle.photos[0].url;
-  let [currentImage, setCurrentImage] = useState('');
-
-  useEffect(() => {
-    setCurrentImage(currentStyle.photos[0].url);
-  }, []);
-
   const imageSelector = (e) => {
-    setCurrentImage(e.target.src);
+    const key = e.target.id;
+    changeImage(currentStyle.photos[key].url);
   };
+
+  const currentImage = mainImage || currentStyle.photos[0].url;
 
   return (
     <div className="gallery">
@@ -57,8 +53,9 @@ const ProductDisplay = ({ currentStyle }) => {
         {currentStyle.photos.map((image, key) => (
           <Image
             type="image"
-            src={image.url}
+            src={image.thumbnail_url}
             alt=""
+            id={key}
             key={key}
             onClick={imageSelector}
           />

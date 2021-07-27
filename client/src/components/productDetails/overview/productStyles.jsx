@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const StyleImage = styled.input`
@@ -11,10 +11,7 @@ const StyleImage = styled.input`
 `;
 
 const ProductStyles = ({ styles, changeStyle }) => {
-  console.log('Styles from styles: ', styles);
-
   const onStyleClick = (e) => {
-    // console.log(e.target.id);
     changeStyle(styles[e.target.id]);
   }
 
@@ -24,8 +21,9 @@ const ProductStyles = ({ styles, changeStyle }) => {
         <StyleImage
           type="image"
           src={style.photos[0].thumbnail_url}
-          id={key}
           alt=""
+          id={key}
+          key={key}
           onClick={onStyleClick}
         />
       ))}
@@ -34,26 +32,3 @@ const ProductStyles = ({ styles, changeStyle }) => {
 };
 
 export default ProductStyles;
-
-
-// return (
-//   <table border="1">
-//     <tbody>
-//       <tr>
-//         <td> Style 1 </td>
-//         <td> Style 2 </td>
-//         <td> Style 3 </td>
-//         <td> Style 4 </td>
-//       </tr>
-//       <tr>
-//         <td> Style 5 </td>
-//         <td> Style 6 </td>
-//         <td> Style 7 </td>
-//         <td> Style 8 </td>
-//       </tr>
-//       {styleList.map((style) => (
-//           <td height="25px" width="50px" >{style}</td>
-//         ))}
-//     </tbody>
-//   </table>
-// );

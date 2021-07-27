@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ProductStyles from './productStyles.jsx';
 import ProductSelection from './productSelection.jsx';
 
@@ -8,6 +8,8 @@ const ProductOverview = ({ productData, currentStyle, styles, changeStyle }) => 
       <></>
     );
   }
+
+  console.log(productData);
 
   const { category } = productData;
   const { name } = productData;

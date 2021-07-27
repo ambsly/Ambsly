@@ -18,6 +18,7 @@ const ProductDetails = ({ productData }) => {
 
   const [styles, setStyles] = useState([]);
   const [currentStyle, setCurrentStyle] = useState();
+  const [mainImage, setMainImage] = useState('');
   const { id } = productData;
 
   useEffect(() => {
@@ -30,7 +31,6 @@ const ProductDetails = ({ productData }) => {
         for (let i = 0; i < data.length; i += 1) {
           if (data[i]['default?']) {
             setCurrentStyle(data[i]);
-            console.log("LOOK HERE", data[i]);
           }
         }
       })
@@ -41,12 +41,21 @@ const ProductDetails = ({ productData }) => {
 
   const changeStyle = (newStyle) => {
     setCurrentStyle(newStyle);
+    setMainImage(newStyle.photos[0].url);
+  };
+
+  const changeImage = (url) => {
+    setMainImage(url);
   };
 
   return (
     <>
       <Container className="productDetails">
-        <ProductDisplay currentStyle={currentStyle} />
+        <ProductDisplay
+          currentStyle={currentStyle}
+          mainImage={mainImage}
+          changeImage={changeImage}
+        />
         <ProductOverview
           productData={productData}
           currentStyle={currentStyle}
@@ -55,7 +64,10 @@ const ProductDetails = ({ productData }) => {
         />
       </Container>
       <br />
-      <ProductDescription productData={productData} currentStyle={currentStyle} />
+      <ProductDescription
+        productData={productData}
+        currentStyle={currentStyle}
+      />
     </>
   );
 };
