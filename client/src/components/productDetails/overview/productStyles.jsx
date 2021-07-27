@@ -2,17 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyleGallery = styled.div`
-  max-width: 250px;
-  white-space: nowrap;
+width: 250px;
 `;
 
 const StyleImage = styled.input`
-  padding: 5px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  object-fit: cover;
-  background-position: center center;
+padding: 5px;
+width: 50px;
+height: 50px;
+border-radius: 50%;
+object-fit: cover;
+background-position: center center;
 `;
 
 const ProductStyles = ({ styles, changeStyle }) => {

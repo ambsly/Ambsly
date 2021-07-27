@@ -19,9 +19,8 @@ const ProductSelection = ({ currentStyle }) => {
   const [quantity, setQuantity] = useState([]);
 
   const sizeSelected = (e) => {
-    // console.log("Look here: ", e.target.quantity);
     let range = [];
-    for (let i = 0; i < styleList.length; i++) {
+    for (let i = 0; i < styleList.length; i += 1) {
       if (styleList[i].size === e.target.value) {
         let q = styleList[i].quantity + 1;
         if (styleList[i].quantity > 15) {

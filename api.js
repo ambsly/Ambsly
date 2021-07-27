@@ -12,7 +12,6 @@ const options = {
 const getProducts = () => {
   const productOptions = Object.create(options);
   productOptions.url += 'products';
-
   return axios(productOptions);
 };
 
