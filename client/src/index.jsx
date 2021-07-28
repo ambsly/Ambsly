@@ -22,7 +22,7 @@ class App extends React.Component {
     const { products } = this.state;
     axios.get('/products')
       .then((results) => {
-        this.setState({ products: results.data[0] });
+        this.setState({ products: results.data[4] });
       })
       .catch((err) => {
         // eslint-disable-next-line no-console

@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const ImageContainer = styled.div`
-position: relative;
-z-index: 1;
 `;
 
 const MainImage = styled.img`
@@ -14,7 +12,7 @@ box-shadow: 0 0 5px;
 transition: 0.4s;
 margin-left: 25px;
 margin-right: 25px;
-margin-top: 25px
+margin-top: 25px;
 `;
 
 const ExpandButton = styled.button`
@@ -33,8 +31,11 @@ left: 10%;
 `;
 
 const ScrollMenu = styled.div`
+position: absolute;
+top: 450px;
+left: 125px;
+margin: auto;
 width: 400px;
-margin-left: 25px;
 overflow-x: scroll;
 white-space: nowrap;
 `;
@@ -49,7 +50,7 @@ transition: 0.4s;
 opacity: 0.3;
 `;
 
-const ProductDisplay = ({ currentStyle, mainImage, changeImage }) => {
+const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
   if (!currentStyle) {
     return (
       <div>
@@ -76,11 +77,10 @@ const ProductDisplay = ({ currentStyle, mainImage, changeImage }) => {
   };
 
   const imageSelector = (e) => {
-    const key = e.target.id;
-    changeImage(currentStyle.photos[key].url);
+    changeImage(e.target.id);
   };
 
-  const currentImage = mainImage || currentStyle.photos[0].url;
+  const currentImage = currentStyle.photos[mainImageKey].url || currentStyle.photos[0].url;
 
   return (
     <div className="gallery">
@@ -98,12 +98,21 @@ const ProductDisplay = ({ currentStyle, mainImage, changeImage }) => {
         >
           {expandIcon}
         </ExpandButton>
-      </ImageContainer>
-      <br />
-      <ScrollMenu>
-        {currentStyle.photos.map((image, key) => {
-          console.log(currentImage);
-          if (image.url === currentImage) {
+        <ScrollMenu>
+          {currentStyle.photos.map((image, key) => {
+            if (image.url === currentImage) {
+              return (
+                <ImagePreview
+                  type="image"
+                  src={image.thumbnail_url}
+                  alt=""
+                  id={key}
+                  key={key}
+                  onClick={imageSelector}
+                  style={{ opacity: 1 }}
+                />
+              );
+            }
             return (
               <ImagePreview
                 type="image"
@@ -112,22 +121,11 @@ const ProductDisplay = ({ currentStyle, mainImage, changeImage }) => {
                 id={key}
                 key={key}
                 onClick={imageSelector}
-                style={{ opacity: 1 }}
               />
             );
-          }
-          return (
-            <ImagePreview
-              type="image"
-              src={image.thumbnail_url}
-              alt=""
-              id={key}
-              key={key}
-              onClick={imageSelector}
-            />
-          );
-        })}
-      </ScrollMenu>
+          })}
+        </ScrollMenu>
+      </ImageContainer>
     </div>
   );
 };

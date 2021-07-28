@@ -6,7 +6,9 @@ import ProductOverview from './overview/productOverview.jsx';
 import ProductDescription from './description/productDescription.jsx';
 
 const Container = styled.div`
-display: flex
+display: flex;
+margin: auto;
+width: 1000px;
 `;
 
 const ProductDetails = ({ productData }) => {
@@ -18,7 +20,7 @@ const ProductDetails = ({ productData }) => {
 
   const [styles, setStyles] = useState([]);
   const [currentStyle, setCurrentStyle] = useState();
-  const [mainImage, setMainImage] = useState('');
+  const [mainImageKey, setMainImageKey] = useState(0);
   const { id } = productData;
 
   useEffect(() => {
@@ -41,11 +43,10 @@ const ProductDetails = ({ productData }) => {
 
   const changeStyle = (newStyle) => {
     setCurrentStyle(newStyle);
-    setMainImage(newStyle.photos[0].url);
   };
 
-  const changeImage = (url) => {
-    setMainImage(url);
+  const changeImage = (key) => {
+    setMainImageKey(key);
   };
 
   return (
@@ -53,7 +54,7 @@ const ProductDetails = ({ productData }) => {
       <Container className="productDetails">
         <ProductDisplay
           currentStyle={currentStyle}
-          mainImage={mainImage}
+          mainImageKey={mainImageKey}
           changeImage={changeImage}
         />
         <ProductOverview
@@ -64,10 +65,12 @@ const ProductDetails = ({ productData }) => {
         />
       </Container>
       <br />
-      <ProductDescription
-        productData={productData}
-        currentStyle={currentStyle}
-      />
+      <Container>
+        <ProductDescription
+          productData={productData}
+          currentStyle={currentStyle}
+        />
+      </Container>
     </>
   );
 };
