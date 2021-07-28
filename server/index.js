@@ -13,17 +13,6 @@ app.use(express.urlencoded({ extended: true }));
 axios.defaults.headers.common.Authorization = config.TOKEN;
 axios.defaults.baseURL = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-sfo';
 
-// app.get('/products', (req, res) => {
-//   Calls.getProducts()
-//     .then((results) => {
-//       res.status(200).send(results.data);
-//     })
-//     .catch((err) => {
-//       console.log('Error: ', err);
-//       res.status(500).send(err);
-//     });
-// });
-
 app.get('/products', (req, res) => {
   axios.get('/products')
     .then((results) => {
@@ -54,10 +43,33 @@ app.get('/reviews', (req, res) => {
     });
 });
 
-app.get('/reviews/meta', (req, res) => {
-  axios.get('/reviews/meta', { params: req.query })
+app.get('/display', (req, res) => {
+  Calls.getDisplay(req.query.productId)
     .then((results) => {
       res.status(200).send(results.data);
+    })
+    .catch((err) => {
+      // console.log('Error: ', err);
+      res.status(500).send(err);
+    });
+});
+
+app.get('/reviews', (req, res) => {
+  console.log('request URL query: ', req.query);
+  axios.get('/reviews', { params: req.query })
+    .then((results) => {
+      res.send(results.data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
+app.get('/reviews/meta', (req, res) => {
+  console.log('request URL query: ', req.query);
+  axios.get('/reviews/meta', { params: req.query })
+    .then((results) => {
+      res.send(results.data);
     })
     .catch((err) => {
       res.send(err);
@@ -78,6 +90,24 @@ app.post('/reviews', (req, res) => {
     "characteristics": { "84509": 1.5, "84510": 3, "84511": 2, "84512": 2 }
   }
 */
+});
+
+// Q&A Routes
+app.get('/qa/questions', (req, res) => {
+  axios.get('/qa/questions', { params: req.query })
+    .then((response) => {
+      res.status(200).send(response.data.results);
+    })
+    .catch((err) => res.status(404).send(err));
+});
+
+app.get('/qa/questions/:question_id/answers', (req, res) => {
+  console.log('req.params', req.query);
+  const questionId = req.query.question_id;
+  console.log('questionId', questionId);
+  axios.get(`/qa/questions/${questionId}/answers`, { params: req.query })
+    .then((response) => res.status(200).send(response.data.results))
+    .catch((err) => res.status(404).send(err));
 });
 
 app.listen(port, () => {

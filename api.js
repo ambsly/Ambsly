@@ -8,23 +8,55 @@ const options = {
     Authorization: config.TOKEN,
   },
 };
-
 const getProducts = () => {
   const productOptions = Object.create(options);
   productOptions.url += 'products';
-
   return axios(productOptions);
 };
 
-const getReviewsFor = (productID) => {
+const getProductbyId = (productId) => {
   const productOptions = Object.create(options);
-  productOptions.url += 'reviews';
-  productOptions.params = { product_id: productID };
-
+  productOptions.url += `products/${productId}`;
   return axios(productOptions);
+};
+
+const getRelatedProductIds = (productId) => {
+  const productOptions = Object.create(options);
+  productOptions.url += `products/${productId}/related`;
+  return axios(productOptions);
+};
+
+const getRelatedProductsWithIDs = (arrayOfProductIds) => {
+  const arrayOfPromises = arrayOfProductIds.map((productId) => (
+    getProductbyId(productId)
+  ));
+  return arrayOfPromises;
+};
+
+const getProductStyleByID = (productId) => {
+  const productOptions = Object.create(options);
+  productOptions.url += `products/${productId}/styles`;
+};
+
+const getDisplay = (id) => {
+  const productOptions = Object.create(options);
+  productOptions.url += `products/${id}/styles`;
+  return axios(productOptions);
+};
+
+const getProductStyleByIDs = (arrayOfProductIds) => {
+  const arrayOfPromises = arrayOfProductIds.map((productId) => (
+    getProductStyleByID(productId)
+  ));
+  return arrayOfPromises;
 };
 
 module.exports = {
   getProducts,
-  getReviewsFor,
+  getProductbyId,
+  getRelatedProductIds,
+  getRelatedProductsWithIDs,
+  getProductStyleByID,
+  getProductStyleByIDs,
+  getDisplay,
 };
