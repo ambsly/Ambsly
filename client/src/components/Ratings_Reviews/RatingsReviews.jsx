@@ -29,7 +29,7 @@ const RatingsAndReviews = () => {
       });
 
     axios.get('/reviews/meta', {
-      params: { product_id: 25170 },
+      params: { product_id: 25169 },
     })
       .then((results) => {
         setProductMetaData(results.data);

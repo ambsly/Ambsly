@@ -25,6 +25,7 @@ const Overview = ({ metaData }) => {
     ratingStr = 'No Reviews Yet!';
   } else {
     ratingStr = `${rating} ⭐⭐⭐⭐`;
+    // the stars will have to be dynamic
   }
 
   const usersRecommendedCalculator = (data) => {
