@@ -32,19 +32,34 @@ transition: 0.4s;
 const ScrollMenu = styled.div`
 position: absolute;
 top: 445px;
-left: 85px;
+left: 50px;
 margin: auto;
-width: 455px;
+width: 525px;
 overflow-x: scroll;
 white-space: nowrap;
+scrollbar-color: #90A4AE;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(234, 242, 245, 0.4);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(144, 164, 174, 0.8);
+  }
+
+scrollbar-width: thin;
 `;
 
 const ImagePreview = styled.input`
 margin-left: 20px;
 margin-right: 20px;
 box-shadow: 0 0 3px;
-width: 25px;
-height: 25px;
+width: 35px;
+height: 35px;
 object-fit: cover;
 transition: 0.4s;
 opacity: 1;
@@ -122,7 +137,6 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
                   onClick={imageSelector}
                   style={{
                     opacity: 0.3,
-                    boxShadow: '0 0 3px white',
                   }}
                 />
               );
