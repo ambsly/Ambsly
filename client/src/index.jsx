@@ -1,23 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import Favorites from './Related/Favorites.jsx';
-import Modal from './Related/Modal.jsx';
+import Favorites from './components/relatedProducts/Favorites.jsx';
+import Modal from './components/relatedProducts/Modal.jsx';
 // eslint-disable-next-line import/extensions
-import Related from './Related/Related.jsx';
+import Related from './components/relatedProducts/Related.jsx';
 
-const pizzas = {
-  cheese: {
-    cheeseOne: 'mozerella',
-    cheeseTwo: 'cheese',
-  },
-  meat: {
-    meatToppingOne: 'pepperoni',
-    meatToppoingTwo: 'sausage',
-  },
-};
-
-export const PizzaContext = React.createContext(null);
+import QAndA from './components/qAndA/QAndA';
+import ProductDetails from './components/productDetails/index.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -28,6 +18,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    const { products } = this.state;
     axios.get('/products')
       .then((results) => {
         this.setState({ products: results.data[0] });
@@ -39,10 +30,13 @@ class App extends React.Component {
   }
 
   render() {
+    const { products } = this.state;
     return (
       <div>
-        <Related productId={this.state.products.id} />
+        <ProductDetails productData={products} />
+        <Related productId={products.id} />
         <Favorites />
+        <QAndA />
       </div>
     );
   }

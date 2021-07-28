@@ -1,13 +1,11 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import Modal from './Modal.jsx';
-import { PizzaContext } from '../index.jsx';
 
 const BUTTON_WRAPER_STYLES = {
   position: 'relative',
   zIndex: 1,
 };
-
 
 function RelatedItem({ cardInfo }) {
   const [isOpen, setIsOpen] = useState(false);

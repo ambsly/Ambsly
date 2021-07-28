@@ -36,6 +36,11 @@ const getRelatedProductsWithIDs = (arrayOfProductIds) => {
 const getProductStyleByID = (productId) => {
   const productOptions = Object.create(options);
   productOptions.url += `products/${productId}/styles`;
+};
+
+const getDisplay = (id) => {
+  const productOptions = Object.create(options);
+  productOptions.url += `products/${id}/styles`;
   return axios(productOptions);
 };
 
@@ -53,4 +58,5 @@ module.exports = {
   getRelatedProductsWithIDs,
   getProductStyleByID,
   getProductStyleByIDs,
+  getDisplay,
 };

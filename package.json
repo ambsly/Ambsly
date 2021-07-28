@@ -1,12 +1,13 @@
 {
   "name": "FrontEndCapstone",
   "version": "1.0.0",
-  "description": "",
+  "description": "Creating Feature Branches: https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow",
   "main": "index.js",
   "scripts": {
     "react-dev": "webpack --mode development --watch",
     "start": "nodemon server/index.js",
-    "test": "jest"
+    "test": "jest",
+    "testwatch": "jest --watchAll"
   },
   "repository": {
     "type": "git",
@@ -24,19 +25,22 @@
     "@babel/preset-react": "^7.14.5",
     "axios": "^0.21.1",
     "express": "^4.17.1",
+    "jest": "^27.0.6",
     "jquery": "^3.6.0",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.12",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "styled-components": "^5.3.0"
+    "styled-components": "^5.3.0",
+    "underscore": "^1.13.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.8",
     "@babel/core": "^7.14.8",
     "@babel/preset-env": "^7.14.8",
     "@babel/preset-react": "^7.14.5",
+    "@testing-library/dom": "^8.1.0",
     "babel-loader": "^8.2.2",
     "eslint": "^7.31.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -46,5 +50,8 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "webpack": "^5.45.1",
     "webpack-cli": "^4.7.2"
+  },
+  "prettier": {
+    "singleQuote": true
   }
 }
