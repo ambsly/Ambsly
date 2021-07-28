@@ -104,3 +104,6 @@ typings/
 .tern-port
 
 config.js
+
+
+./dist/bundle.js
