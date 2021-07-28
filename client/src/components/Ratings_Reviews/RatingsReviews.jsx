@@ -43,6 +43,7 @@ const RatingsAndReviews = () => {
     return (
       <>
         <Header>Ratings and Reviews</Header>
+        <br />
         <Container>
           <Overview metaData={productMetaData} />
           <ReviewList product={productData} />
