@@ -47,7 +47,7 @@ const ProductSelection = ({ currentStyle }) => {
 
   const handleBagClick = () => {
     if (inBag === 'Add to Bag +') {
-      setInBag('Added to Bag -');
+      setInBag('Added to Bag');
     } else {
       setInBag('Add to Bag +');
     }
@@ -64,56 +64,78 @@ const ProductSelection = ({ currentStyle }) => {
   return (
     <>
       <Container>
-        <Selector>
-          <label>SELECT SIZE</label>
-          <select
-            name="size-selector"
-            onChange={sizeSelected}
-          >
-            <option value="--">--</option>
-            {styleList.map((sku, key) => (
-              <option
-                value={sku.size}
-                id={key}
-                key={key}
-              >
-                {sku.size}
-              </option>
-            ))}
-          </select>
-        </Selector>
-        <Selector>
-          <label>Qty</label>
-          <select name="qty-selector" id="qty-selector">
-            <option value="--">--</option>
-            {quantity.map((value, key) => (
-              <option value={value} key={key}>{value}</option>
-            ))}
-          </select>
-        </Selector>
+        <select
+          name="size-selector"
+          onChange={sizeSelected}
+          style={{
+            width: '145px',
+            height: '40px',
+            padding: '10px 5px',
+            backgroundColor: 'transparent',
+            border: '1px solid black',
+          }}
+        >
+          <option value="SELECT SIZE">SELECT SIZE</option>
+          {styleList.map((sku, key) => (
+            <option
+              value={sku.size}
+              id={key}
+              key={key}
+            >
+              {sku.size}
+            </option>
+          ))}
+        </select>
+        <select
+          name="qty-selector"
+          id="qty-selector"
+          style={{
+            width: '85px',
+            height: '40px',
+            padding: '10px 5px',
+            backgroundColor: 'transparent',
+            border: '1px solid black',
+          }}
+        >
+          <option value="--">QTY</option>
+          {quantity.map((value, key) => (
+            <option value={value} key={key}>{value}</option>
+          ))}
+        </select>
       </Container>
       <br />
       <Container>
-        <Selector>
-          <Button
-            type="button"
-            name="add-to-bag"
-            id="add-to-bag"
-            onClick={handleBagClick}
-          >
-            {inBag}
-          </Button>
-        </Selector>
-        <Selector>
-          <Button
-            type="button"
-            name="favorite"
-            id="favorite"
-            onClick={handleFavoritedClick}
-          >
-            {favorited}
-          </Button>
-        </Selector>
+        <Button
+          type="button"
+          name="add-to-bag"
+          id="add-to-bag"
+          onClick={handleBagClick}
+          style={{
+            width: '185px',
+            height: '40px',
+            padding: '10px 5px',
+            backgroundColor: 'transparent',
+            border: '1px solid black',
+            textAlign: 'center',
+          }}
+        >
+          {inBag}
+        </Button>
+        <Button
+          type="button"
+          name="favorite"
+          id="favorite"
+          onClick={handleFavoritedClick}
+          style={{
+            width: '45px',
+            height: '40px',
+            padding: '10px 5px',
+            backgroundColor: 'transparent',
+            border: '1px solid black',
+          }}
+        >
+          {favorited}
+        </Button>
       </Container>
     </>
   );

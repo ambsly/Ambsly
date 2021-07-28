@@ -136,7 +136,7 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
                   key={key}
                   onClick={imageSelector}
                   style={{
-                    opacity: 0.3,
+                    opacity: 0.5,
                   }}
                 />
               );
