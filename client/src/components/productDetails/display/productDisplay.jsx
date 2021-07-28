@@ -2,52 +2,52 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const ImageContainer = styled.div`
+position: relative;
+overflow: hidden;
+margin: 25px;
+box-shadow: 0 0 5px;
 `;
 
 const MainImage = styled.img`
-width: 600px;
+width: 625px;
 height: 500px;
 object-fit: cover;
-box-shadow: 0 0 5px;
 transition: 0.4s;
-margin-left: 25px;
-margin-right: 25px;
-margin-top: 25px;
 `;
 
-const ExpandButton = styled.button`
-background: rgba(255, 255, 255, 0.50);
-width: 30px;
-height: 30px;
-border: none;
-border-radius: 50%;
-color: rgba(50, 50, 50);
-font-size: 18px;
-text-align: center;
-cursor: pointer;
-position: absolute;
-top: 10%;
-left: 10%;
-`;
+// const ExpandButton = styled.span`
+// background: rgba(255, 255, 255, 0.50);
+// width: 30px;
+// height: 30px;
+// border: none;
+// border-radius: 50%;
+// color: rgba(50, 50, 50);
+// font-size: 18px;
+// text-align: center;
+// position: absolute;
+// top: 10%;
+// left: 10%;
+// `;
 
 const ScrollMenu = styled.div`
 position: absolute;
-top: 450px;
-left: 125px;
+top: 445px;
+left: 85px;
 margin: auto;
-width: 400px;
+width: 455px;
 overflow-x: scroll;
 white-space: nowrap;
 `;
 
 const ImagePreview = styled.input`
-margin: 10px;
+margin-left: 20px;
+margin-right: 20px;
 box-shadow: 0 0 3px;
-width: 50px;
-height: 50px;
+width: 25px;
+height: 25px;
 object-fit: cover;
 transition: 0.4s;
-opacity: 0.3;
+opacity: 1;
 `;
 
 const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
@@ -57,23 +57,31 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
         <img
           src=""
           alt=""
-          width="600px"
+          width="625px"
           height="500px"
         />
       </div>
     );
   }
 
-  const [expanded, setExpand] = useState();
-  const [expandIcon, setExpandIcon] = useState('✛');
+  const [expanded, setExpand] = useState([false]);
+  // const [expandIcon, setExpandIcon] = useState('✛');
 
-  const handleExpand = () => {
-    setExpand((prevState) => !prevState);
-    if (expandIcon === '✛') {
-      setExpandIcon('✕');
+  const handleExpand = (e) => {
+    const xPos = (e.clientX);
+    const yPos = (e.clientY);
+
+    if (!expanded[0]) {
+      setExpand([true, xPos, yPos]);
     } else {
-      setExpandIcon('✛');
+      setExpand([false]);
     }
+
+    // if (expandIcon === '✛') {
+    //   setExpandIcon('✕');
+    // } else {
+    //   setExpandIcon('✛');
+    // }
   };
 
   const imageSelector = (e) => {
@@ -83,21 +91,24 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
   const currentImage = currentStyle.photos[mainImageKey].url || currentStyle.photos[0].url;
 
   return (
-    <div className="gallery">
+    <div id="gallery">
       <ImageContainer>
         <MainImage
           src={currentImage}
           alt=""
+          onClick={handleExpand}
           style={{
-            transform: expanded ? 'scale(1.5)' : undefined,
-            transformOrigin: expanded ? 'top left' : undefined,
+            cursor: expanded[0] ? 'zoom-out' : 'zoom-in',
+            transform: expanded[0] ? 'scale(2.5)' : undefined,
+            transformOrigin: expanded[0] ? `${expanded[1]}px ${expanded[2]}px` : undefined,
+            backgroundPosition: expanded[0] ? `-${expanded[1]}px -${expanded[2]}px` : undefined,
           }}
         />
-        <ExpandButton
+        {/* <ExpandButton
           onClick={handleExpand}
         >
           {expandIcon}
-        </ExpandButton>
+        </ExpandButton> */}
         <ScrollMenu>
           {currentStyle.photos.map((image, key) => {
             if (image.url === currentImage) {
@@ -109,7 +120,10 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
                   id={key}
                   key={key}
                   onClick={imageSelector}
-                  style={{ opacity: 1 }}
+                  style={{
+                    opacity: 0.3,
+                    boxShadow: '0 0 3px white',
+                  }}
                 />
               );
             }
