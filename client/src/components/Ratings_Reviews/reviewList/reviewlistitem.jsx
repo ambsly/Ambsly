@@ -1,25 +1,57 @@
 import React from 'react';
+import styled from 'styled-components';
+import SimpleDateTime  from 'react-simple-timestamp-to-date';
 
-const ReviewListItem = () => (
-  <div>
-    <span>⭐⭐⭐⭐⭐</span>
-    <span>User 1234, January 1, 2021</span>
-    <div>Review Title that does not wrap onto next line</div>
-    <p>
-      This is a review that i probably shouldnt spend typing out but have
-      already started so its too late just gonna make this longer to fill up some space
-      so here we are filling up space lol
-    </p>
-    <span>Helpful?</span>
-    <span>
-      <a href="helpful.com">Yes</a>
-      (10)
-    </span>
-    <span>
-      <a href="report.com">Report</a>
-    </span>
-  </div>
+// onclick
+// increment or decrement item.helpful
+// change contents to say 'thank you for your response.'
+const HelpfulBtn = styled.button`
+  color: blue;
+  background-color: transparent;
+  border-radius: 4px;
+`;
 
-);
+const ReportBtn = styled.button`
+  color: blue;
+  background-color: transparent;
+  border-radius: 4px;
+`;
+
+const ReviewListItem = ({ item }) => {
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+  return (
+    <div>
+      <span>★★★★</span>
+      <span>
+        {item.reviewer_name}
+        {', '}
+        {formatDate(item.date)}
+      </span>
+      <div style={{"fontSize": 16, "fontWeight": "bold" }}>{item.summary}</div>
+      <p>
+        {item.body}
+      </p>
+      <span>Was this review helpful?</span>
+      {/* <span>
+        <a href="helpful.com">Yes</a>
+      </span> */}
+      <HelpfulBtn>
+        Yes
+      </HelpfulBtn>
+      <HelpfulBtn>
+        No
+      </HelpfulBtn>
+      <span>{item.helpfulness}</span>
+      <ReportBtn>
+        Report
+      </ReportBtn>
+    </div>
+
+  );
+}
 
 export default ReviewListItem;

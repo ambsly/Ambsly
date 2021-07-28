@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import StarsBreakdown from './starsbreakdown.jsx';
 import CharacteristicsBreakdown from './characteristics.jsx';
@@ -24,7 +25,7 @@ const Overview = ({ metaData }) => {
   if (!rating) {
     ratingStr = 'No Reviews Yet!';
   } else {
-    ratingStr = `${rating} ⭐⭐⭐⭐`;
+    ratingStr = `${rating}`;
     // the stars will have to be dynamic
   }
 
@@ -41,12 +42,14 @@ const Overview = ({ metaData }) => {
     recommendedStr = `${percent}% of reviews recommend this product`;
     return recommendedStr;
   };
-  console.log('metaData', metaData);
 
   return (
     <div>
       <span>
         {ratingStr}
+        {'  '}
+        <span className="star fa fa-star"></span>
+        {/* <span className="Stars" style={{ '--rating': 2.3 }} aria-label="Rating of this product is 2.3 out of 5." /> */}
       </span>
       <div>
         {usersRecommendedCalculator(metaData.recommended)}

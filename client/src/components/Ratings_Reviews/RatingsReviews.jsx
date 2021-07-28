@@ -19,7 +19,7 @@ const RatingsAndReviews = () => {
 
   useEffect(() => {
     axios.get('/reviews', {
-      params: { product_id: 25169 },
+      params: { product_id: 25168 },
     })
       .then((reviewsResults) => {
         setProductData(reviewsResults.data);
@@ -29,7 +29,7 @@ const RatingsAndReviews = () => {
       });
 
     axios.get('/reviews/meta', {
-      params: { product_id: 25169 },
+      params: { product_id: 25168 },
     })
       .then((results) => {
         setProductMetaData(results.data);
@@ -46,7 +46,7 @@ const RatingsAndReviews = () => {
         <br />
         <Container>
           <Overview metaData={productMetaData} />
-          <ReviewList product={productData} />
+          <ReviewList reviews={productData} />
         </Container>
       </>
     );
