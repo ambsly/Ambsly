@@ -12,6 +12,8 @@ const Section = styled.div`
 const QuestionSection = styled.div`
   display: block;
   margin-top: 10px;
+  max-height: 80vh;
+  overflow-y: auto;
 `;
 
 const Button = styled.button`

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const FooterSection = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   font-family: arial;
   font-size: small;
   color: #B5B2B0;
@@ -14,7 +14,7 @@ const Link = styled.a`
   color: #B5B2B0;
 `;
 
-const QuestionFooter = () => (
+const QuestionFooter = ({ question }) => (
   <FooterSection>
     {'Helpful?'}
     &nbsp;

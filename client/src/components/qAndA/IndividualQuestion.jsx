@@ -1,3 +1,6 @@
+/* eslint-disable operator-linebreak */
+/* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
@@ -48,14 +51,18 @@ const IndividualQuestion = ({ question }) => {
     <Block>
       <QuestionSection key={question.question_id}>
         {`Q: ${question.question_body}`}
+        {answers.length > 0 &&
         <AnswerSection>
           A:
           &nbsp;
-        </AnswerSection>
+          {answers.map((answer, index) => (
+            <IndividualAnswer key={index} answer={answer} />
+          ))}
+        </AnswerSection>}
       </QuestionSection>
-      <QuestionFooter />
+      <QuestionFooter question={question} />
     </Block>
-  )
+  );
 };
 
 IndividualQuestion.defaultProps = {
