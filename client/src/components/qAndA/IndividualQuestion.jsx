@@ -36,7 +36,6 @@ const IndividualQuestion = ({ question }) => {
       },
     })
       .then((res) => {
-        console.log('answers', res.data);
         setAnswers(res.data);
       })
       .catch((err) => {

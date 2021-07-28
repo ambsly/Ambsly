@@ -102,7 +102,6 @@ const ProductDisplay = ({ currentStyle, mainImage, changeImage }) => {
       <br />
       <ScrollMenu>
         {currentStyle.photos.map((image, key) => {
-          console.log(currentImage);
           if (image.url === currentImage) {
             return (
               <ImagePreview

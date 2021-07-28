@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StarsBreakdown from './starsbreakdown.jsx';
-import SizeComfortMeter from './sizecomfortmeter.jsx';
+import CharacteristicsBreakdown from './characteristics.jsx';
 
 const Overview = ({ metaData }) => {
   let totalRatingsCount = 0;
@@ -40,6 +40,7 @@ const Overview = ({ metaData }) => {
     recommendedStr = `${percent}% of reviews recommend this product`;
     return recommendedStr;
   };
+  console.log('metaData', metaData);
 
   return (
     <div>
@@ -50,7 +51,7 @@ const Overview = ({ metaData }) => {
         {usersRecommendedCalculator(metaData.recommended)}
       </div>
       <StarsBreakdown ratings={metaData.ratings} totalRatings={totalRatingsCount} />
-      <SizeComfortMeter />
+      <CharacteristicsBreakdown characteristics={metaData.characteristics} />
     </div>
   );
 };
