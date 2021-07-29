@@ -3,10 +3,12 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { idContext } from '../../index.jsx';
 import RelatedItem from './RelatedItem.jsx';
+import { ClickedContext } from '../buttonState.jsx';
 
 function Related() {
+  const [state, setState] = useContext(ClickedContext);
+
   const contextID = useContext(idContext);
-  console.log(contextID, 'in related');
   const [width, setWidth] = useState(0);
   const [productID, setNewID] = useState(contextID);
   const [productsArray, setProducts] = useState([]);

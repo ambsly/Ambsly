@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
-
 import styled from 'styled-components';
+import { ClickedContext } from '../buttonState.jsx';
 
 function FavoriteCard({ cardInfo }) {
-  console.log(cardInfo, 'testing in cards');
+  const [state, setState] = useContext(ClickedContext);
   const {
     // eslint-disable-next-line react/prop-types
     id, campus, name, slogan, description, category, create_At,
@@ -15,10 +15,22 @@ function FavoriteCard({ cardInfo }) {
   const [firstStyle] = results;
   const { photos } = firstStyle;
   const [firstPhoto] = photos;
-  console.log(firstPhoto, 'what is this?');
+
+  function removeFavorite() {
+    const oldData = JSON.parse(localStorage.getItem('dataArray'));
+    if (oldData.length === 1) {
+      localStorage.setItem('dataArray', '[]');
+      setState((prevState) => ({ ...prevState, buttonClicked: true }));
+    } else {
+      const newArray = oldData.filter((value) => value !== id);
+      localStorage.setItem('dataArray', JSON.stringify(newArray));
+      setState((prevState) => ({ ...prevState, buttonClicked: true }));
+    }
+  }
 
   return (
     <div className="card-container">
+      <button type="submit" onClick={removeFavorite}>Remove</button>
       <div className="card">
         <img src={firstPhoto.thumbnail_url} alt="" className="cardImage" />
         <div className="productDetails">

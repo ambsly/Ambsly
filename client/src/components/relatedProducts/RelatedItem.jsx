@@ -1,6 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Modal from './Modal.jsx';
+import { ClickedContext } from '../buttonState.jsx';
 
 const BUTTON_WRAPER_STYLES = {
   position: 'relative',
@@ -8,7 +9,6 @@ const BUTTON_WRAPER_STYLES = {
 };
 
 function RelatedItem({ cardInfo }) {
-  const [isOpen, setIsOpen] = useState(false);
   const {
     // eslint-disable-next-line react/prop-types
     id, campus, name, slogan, description, category, create_At,
@@ -21,12 +21,19 @@ function RelatedItem({ cardInfo }) {
   const { photos } = firstStyle;
   const [firstPhoto] = photos;
   // console.log(firstPhoto, 'what is this?');
+  const [state, setState] = useContext(ClickedContext);
+  const [isOpen, setIsOpen] = useState(false);
+  // const [buttonClicked, setbuttonClicked] = useState(false);
 
   function saveFavorite() {
     const oldData = JSON.parse(localStorage.getItem('dataArray'));
-    oldData.push(id);
-    localStorage.setItem('dataArray', JSON.stringify(oldData));
+    if (!(oldData.includes(id))) {
+      oldData.push(id);
+      localStorage.setItem('dataArray', JSON.stringify(oldData));
+      setState((prevState) => ({ ...prevState, buttonClicked: true }));
+    }
   }
+
   return (
     <div className="card-container">
       <button type="submit" onClick={saveFavorite}>Favorites</button>

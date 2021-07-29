@@ -1,13 +1,15 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import FavoriteCard from './FavoriteCard.jsx';
+import { ClickedContext } from '../buttonState.jsx';
 
 function Favorites() {
+  const [state, setState] = useContext(ClickedContext);
   const [width, setWidth] = useState(0);
-  const [favoriteIDs, setFavIDs] = useState([]);
   const [favoritesArray, setFavProducts] = useState([]);
 
   useEffect(() => {
+    const oldData = JSON.parse(localStorage.getItem('dataArray'));
     axios.get('http://localhost:3000/favorites', {
       params: {
         favoriteIDS: JSON.parse(localStorage.getItem('dataArray')),
@@ -17,10 +19,32 @@ function Favorites() {
         setFavProducts(() => results.data);
       })
       .catch((err) => {
-      // eslint-disable-next-line no-console
+        // eslint-disable-next-line no-console
         console.log('Error retrieving product data: ', err);
       });
+    setState((prevState) => ({ ...prevState, buttonClicked: false }));
   }, []);
+
+  useEffect(() => {
+    const oldData = JSON.parse(localStorage.getItem('dataArray'));
+    if (state.buttonClicked === true) {
+      console.log(oldData.length);
+      console.log('looking if this is ran in useeffect favorites');
+      axios.get('http://localhost:3000/favorites', {
+        params: {
+          favoriteIDS: JSON.parse(localStorage.getItem('dataArray')),
+        },
+      })
+        .then((results) => {
+          setFavProducts(() => results.data);
+        })
+        .catch((err) => {
+        // eslint-disable-next-line no-console
+          console.log('Error retrieving product data: ', err);
+        });
+      setState((prevState) => ({ ...prevState, buttonClicked: false }));
+    }
+  }, [state]);
 
   const track = React.createRef();
 

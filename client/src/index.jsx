@@ -6,7 +6,7 @@ import Favorites from './components/relatedProducts/Favorites.jsx';
 import Modal from './components/relatedProducts/Modal.jsx';
 // eslint-disable-next-line import/extensions
 import Related from './components/relatedProducts/Related.jsx';
-
+import ButtonState from './components/buttonState.jsx';
 import QAndA from './components/qAndA/QAndA';
 import ProductDetails from './components/productDetails/index.jsx';
 
@@ -31,14 +31,14 @@ function App() {
 
   return (
     <div>
-
-      <ProductDetails />
-      <idContext.Provider value={productID}>
-        <Related />
-      </idContext.Provider>
-      <Favorites />
-      <QAndA />
-      hey
+      <ButtonState>
+        <ProductDetails />
+        <idContext.Provider value={productID}>
+          <Related />
+        </idContext.Provider>
+        <Favorites />
+        <QAndA />
+      </ButtonState>
     </div>
   );
 }
