@@ -29,25 +29,25 @@ const Button = styled.button`
 
 const QuestionsList = ({ questions, searchText }) => {
   const [isOpenQ, setIsOpenQ] = React.useState(false);
-  const [currentQs, setCurrentQs] = React.useState(questions);
-
-  React.useEffect(() => {
-    if (searchText.length >= 3) {
-      const filteredQs = questions.filter((question) => {
-        const qBody = question.question_body.toLowerCase();
-        return qBody.includes(searchText.toLowerCase());
-      });
-      setCurrentQs(filteredQs);
-    }
-    if (searchText.length < 3) {
-      setCurrentQs(questions);
-    }
-  });
+  const [currentQs, setCurrentQs] = React.useState([...questions]);
+  console.log('questions', questions);
   // console.log('currentQs', currentQs);
+  // React.useEffect(() => {
+  //   if (searchText.length >= 3) {
+  //     const filteredQs = questions.filter((question) => {
+  //       const qBody = question.question_body.toLowerCase();
+  //       return qBody.includes(searchText.toLowerCase());
+  //     });
+  //     setCurrentQs(filteredQs);
+  //   }
+  //   if (searchText.length < 3) {
+  //     setCurrentQs(questions);
+  //   }
+  // }, [searchText]);
   return (
     <Section>
       <QuestionSection>
-        {currentQs.map((question, index) => (
+        {questions.map((question, index) => (
           <IndividualQuestion key={index} question={question} />
         ))}
       </QuestionSection>

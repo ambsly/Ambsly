@@ -6,7 +6,7 @@ import QuestionsList from './QuestionsList';
 
 const QAndAModule = styled.div`
   width: 1000px;
-  margin: auto;
+  margin: 50px auto;
 `;
 
 const Title = styled.span`
