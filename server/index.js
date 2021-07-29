@@ -102,12 +102,17 @@ app.get('/qa/questions', (req, res) => {
 });
 
 app.get('/qa/questions/:question_id/answers', (req, res) => {
-  console.log('req.params', req.query);
   const questionId = req.query.question_id;
-  console.log('questionId', questionId);
   axios.get(`/qa/questions/${questionId}/answers`, { params: req.query })
     .then((response) => res.status(200).send(response.data.results))
     .catch((err) => res.status(404).send(err));
+});
+
+app.post('/qa/questions', (req, res) => {
+  console.log('REQ BODY:', req.body);
+  axios.post('/qa/questions', req.body)
+    .then((response) => res.status(201).send(response))
+    .catch((err) => res.status(400).send(err));
 });
 
 app.listen(port, () => {
