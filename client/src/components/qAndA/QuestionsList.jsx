@@ -20,7 +20,8 @@ const QuestionSection = styled.div`
 const Button = styled.button`
   margin: 10px;
   padding: 10px;
-  border: solid 1px #8A9EA0;
+  /* border: solid 1px #8A9EA0; */
+  border: solid 1px;
   /* background-color: #FCFAF0; */
   /* color: #8A9EA0; */
   cursor: pointer;

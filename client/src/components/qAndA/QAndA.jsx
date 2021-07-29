@@ -27,7 +27,8 @@ const SearchBar = styled.input`
   margin: 10px;
   padding: 10px;
   width: 100vw;
-  border: solid 1px #8A9EA0;
+  /* border: solid 1px #8A9EA0; */
+  border: solid 1px;
   /* background-color: #FCFAF0; */
   /* color: #B5B2B0; */
 `;
