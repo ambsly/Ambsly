@@ -53,6 +53,16 @@ app.get('/reviews/meta', (req, res) => {
     });
 });
 
+app.post('/reviews', (req, res) => {
+  axios.post('/reviews', req.body)
+    .then((results) => {
+      res.send('gucci');
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
 app.put('/reviews/:review_id/helpful', (req, res) => {
   axios.put(`/reviews/${req.params.review_id}/helpful`)
     .then((results) => {

@@ -32,6 +32,10 @@ const ReviewSummary = styled.div`
   font-weight: bold;
 `;
 
+const DateDisplay = styled.div`
+  font-size: small;
+`;
+
 // onclick
 // increment or decrement item.helpful
 // change contents to say 'thank you for your response.'
@@ -96,7 +100,7 @@ const ReviewListItem = ({ item }) => {
       </FirstLineWrapper>
       <SecondLineWrapper>
         <ReviewSummary>{item.summary}</ReviewSummary>
-        <div>{formatDate(item.date)}</div>
+        <DateDisplay>{formatDate(item.date)}</DateDisplay>
       </SecondLineWrapper>
       <p>
         {item.body}
