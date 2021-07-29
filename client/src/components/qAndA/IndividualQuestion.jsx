@@ -10,23 +10,43 @@ import styled from 'styled-components';
 import QuestionFooter from './QuestionFooter';
 import IndividualAnswer from './IndividualAnswer';
 
-const Block = styled.div`
+const QuestionBodyAndQuestionFooter = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
-const QuestionSection = styled.div`
-  display: block;
+const QuestionBody = styled.div`
   margin: 10px;
   color: #8a9ea0;
   font-weight: 700;
 `;
 
-const AnswerSection = styled.div`
+const EntireAnswerSection = styled.div`
   display: block;
-  margin-top: 10px;
+`;
+
+const AnswerSection = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const A = styled.div`
+  flex: 1;
+  margin: 10px 0 0 10px;
+  color: #8a9ea0;
+  font-weight: 700;
+`;
+
+const AnswerBodyAndAnswerFooter = styled.div`
+  flex: 49;
   color: #8a9ea0;
   font-weight: 400;
+`;
+
+const LoadMoreAnswersButton = styled.button`
+  border: none;
+  margin: 10px;
+  color: #B5B2B0;
 `;
 
 const IndividualQuestion = ({ question }) => {
@@ -39,8 +59,15 @@ const IndividualQuestion = ({ question }) => {
       },
     })
       .then((res) => {
-        console.log('answers', res.data);
-        setAnswers(res.data);
+        const sellerAnswers = res.data.filter((answer) => (
+          answer.answerer_name.toLowerCase() === 'seller'
+        ));
+        const customerAnswers = res.data.filter((answer) => (
+          answer.answerer_name.toLowerCase() !== 'seller'
+        ));
+        customerAnswers.sort(customerAnswers.helpfulness);
+        const sortedAnswers = sellerAnswers.concat(customerAnswers);
+        setAnswers(sortedAnswers);
       })
       .catch((err) => {
         console.error(err);
@@ -48,20 +75,28 @@ const IndividualQuestion = ({ question }) => {
   }, []);
 
   return (
-    <Block>
-      <QuestionSection key={question.question_id}>
-        {`Q: ${question.question_body}`}
-        {answers.length > 0 &&
+    <div>
+      <QuestionBodyAndQuestionFooter>
+        <QuestionBody key={question.question_id}>
+          {`Q: ${question.question_body}`}
+        </QuestionBody>
+        <QuestionFooter question={question} />
+      </QuestionBodyAndQuestionFooter>
+      <EntireAnswerSection>
         <AnswerSection>
-          A:
-          &nbsp;
-          {answers.map((answer, index) => (
-            <IndividualAnswer key={index} answer={answer} />
-          ))}
-        </AnswerSection>}
-      </QuestionSection>
-      <QuestionFooter question={question} />
-    </Block>
+          {answers.length > 0 && <A>A:&nbsp;</A>}
+          {answers.length > 0 &&
+          <AnswerBodyAndAnswerFooter>
+            {answers.map((answer, index) => (
+              <IndividualAnswer key={index} answer={answer} />
+            ))}
+          </AnswerBodyAndAnswerFooter>}
+        </AnswerSection>
+        <LoadMoreAnswersButton>
+          Load More Answers
+        </LoadMoreAnswersButton>
+      </EntireAnswerSection>
+    </div>
   );
 };
 

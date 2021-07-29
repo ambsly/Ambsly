@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 import IndividualQuestion from './IndividualQuestion';
+import ModalQuestionForm from './ModalQuestionForm';
 
 const Section = styled.div`
   display: block;
@@ -24,17 +25,22 @@ const Button = styled.button`
   color: #8A9EA0;
 `;
 
-const QuestionsList = ({ questions }) => (
-  <Section>
-    <QuestionSection>
-      {questions.map((question, index) => (
-        <IndividualQuestion key={index} question={question} />
-      ))}
-    </QuestionSection>
-    <Button>More Answered Questions</Button>
-    <Button>Add a Question +</Button>
-  </Section>
-);
+const QuestionsList = ({ questions }) => {
+  const [isOpenQ, setIsOpenQ] = React.useState(false);
+
+  return (
+    <Section>
+      <QuestionSection>
+        {questions.map((question, index) => (
+          <IndividualQuestion key={index} question={question} />
+        ))}
+      </QuestionSection>
+      <Button>More Answered Questions</Button>
+      <Button onClick={() => setIsOpenQ(true)}>Add a Question +</Button>
+      <ModalQuestionForm open={isOpenQ} onClose={() => setIsOpenQ(false)} />
+    </Section>
+  );
+};
 
 QuestionsList.defaultProps = {
   questions: [],

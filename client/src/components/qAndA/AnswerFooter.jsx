@@ -3,9 +3,10 @@ import propTypes from 'prop-types';
 import styled from 'styled-components';
 
 const FooterSection = styled.div`
-  display: flex;
-  align-items: flex-start;
-  margin: 5px;
+  /* display: flex;
+  align-items: flex-start; */
+  display: block;
+  margin: 10px;
   font-family: arial;
   font-size: small;
   color: #B5B2B0;
@@ -45,10 +46,7 @@ AnswerFooter.propTypes = {
     body: propTypes.string,
     date: propTypes.string,
     helpfulness: propTypes.number,
-    photos: propTypes.arrayOf({
-      id: propTypes.number,
-      url: propTypes.string,
-    }),
+    photos: propTypes.array,
   }),
 };
 
