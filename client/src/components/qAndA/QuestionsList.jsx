@@ -27,13 +27,27 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const QuestionsList = ({ questions }) => {
+const QuestionsList = ({ questions, searchText }) => {
   const [isOpenQ, setIsOpenQ] = React.useState(false);
+  const [currentQs, setCurrentQs] = React.useState(questions);
 
+  React.useEffect(() => {
+    if (searchText.length >= 3) {
+      const filteredQs = questions.filter((question) => {
+        const qBody = question.question_body.toLowerCase();
+        return qBody.includes(searchText.toLowerCase());
+      });
+      setCurrentQs(filteredQs);
+    }
+    if (searchText.length < 3) {
+      setCurrentQs(questions);
+    }
+  });
+  // console.log('currentQs', currentQs);
   return (
     <Section>
       <QuestionSection>
-        {questions.map((question, index) => (
+        {currentQs.map((question, index) => (
           <IndividualQuestion key={index} question={question} />
         ))}
       </QuestionSection>
@@ -46,10 +60,12 @@ const QuestionsList = ({ questions }) => {
 
 QuestionsList.defaultProps = {
   questions: [],
+  searchText: '',
 };
 
 QuestionsList.propTypes = {
   questions: propTypes.arrayOf(propTypes.object),
+  searchText: propTypes.string,
 };
 
 export default QuestionsList;

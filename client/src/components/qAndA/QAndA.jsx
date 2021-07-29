@@ -35,10 +35,11 @@ const SearchBar = styled.input`
 
 const QAndA = ({ productId }) => {
   const [questions, setQuestions] = React.useState([]);
-  const [text, setText] = React.useState('');
+  const [searchText, setSearchText] = React.useState('');
 
   React.useEffect(() => {
-    axios.get(`/qa/questions?product_id=${28010}`)
+    axios
+      .get(`/qa/questions?product_id=${28010}`)
       .then((res) => {
         // api returns already sorted by helpfulness?
         setQuestions(res.data);
@@ -52,9 +53,14 @@ const QAndA = ({ productId }) => {
     <QAndAModule>
       <Title>Questions &amp; Answers</Title>
       <Section>
-        <SearchBar type="text" value={text} onChange={(e) => setText(e.target.value)} placeholder="Have a question? Search for answers..." />
+        <SearchBar
+          type="text"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          placeholder="Have a question? Search for answers..."
+        />
       </Section>
-      <QuestionsList questions={questions} />
+      <QuestionsList questions={questions} searchText={searchText} />
     </QAndAModule>
   );
 };
