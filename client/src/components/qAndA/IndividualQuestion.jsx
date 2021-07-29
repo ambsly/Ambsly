@@ -47,6 +47,7 @@ const LoadMoreAnswersButton = styled.button`
   border: none;
   margin: 10px;
   color: #B5B2B0;
+  cursor: pointer;
 `;
 
 const IndividualQuestion = ({ question }) => {

@@ -2,6 +2,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
+import ModalAnswerForm from './ModalAnswerForm';
 
 const FooterSection = styled.div`
   margin: 10px;
@@ -10,21 +11,27 @@ const FooterSection = styled.div`
   color: #B5B2B0;
 `;
 
-const Link = styled.a`
+const Span = styled.span`
   color: #B5B2B0;
+  text-decoration: underline;
+  cursor: pointer;
 `;
 
-const QuestionFooter = ({ question }) => (
-  <FooterSection>
-    {'Helpful?'}
-    &nbsp;
-    <Link href="about:blank">Yes</Link>
-    &nbsp;
-    {'(25) |'}
-    &nbsp;
-    <Link href="about:blank">Add Answer</Link>
-  </FooterSection>
-);
+const QuestionFooter = ({ question }) => {
+  const [isOpenA, setIsOpenA] = React.useState(false);
+  return (
+    <FooterSection>
+      {'Helpful?'}
+      &nbsp;
+      <Span>Yes</Span>
+      &nbsp;
+      {'(25) |'}
+      &nbsp;
+      <Span onClick={() => setIsOpenA(true)}>Add Answer</Span>
+      <ModalAnswerForm open={isOpenA} onClose={() => setIsOpenA(false)} />
+    </FooterSection>
+  );
+};
 
 QuestionFooter.defaultProps = {
   question: {},

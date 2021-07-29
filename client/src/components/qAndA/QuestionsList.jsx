@@ -23,6 +23,7 @@ const Button = styled.button`
   border: solid 1px #8A9EA0;
   background-color: #FCFAF0;
   color: #8A9EA0;
+  cursor: pointer;
 `;
 
 const QuestionsList = ({ questions }) => {

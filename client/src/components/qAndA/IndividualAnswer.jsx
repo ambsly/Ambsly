@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
-import QuestionFooter from './QuestionFooter';
 import AnswerFooter from './AnswerFooter';
 
 const AnswerSection = styled.div`

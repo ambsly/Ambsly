@@ -12,8 +12,10 @@ const FooterSection = styled.div`
   color: #B5B2B0;
 `;
 
-const Link = styled.a`
+const Span = styled.span`
   color: #B5B2B0;
+  text-decoration: underline;
+  cursor: pointer;
 `;
 
 const AnswerFooter = ({ answer }) => {
@@ -26,11 +28,11 @@ const AnswerFooter = ({ answer }) => {
     <FooterSection>
       {`by ${answer.answerer_name}, ${formatDate(answer.date)} | Helpful?`}
       &nbsp;
-      <Link href="about:blank">Yes</Link>
+      <Span>Yes</Span>
       &nbsp;
       {'(25) |'}
       &nbsp;
-      <Link href="about:blank">Report</Link>
+      <Span>Report</Span>
     </FooterSection>
   );
 };
