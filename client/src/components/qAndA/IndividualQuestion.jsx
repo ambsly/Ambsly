@@ -17,7 +17,7 @@ const QuestionBodyAndQuestionFooter = styled.div`
 
 const QuestionBody = styled.div`
   margin: 10px;
-  color: #8a9ea0;
+  /* color: #8a9ea0; */
   font-weight: 700;
 `;
 
@@ -33,20 +33,20 @@ const AnswerSection = styled.div`
 const A = styled.div`
   flex: 1;
   margin: 10px 0 0 10px;
-  color: #8a9ea0;
+  /* color: #8a9ea0; */
   font-weight: 700;
 `;
 
 const AnswerBodyAndAnswerFooter = styled.div`
   flex: 49;
-  color: #8a9ea0;
+  /* color: #8a9ea0; */
   font-weight: 400;
 `;
 
 const LoadMoreAnswersButton = styled.button`
   border: none;
   margin: 10px;
-  color: #B5B2B0;
+  /* color: #B5B2B0; */
   cursor: pointer;
 `;
 

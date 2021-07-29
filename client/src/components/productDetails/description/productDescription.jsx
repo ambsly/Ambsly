@@ -6,6 +6,7 @@ position: absolute;
 top: 575px;
 width: 600px;
 margin-left: 25px;
+margin-botton: 200px;
 `;
 
 const Slogan = styled.div`
