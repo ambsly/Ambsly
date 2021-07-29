@@ -19,8 +19,8 @@ function App() {
   useEffect(() => {
     axios.get('/products')
       .then((results) => {
-        const { id } = results.data[0];
-        setProduct(results.data[0]);
+        const { id } = results.data[4];
+        setProduct(results.data[4]);
         setID(id);
       })
       .catch((err) => {
