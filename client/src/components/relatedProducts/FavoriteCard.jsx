@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 
 function FavoriteCard({ cardInfo }) {
+  console.log(cardInfo, 'testing in cards');
   const {
     // eslint-disable-next-line react/prop-types
     id, campus, name, slogan, description, category, create_At,
@@ -14,7 +15,7 @@ function FavoriteCard({ cardInfo }) {
   const [firstStyle] = results;
   const { photos } = firstStyle;
   const [firstPhoto] = photos;
-  // console.log(firstPhoto, 'what is this?');
+  console.log(firstPhoto, 'what is this?');
 
   return (
     <div className="card-container">

@@ -20,7 +20,6 @@ function RelatedItem({ cardInfo }) {
   const [firstStyle] = results;
   const { photos } = firstStyle;
   const [firstPhoto] = photos;
-  console.log(firstPhoto, 'looking at this');
   // console.log(firstPhoto, 'what is this?');
 
   function saveFavorite() {
@@ -46,9 +45,9 @@ function RelatedItem({ cardInfo }) {
           </div>
         </div>
       </div>
-      <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+      {/* <Modal open={isOpen} onClose={() => setIsOpen(false)}>
         Comparing
-      </Modal>
+      </Modal> */}
     </div>
   );
 }
