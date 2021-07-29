@@ -5,8 +5,15 @@ import styled from 'styled-components';
 import Overview from './overview/overview.jsx';
 import ReviewList from './reviewList/reviewlist.jsx';
 
+const OuterContainer = styled.div`
+  margin: auto;
+  width: 1000px;
+`;
+
 const Container = styled.div`
   display: flex;
+  margin: auto;
+  width: 1000px;
 `;
 
 const Header = styled.div`
@@ -41,15 +48,13 @@ const RatingsAndReviews = () => {
 
   if (productMetaData && productData) {
     return (
-      <>
+      <OuterContainer>
         <Header>Ratings and Reviews</Header>
-        <br />
         <Container>
           <Overview metaData={productMetaData} />
           <ReviewList reviews={productData} />
-          <div></div>
         </Container>
-      </>
+      </OuterContainer>
     );
   }
   return null;
