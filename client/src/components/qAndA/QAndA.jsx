@@ -5,15 +5,16 @@ import propTypes from 'prop-types';
 import QuestionsList from './QuestionsList';
 
 const QAndAModule = styled.div`
-  margin: 20px;
+  width: 1000px;
+  margin: auto;
 `;
 
 const Title = styled.span`
   font-size: 20px;
   margin: 10px;
   padding: 10px;
-  color: #FCFAF0;
-  background-color: #99B0B0;
+  /* color: #FCFAF0; */
+  /* background-color: #99B0B0; */
 `;
 
 const Section = styled.div`
@@ -27,8 +28,8 @@ const SearchBar = styled.input`
   padding: 10px;
   width: 100vw;
   border: solid 1px #8A9EA0;
-  background-color: #FCFAF0;
-  color: #B5B2B0;
+  /* background-color: #FCFAF0; */
+  /* color: #B5B2B0; */
 `;
 
 const QAndA = ({ productId }) => {
