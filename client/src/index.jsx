@@ -22,7 +22,7 @@ class App extends React.Component {
     const { products } = this.state;
     axios.get('/products')
       .then((results) => {
-        this.setState({ products: results.data[0] });
+        this.setState({ products: results.data[4] });
       })
       .catch((err) => {
         // eslint-disable-next-line no-console
@@ -37,7 +37,7 @@ class App extends React.Component {
         <ProductDetails productData={products} />
         <Related productId={products.id} />
         <Favorites />
-        <QAndA />
+        <QAndA productId={products.id} />
         <RatingsAndReviews />
       </div>
     );

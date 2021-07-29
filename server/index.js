@@ -106,6 +106,13 @@ app.get('/qa/questions/:question_id/answers', (req, res) => {
     .catch((err) => res.status(404).send(err));
 });
 
+app.post('/qa/questions', (req, res) => {
+  console.log('REQ BODY:', req.body);
+  axios.post('/qa/questions', req.body)
+    .then((response) => res.status(201).send(response))
+    .catch((err) => res.status(400).send(err));
+});
+
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
 });
