@@ -19,6 +19,22 @@ object-fit: cover;
 transition: 0.4s linear;
 `;
 
+const ExpandButton = styled.button`
+z-index: 1001;
+background: rgba(255, 255, 255, 0.50);
+width: 30px;
+height: 30px;
+border: none;
+border-radius: 50%;
+color: rgba(50, 50, 50);
+font-size: 18px;
+text-align: center;
+cursor: pointer;
+position: absolute;
+top: 10%;
+left: 10%;
+`;
+
 const ScrollBackground = styled.div`
 position: absolute;
 height: 80px;
@@ -74,17 +90,69 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
     );
   }
 
-  const [expanded, setExpand] = useState([false]);
+  const [expanded, setExpand] = useState(false);
+  const [fullViewIcon, setFullViewIcon] = useState('✛');
+  const [style, setStyle] = useState({
+    cursor: 'zoom-in',
+  });
 
   const handleExpand = (e) => {
-    const xPos = (e.clientX - 138);
-    const yPos = (e.clientY - 30);
+    const xPos = (e.clientX - e.target.x);
+    const yPos = (e.clientY - e.target.y);
+    const container = document.getElementById('gallery');
+    container.style.overflow = 'hidden';
+    let styles = {};
+    let styleObj = {};
 
-    if (!expanded[0] && e.type !== 'mouseleave') {
-      setExpand([true, xPos, yPos]);
+    if (!expanded && e.type !== 'mouseleave') {
+      setExpand(true);
+      styleObj = {
+        cursor: 'zoom-out',
+        transform: 'scale(2.5)',
+        transformOrigin: `${xPos}px ${yPos}px`,
+        zIndex: '1000',
+      };
     } else {
-      setExpand([false]);
+      setExpand(false);
+      styleObj = {
+        cursor: 'zoom-in',
+        transform: undefined,
+        transformOrigin: undefined,
+        zIndex: undefined,
+      };
     }
+    styles = Object.assign(styles, styleObj);
+    setStyle(styles);
+  };
+
+  const handleFullView = () => {
+    let styles = {};
+    let styleObj = {};
+    const container = document.getElementById('gallery');
+
+    if (fullViewIcon === '✛') {
+      setFullViewIcon('✕');
+      setExpand(true);
+      container.style.overflow = 'visible';
+      styleObj = {
+        cursor: 'zoom-out',
+        transform: 'scale(1.5)',
+        transformOrigin: 'top left',
+        zIndex: '1000',
+      };
+    } else {
+      setFullViewIcon('✛');
+      setExpand(false);
+      container.style.overflow = 'hidden';
+      styleObj = {
+        cursor: 'pointer',
+        transform: 'scale(1)',
+        transformOrigin: undefined,
+        zIndex: undefined,
+      };
+    }
+    styles = Object.assign(styles, styleObj);
+    setStyle(styles);
   };
 
   const imageSelector = (e) => {
@@ -94,19 +162,21 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
   const currentImage = currentStyle.photos[mainImageKey].url || currentStyle.photos[0].url;
 
   return (
-    <ImageContainer>
+    <ImageContainer
+      id="gallery"
+      onMouseLeave={handleExpand}
+    >
       <MainImage
         src={currentImage}
         alt=""
         onClick={handleExpand}
-        onMouseLeave={handleExpand}
-        style={{
-          cursor: expanded[0] ? 'zoom-out' : 'zoom-in',
-          transform: expanded[0] ? 'scale(2.5)' : 'scale(1)',
-          transformOrigin: expanded[0] ? `${expanded[1]}px ${expanded[2]}px` : undefined,
-          zIndex: expanded[0] ? '1000' : undefined,
-        }}
+        style={style}
       />
+      <ExpandButton
+        onClick={handleFullView}
+      >
+        {fullViewIcon}
+      </ExpandButton>
       <ScrollBackground />
       <ScrollMenu>
         {currentStyle.photos.map((image, key) => {
