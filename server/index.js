@@ -43,6 +43,36 @@ app.get('/reviews', (req, res) => {
     });
 });
 
+app.get('/reviews/meta', (req, res) => {
+  axios.get('/reviews/meta', { params: req.query })
+    .then((results) => {
+      res.send(results.data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
+app.put('/reviews/:review_id/helpful', (req, res) => {
+  axios.put(`/reviews/${req.params.review_id}/helpful`)
+    .then((results) => {
+      res.send(results.data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
+app.put('/reviews/:review_id/report', (req, res) => {
+  axios.put(`/reviews/${req.params.review_id}/report`)
+    .then((results) => {
+      res.send(results.data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
 app.get('/display', (req, res) => {
   Calls.getDisplay(req.query.productId)
     .then((results) => {
@@ -51,26 +81,6 @@ app.get('/display', (req, res) => {
     .catch((err) => {
       // console.log('Error: ', err);
       res.status(500).send(err);
-    });
-});
-
-app.get('/reviews', (req, res) => {
-  axios.get('/reviews', { params: req.query })
-    .then((results) => {
-      res.send(results.data);
-    })
-    .catch((err) => {
-      res.send(err);
-    });
-});
-
-app.get('/reviews/meta', (req, res) => {
-  axios.get('/reviews/meta', { params: req.query })
-    .then((results) => {
-      res.send(results.data);
-    })
-    .catch((err) => {
-      res.send(err);
     });
 });
 
@@ -106,11 +116,59 @@ app.get('/qa/questions/:question_id/answers', (req, res) => {
     .catch((err) => res.status(404).send(err));
 });
 
-app.post('/qa/questions', (req, res) => {
-  console.log('REQ BODY:', req.body);
-  axios.post('/qa/questions', req.body)
-    .then((response) => res.status(201).send(response))
-    .catch((err) => res.status(400).send(err));
+app.get('/products/:product_id/related', (req, res) => {
+  // console.log('this has been ran');
+  const promise = Calls.getRelatedProductIds(req.params.product_id);
+
+  async function resolves(promises) {
+    try {
+      const arrOfProdIDs = await promises;
+
+      const arrofPromisedProducts = Calls.getRelatedProductsWithIDs(arrOfProdIDs.data);
+      const arrayOfProducts = await Promise.all(arrofPromisedProducts);
+      const arrOfPromisedStyles = Calls.getProductStyleByIDs(arrOfProdIDs.data);
+      const arrayOfStyles = await Promise.all(arrOfPromisedStyles);
+      // console.log(arrayOfStyles);
+      const returnedStyles = arrayOfStyles.map((results) => results.data);
+      const returnedProducts = arrayOfProducts.map((results) => (results.data));
+
+      for (let i = 0; i < returnedStyles.length; i += 1) {
+        returnedProducts[i].results = returnedStyles[i].results;
+      }
+
+      res.status(200).json(returnedProducts);
+    } catch (err) {
+      console.log('Error: ', err);
+      res.status(500).send(err);
+    }
+  }
+  resolves(promise);
+});
+
+app.get('/favorites', (req, res) => {
+  const { favoriteIDS } = req.query;
+  async function resolves(favIDS) {
+    try {
+      const arrofPromisedProducts = Calls.getRelatedProductsWithIDs(favIDS);
+
+      const arrayOfProducts = await Promise.all(arrofPromisedProducts);
+      const arrOfPromisedStyles = Calls.getProductStyleByIDs(favIDS);
+      const arrayOfStyles = await Promise.all(arrOfPromisedStyles);
+      const returnedStyles = arrayOfStyles.map((results) => results.data);
+
+      const returnedProducts = arrayOfProducts.map((results) => (results.data));
+
+      for (let i = 0; i < returnedStyles.length; i += 1) {
+        returnedProducts[i].results = returnedStyles[i].results;
+      }
+
+      res.status(200).json(returnedProducts);
+    } catch (err) {
+      console.log('Error: ', err);
+      res.status(500).send(err);
+    }
+  }
+  resolves(favoriteIDS);
 });
 
 app.listen(port, () => {

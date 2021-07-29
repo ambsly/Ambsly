@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const Container = styled.div`
   border-style: solid;
@@ -31,34 +32,60 @@ const ReviewSummary = styled.div`
   font-weight: bold;
 `;
 
-// const Date = styled.div`
-
-// `;
-
 // onclick
 // increment or decrement item.helpful
 // change contents to say 'thank you for your response.'
-const HelpfulBtn = styled.button`
+let HelpfulBtn = styled.button`
   background-color: transparent;
   border-style: none;
   color: blue;
   cursor: pointer;
-  /* margin: 8px; */
 `;
 
-const ReportBtn = styled.button`
+let ReportBtn = styled.button`
   color: blue;
   background-color: transparent;
-  border-radius: 4px;
   border-style: none;
   cursor: pointer;
   /* margin-left: 28px; */
 `;
 
+const formatDate = (dateString) => {
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+};
+
+
 const ReviewListItem = ({ item }) => {
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    return new Date(dateString).toLocaleDateString(undefined, options);
+  const [helpfulBtnContents, setHelpful] = useState(`Yes  (${item.helpfulness})`);
+  const [reportBtnContents, setReport] = useState('Report');
+
+  const markHelpful = () => {
+    axios.put(`/reviews/${item.review_id}/helpful`)
+      .then((result) => {
+        HelpfulBtn = styled.span`
+          margin-left: 7px;
+          font-size: small;
+        `;
+        setHelpful('Thank you for your response.');
+      })
+      .catch((err) => {
+        console.log('err');
+      });
+  };
+
+  const report = () => {
+    axios.put(`/reviews/${item.review_id}/report`)
+      .then((result) => {
+        ReportBtn = styled.span`
+          margin-left: 7px;
+          font-size: small;
+        `;
+        setReport('Reported Successfully');
+      })
+      .catch((err) => {
+        console.log('err');
+      });
   };
 
   return (
@@ -77,17 +104,16 @@ const ReviewListItem = ({ item }) => {
       <ThirdLineWrapper>
         <div>
           Was this review helpful?
-          <HelpfulBtn>
-            Yes {`  (${item.helpfulness})`}
+          <HelpfulBtn onClick={markHelpful}>
+            {helpfulBtnContents}
           </HelpfulBtn>
         </div>
-        <ReportBtn>
-          Report
+        <ReportBtn onClick={report}>
+          {reportBtnContents}
         </ReportBtn>
       </ThirdLineWrapper>
     </Container>
-
   );
-}
+};
 
 export default ReviewListItem;
