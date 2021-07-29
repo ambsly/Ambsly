@@ -26,8 +26,8 @@ const Container = styled.div`
   font-size: large;
   margin-left: 15px;
   padding: 5px;
-  border: 0.5px solid;
-  border-radius: 3px;
+  /* border: 0.5px solid;
+  border-radius: 3px; */
 `;
 
 const Rating = styled.div`
@@ -60,7 +60,7 @@ const Overview = ({ metaData }) => {
   if (!rating) {
     ratingStr = 'No Reviews Yet!';
   } else {
-    ratingStr = `${rating} ★★★★`;
+    ratingStr = `${rating}  ★★★★`;
     // the stars will have to be dynamic
   }
 

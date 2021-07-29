@@ -43,6 +43,46 @@ app.get('/reviews', (req, res) => {
     });
 });
 
+app.get('/reviews/meta', (req, res) => {
+  axios.get('/reviews/meta', { params: req.query })
+    .then((results) => {
+      res.send(results.data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
+app.post('/reviews', (req, res) => {
+  axios.post('/reviews', req.body)
+    .then((results) => {
+      res.send('gucci');
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
+app.put('/reviews/:review_id/helpful', (req, res) => {
+  axios.put(`/reviews/${req.params.review_id}/helpful`)
+    .then((results) => {
+      res.send(results.data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
+app.put('/reviews/:review_id/report', (req, res) => {
+  axios.put(`/reviews/${req.params.review_id}/report`)
+    .then((results) => {
+      res.send(results.data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
 app.get('/display', (req, res) => {
   Calls.getDisplay(req.query.productId)
     .then((results) => {
@@ -51,26 +91,6 @@ app.get('/display', (req, res) => {
     .catch((err) => {
       // console.log('Error: ', err);
       res.status(500).send(err);
-    });
-});
-
-app.get('/reviews', (req, res) => {
-  axios.get('/reviews', { params: req.query })
-    .then((results) => {
-      res.send(results.data);
-    })
-    .catch((err) => {
-      res.send(err);
-    });
-});
-
-app.get('/reviews/meta', (req, res) => {
-  axios.get('/reviews/meta', { params: req.query })
-    .then((results) => {
-      res.send(results.data);
-    })
-    .catch((err) => {
-      res.send(err);
     });
 });
 
