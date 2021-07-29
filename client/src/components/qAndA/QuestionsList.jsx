@@ -20,15 +20,30 @@ const QuestionSection = styled.div`
 const Button = styled.button`
   margin: 10px;
   padding: 10px;
-  border: solid 1px #8A9EA0;
-  background-color: #FCFAF0;
-  color: #8A9EA0;
+  /* border: solid 1px #8A9EA0; */
+  border: solid 1px;
+  /* background-color: #FCFAF0; */
+  /* color: #8A9EA0; */
   cursor: pointer;
 `;
 
-const QuestionsList = ({ questions }) => {
+const QuestionsList = ({ questions, searchText }) => {
   const [isOpenQ, setIsOpenQ] = React.useState(false);
-
+  const [currentQs, setCurrentQs] = React.useState([...questions]);
+  console.log('questions', questions);
+  // console.log('currentQs', currentQs);
+  // React.useEffect(() => {
+  //   if (searchText.length >= 3) {
+  //     const filteredQs = questions.filter((question) => {
+  //       const qBody = question.question_body.toLowerCase();
+  //       return qBody.includes(searchText.toLowerCase());
+  //     });
+  //     setCurrentQs(filteredQs);
+  //   }
+  //   if (searchText.length < 3) {
+  //     setCurrentQs(questions);
+  //   }
+  // }, [searchText]);
   return (
     <Section>
       <QuestionSection>
@@ -45,10 +60,12 @@ const QuestionsList = ({ questions }) => {
 
 QuestionsList.defaultProps = {
   questions: [],
+  searchText: '',
 };
 
 QuestionsList.propTypes = {
   questions: propTypes.arrayOf(propTypes.object),
+  searchText: propTypes.string,
 };
 
 export default QuestionsList;

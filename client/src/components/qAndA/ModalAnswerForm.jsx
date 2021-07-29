@@ -12,8 +12,10 @@ const ModalForm = styled.div`
   position: fixed;
   /* left: 50%; */
   z-Index: 1000;
-  background-color: #FCFAF0;
-  border: solid 2px #99B0B0;
+  /* background-color: #FCFAF0; */
+  /* border: solid 2px #99B0B0; */
+  background-color: white;
+  border: solid 2px black;
   border-radius: 5px;
   padding: 10px;
 `;
@@ -33,8 +35,8 @@ const Title = styled.span`
   font-size: 20px;
   margin: 10px;
   padding: 10px;
-  color: #FCFAF0;
-  background-color: #99B0B0;
+  /* color: #FCFAF0; */
+  /* background-color: #99B0B0; */
 `;
 
 const Subtitle = styled.span`
@@ -42,13 +44,13 @@ const Subtitle = styled.span`
   font-size: 16px;
   margin: 10px;
   padding: 10px;
-  color: #FCFAF0;
-  background-color: #99B0B0;
+  /* color: #FCFAF0; */
+  /* background-color: #99B0B0; */
 `;
 
 const Label = styled.label`
   display: block;
-  color: #8A9EA0;
+  /* color: #8A9EA0; */
   padding: 5px 5px 5px 10px;
 `;
 
@@ -61,19 +63,21 @@ const P = styled.p``;
 
 const UploadButton = styled.button`
   margin: 10px;
-  border: solid 1px #8A9EA0;
+  /* border: solid 1px #8A9EA0; */
+  border: solid 1px;
   border-radius: 5px;
-  background-color: #FCFAF0;
-  color: #8A9EA0;
+  /* background-color: #FCFAF0; */
+  /* color: #8A9EA0; */
 `;
 
 const Button = styled.button`
   margin: 10px;
   padding: 10px;
-  border: solid 1px #8A9EA0;
+  /* border: solid 1px #8A9EA0; */
+  border: solid 1px;
   border-radius: 5px;
-  background-color: #FCFAF0;
-  color: #8A9EA0;
+  /* background-color: #FCFAF0; */
+  /* color: #8A9EA0; */
 `;
 
 const ModalAnswerForm = ({ open, onClose }) => {
