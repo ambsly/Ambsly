@@ -5,14 +5,14 @@ const ImageContainer = styled.div`
 position: relative;
 overflow: hidden;
 margin: 25px;
-box-shadow: 0 0 5px;
+// border: 1px solid black;
 `;
 
 const MainImage = styled.img`
 width: 625px;
 height: 500px;
 object-fit: cover;
-transition: 0.4s;
+transition: 0.4s linear;
 `;
 
 // const ExpandButton = styled.span`
@@ -31,7 +31,7 @@ transition: 0.4s;
 
 const ScrollMenu = styled.div`
 position: absolute;
-top: 445px;
+top: 440px;
 left: 50px;
 margin: auto;
 width: 525px;
@@ -40,7 +40,7 @@ white-space: nowrap;
 scrollbar-color: #90A4AE;
 
   &::-webkit-scrollbar {
-    width: 10px;
+    width: 1px;
   }
 
   &::-webkit-scrollbar-track {
@@ -50,8 +50,6 @@ scrollbar-color: #90A4AE;
   &::-webkit-scrollbar-thumb {
     background: rgba(144, 164, 174, 0.8);
   }
-
-scrollbar-width: thin;
 `;
 
 const ImagePreview = styled.input`
@@ -83,10 +81,10 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
   // const [expandIcon, setExpandIcon] = useState('✛');
 
   const handleExpand = (e) => {
-    const xPos = (e.clientX);
-    const yPos = (e.clientY);
+    const xPos = (e.clientX - 138);
+    const yPos = (e.clientY - 30);
 
-    if (!expanded[0]) {
+    if (!expanded[0] && e.type !== 'mouseleave') {
       setExpand([true, xPos, yPos]);
     } else {
       setExpand([false]);
@@ -112,18 +110,13 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
           src={currentImage}
           alt=""
           onClick={handleExpand}
+          onMouseLeave={handleExpand}
           style={{
             cursor: expanded[0] ? 'zoom-out' : 'zoom-in',
-            transform: expanded[0] ? 'scale(2.5)' : undefined,
+            transform: expanded[0] ? 'scale(2.5)' : 'scale(1)',
             transformOrigin: expanded[0] ? `${expanded[1]}px ${expanded[2]}px` : undefined,
-            backgroundPosition: expanded[0] ? `-${expanded[1]}px -${expanded[2]}px` : undefined,
           }}
         />
-        {/* <ExpandButton
-          onClick={handleExpand}
-        >
-          {expandIcon}
-        </ExpandButton> */}
         <ScrollMenu>
           {currentStyle.photos.map((image, key) => {
             if (image.url === currentImage) {

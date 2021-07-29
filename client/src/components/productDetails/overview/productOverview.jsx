@@ -7,7 +7,7 @@ import { Twitter } from '@styled-icons/fa-brands/Twitter';
 import { Pinterest } from '@styled-icons/fa-brands/Pinterest';
 
 const Container = styled.div`
-margin-top: 25px;
+margin-top: 50px;
 `;
 
 const Category = styled.div`
@@ -60,14 +60,21 @@ const ProductOverview = ({ productData, currentStyle, styles, changeStyle }) => 
           marginLeft: '10px',
         }}
       >
-        <b>Available Styles</b>
+        <b>STYLES</b>
         <br />
       </span>
       <ProductStyles styles={styles} currentStyle={currentStyle} changeStyle={changeStyle} />
 
       <ProductSelection currentStyle={currentStyle} />
       <br />
-      <div className="share">
+      <div
+        className="share"
+        // style={{
+        //   position: 'absolute',
+        //   top: '500px',
+        //   width: '260px',
+        // }}
+      >
         <span
           style={{
             fontSize: '14px',
