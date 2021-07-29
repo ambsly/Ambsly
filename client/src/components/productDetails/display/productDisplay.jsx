@@ -117,18 +117,6 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
             transformOrigin: expanded[0] ? `${expanded[1]}px ${expanded[2]}px` : undefined,
           }}
         />
-<<<<<<< HEAD
-        <ExpandButton
-          onClick={handleExpand}
-        >
-          {expandIcon}
-        </ExpandButton>
-      </ImageContainer>
-      <br />
-      <ScrollMenu>
-        {currentStyle.photos.map((image, key) => {
-          if (image.url === currentImage) {
-=======
         <ScrollMenu>
           {currentStyle.photos.map((image, key) => {
             if (image.url === currentImage) {
@@ -146,7 +134,6 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
                 />
               );
             }
->>>>>>> development
             return (
               <ImagePreview
                 type="image"

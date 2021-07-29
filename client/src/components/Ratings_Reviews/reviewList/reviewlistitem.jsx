@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import SimpleDateTime  from 'react-simple-timestamp-to-date';
 
 const Container = styled.div`
   border-style: solid;
@@ -31,6 +30,10 @@ const ReviewSummary = styled.div`
   font-size: 20;
   font-weight: bold;
 `;
+
+// const Date = styled.div`
+
+// `;
 
 // onclick
 // increment or decrement item.helpful
