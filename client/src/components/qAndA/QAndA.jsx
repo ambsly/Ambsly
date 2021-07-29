@@ -1,10 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import propTypes from 'prop-types';
 import QuestionsList from './QuestionsList';
 
+const QAndAModule = styled.div`
+  margin: 20px;
+`;
+
 const Title = styled.span`
-  /* display: flex; */
+  font-size: 20px;
   margin: 10px;
   padding: 10px;
   color: #FCFAF0;
@@ -26,13 +31,14 @@ const SearchBar = styled.input`
   color: #B5B2B0;
 `;
 
-const QAndA = () => {
+const QAndA = ({ productId }) => {
   const [questions, setQuestions] = React.useState([]);
   const [text, setText] = React.useState('');
 
   React.useEffect(() => {
     axios.get(`/qa/questions?product_id=${28010}`)
       .then((res) => {
+        // api returns already sorted by helpfulness?
         setQuestions(res.data);
       })
       .catch((err) => {
@@ -41,14 +47,22 @@ const QAndA = () => {
   }, []);
 
   return (
-    <div>
-      <Title>QUESTIONS &amp; ANSWERS</Title>
+    <QAndAModule>
+      <Title>Questions &amp; Answers</Title>
       <Section>
-        <SearchBar type="text" value={text} onChange={(e) => setText(e.target.value)} placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..." />
+        <SearchBar type="text" value={text} onChange={(e) => setText(e.target.value)} placeholder="Have a question? Search for answers..." />
       </Section>
       <QuestionsList questions={questions} />
-    </div>
+    </QAndAModule>
   );
+};
+
+QAndA.defaultProps = {
+  productId: propTypes.number,
+};
+
+QAndA.propTypes = {
+  productId: propTypes.number,
 };
 
 export default QAndA;

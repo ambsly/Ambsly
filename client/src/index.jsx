@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import RatingsAndReviews from './components/Ratings_Reviews/RatingsReviews.jsx';
 import Favorites from './components/relatedProducts/Favorites.jsx';
 import Modal from './components/relatedProducts/Modal.jsx';
 // eslint-disable-next-line import/extensions
@@ -14,11 +15,12 @@ export const idContext = React.createContext(0);
 
 function App() {
   const [productID, setID] = useState(0);
-
+  const [product, setProduct] = useState();
   useEffect(() => {
     axios.get('/products')
       .then((results) => {
         const { id } = results.data[0];
+        setProduct(results.data[0]);
         setID(id);
       })
       .catch((err) => {
@@ -32,12 +34,13 @@ function App() {
   return (
     <div>
       <ButtonState>
-        <ProductDetails />
         <idContext.Provider value={productID}>
+          <ProductDetails productData={product} />
           <Related />
+          <Favorites />
+          <QAndA productId={productID} />
+          <RatingsAndReviews />
         </idContext.Provider>
-        <Favorites />
-        <QAndA />
       </ButtonState>
     </div>
   );

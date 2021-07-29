@@ -8,12 +8,6 @@ width: 250px;
 justify-content: space-between;
 `;
 
-const Selector = styled.div`
-padding: 10px 5px;
-background-color: transparent;
-border: 2px solid black;
-`;
-
 const Button = styled.button`
 background: transparent;
 border: none;
@@ -23,31 +17,48 @@ cursor: pointer;
 const ProductSelection = ({ currentStyle }) => {
   const styleList = Object.values(currentStyle.skus);
 
-  const [quantity, setQuantity] = useState([]);
+  const [qtyRange, setQtyRange] = useState([]);
   const [inBag, setInBag] = useState('Add to Bag +');
   const [favorited, setFavorited] = useState('☆');
+  const [size, setSize] = useState('SELECT SIZE');
+  const [qtyInBag, setQtyInBag] = useState('QTY');
 
   const sizeSelected = (e) => {
     let range = [];
     for (let i = 0; i < styleList.length; i += 1) {
       if (styleList[i].size === e.target.value) {
         if (!styleList[i].quantity) {
-          setQuantity(['Out of Stock']);
+          setQtyRange(['Out of Stock']);
         } else {
           let q = styleList[i].quantity + 1;
           if (styleList[i].quantity > 15) {
             q = 15;
           }
           range = _.range(1, q + 1);
-          setQuantity(range);
+          setQtyRange(range);
         }
       }
     }
+
+    if (qtyRange.every((value) => value === 'Out of Stock')) {
+      setSize('Out of Stock');
+    } else {
+      setSize(e.target.value);
+      setQtyInBag(1);
+    }
+  };
+
+  const qtySelected = (e) => {
+    setQtyInBag(e.target.value);
   };
 
   const handleBagClick = () => {
     if (inBag === 'Add to Bag +') {
-      setInBag('Added to Bag -');
+      if (size === 'SELECT SIZE' || qtyInBag === 'QTY') {
+        alert('Please make sure to select a size and quantity');
+      } else {
+        setInBag('Added to Bag');
+      }
     } else {
       setInBag('Add to Bag +');
     }
@@ -64,56 +75,109 @@ const ProductSelection = ({ currentStyle }) => {
   return (
     <>
       <Container>
-        <Selector>
-          <label>SELECT SIZE</label>
-          <select
-            name="size-selector"
-            onChange={sizeSelected}
-          >
-            <option value="--">--</option>
-            {styleList.map((sku, key) => (
+        <select
+          name="size-selector"
+          onChange={sizeSelected}
+          style={{
+            width: '120px',
+            height: '40px',
+            padding: '10px 5px',
+            backgroundColor: 'transparent',
+            border: '1px solid black',
+          }}
+        >
+          <option defaultValue="SELECT SIZE" hidden>SELECT SIZE</option>
+          {styleList.map((sku, key) => {
+            if ({ size } === 'Out of Stock') {
+              return;
+            }
+            if (sku.quantity) {
+              return (
+                <option
+                  value={sku.size}
+                  id={key}
+                  key={key}
+                >
+                  {sku.size}
+                </option>
+              );
+            }
+          })}
+        </select>
+        <select
+          name="qty-selector"
+          id="qty-selector"
+          onChange={qtySelected}
+          style={{
+            width: '110px',
+            height: '40px',
+            padding: '10px 5px',
+            backgroundColor: 'transparent',
+            border: '1px solid black',
+          }}
+        >
+          {/* {() => {
+            console.log('hello');
+            if ({ size } === 'SELECT SIZE') {
+              return <option value="QTY" defaultValue disabled hidden>QTY</option>;
+            }
+          }} */}
+          <option defaultValue="QTY" hidden>QTY</option>
+          {qtyRange.map((value, key) => {
+            if ({ size } === 'Out of Stock') {
+              return (
+                <option
+                  value={value}
+                  key={key}
+                >
+                  --
+                </option>
+              );
+            }
+            return (
               <option
-                value={sku.size}
-                id={key}
+                value={value}
                 key={key}
               >
-                {sku.size}
+                {value}
               </option>
-            ))}
-          </select>
-        </Selector>
-        <Selector>
-          <label>Qty</label>
-          <select name="qty-selector" id="qty-selector">
-            <option value="--">--</option>
-            {quantity.map((value, key) => (
-              <option value={value} key={key}>{value}</option>
-            ))}
-          </select>
-        </Selector>
+            );
+          })}
+        </select>
       </Container>
       <br />
       <Container>
-        <Selector>
-          <Button
-            type="button"
-            name="add-to-bag"
-            id="add-to-bag"
-            onClick={handleBagClick}
-          >
-            {inBag}
-          </Button>
-        </Selector>
-        <Selector>
-          <Button
-            type="button"
-            name="favorite"
-            id="favorite"
-            onClick={handleFavoritedClick}
-          >
-            {favorited}
-          </Button>
-        </Selector>
+        <Button
+          type="button"
+          name="add-to-bag"
+          id="add-to-bag"
+          onClick={handleBagClick}
+          style={{
+            width: '185px',
+            height: '40px',
+            padding: '10px 5px',
+            backgroundColor: 'transparent',
+            border: '1px solid black',
+            textAlign: 'center',
+          }}
+        >
+          {inBag}
+        </Button>
+        <Button
+          type="button"
+          name="favorite"
+          id="favorite"
+          onClick={handleFavoritedClick}
+          style={{
+            width: '45px',
+            height: '40px',
+            padding: '10px 5px',
+            backgroundColor: 'transparent',
+            border: '1px solid black',
+          }}
+        >
+          {favorited}
+        </Button>
       </Container>
     </>
   );
