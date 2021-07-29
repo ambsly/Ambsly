@@ -36,6 +36,7 @@ const getRelatedProductsWithIDs = (arrayOfProductIds) => {
 const getProductStyleByID = (productId) => {
   const productOptions = Object.create(options);
   productOptions.url += `products/${productId}/styles`;
+  return axios(productOptions);
 };
 
 const getDisplay = (id) => {

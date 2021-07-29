@@ -1,7 +1,43 @@
 import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import StarsBreakdown from './starsbreakdown.jsx';
-import SizeComfortMeter from './sizecomfortmeter.jsx';
+import CharacteristicsBreakdown from './characteristics.jsx';
+
+// const Stars = styled.div`
+//   display: inline-block;
+//   font-size: 25px;
+//   font-family: Times;
+//   line-height: 1;
+
+//   &::before {
+//     content: "★★★★★";
+//     letter-spacing: 3px;
+//     background: linear-gradient(90deg, #fco ${props => props.rating}),
+//     #000 ${props => prop.rating});
+//     -webkit-background-clip: text;
+//     -webkit-text-fill-color: transparent;
+//   }
+// `;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-size: large;
+  margin-left: 15px;
+  padding: 5px;
+  border: 0.5px solid;
+  border-radius: 3px;
+`;
+
+const Rating = styled.div`
+  font-size: x-large;
+  padding-bottom: 8px;
+`;
+
+const Recommends = styled.div`
+  padding-bottom: 6px;
+`;
 
 const Overview = ({ metaData }) => {
   let totalRatingsCount = 0;
@@ -24,7 +60,8 @@ const Overview = ({ metaData }) => {
   if (!rating) {
     ratingStr = 'No Reviews Yet!';
   } else {
-    ratingStr = `${rating} ⭐⭐⭐⭐`;
+    ratingStr = `${rating} ★★★★`;
+    // the stars will have to be dynamic
   }
 
   const usersRecommendedCalculator = (data) => {
@@ -42,16 +79,16 @@ const Overview = ({ metaData }) => {
   };
 
   return (
-    <div>
-      <span>
+    <Container>
+      <Rating>
         {ratingStr}
-      </span>
-      <div>
+      </Rating>
+      <Recommends>
         {usersRecommendedCalculator(metaData.recommended)}
-      </div>
+      </Recommends>
       <StarsBreakdown ratings={metaData.ratings} totalRatings={totalRatingsCount} />
-      <SizeComfortMeter />
-    </div>
+      <CharacteristicsBreakdown characteristics={metaData.characteristics} />
+    </Container>
   );
 };
 

@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable import/extensions */
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import RatingsAndReviews from './components/Ratings_Reviews/RatingsReviews.jsx';
@@ -6,42 +7,43 @@ import Favorites from './components/relatedProducts/Favorites.jsx';
 import Modal from './components/relatedProducts/Modal.jsx';
 // eslint-disable-next-line import/extensions
 import Related from './components/relatedProducts/Related.jsx';
-
+import ButtonState from './components/buttonState.jsx';
 import QAndA from './components/qAndA/QAndA';
 import ProductDetails from './components/productDetails/index.jsx';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      products: '',
-    };
-  }
+export const idContext = React.createContext(0);
 
-  componentDidMount() {
-    const { products } = this.state;
+function App() {
+  const [productID, setID] = useState(0);
+  const [product, setProduct] = useState();
+  useEffect(() => {
     axios.get('/products')
       .then((results) => {
-        this.setState({ products: results.data[4] });
+        const { id } = results.data[0];
+        setProduct(results.data[0]);
+        setID(id);
       })
       .catch((err) => {
-        // eslint-disable-next-line no-console
+      // eslint-disable-next-line no-console
         console.log('Error retrieving product data: ', err);
       });
-  }
+  }, []);
 
-  render() {
-    const { products } = this.state;
-    return (
-      <div>
-        <ProductDetails productData={products} />
-        <Related productId={products.id} />
-        <Favorites />
-        <QAndA productId={products.id} />
-        <RatingsAndReviews />
-      </div>
-    );
-  }
+  // console.log(productID, 'checking here in index');
+
+  return (
+    <div>
+      <ButtonState>
+        <idContext.Provider value={productID}>
+          <ProductDetails productData={product} />
+          <Related />
+          <Favorites />
+          <QAndA productId={productID} />
+          <RatingsAndReviews />
+        </idContext.Provider>
+      </ButtonState>
+    </div>
+  );
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
