@@ -103,7 +103,7 @@ const IndividualQuestion = ({ question }) => {
         <QuestionBody key={question.question_id}>
           {`Q: ${question.question_body}`}
         </QuestionBody>
-        <QuestionFooter question={question} />
+        <QuestionFooter question={question} refreshA={refreshA} />
       </QuestionBodyAndQuestionFooter>
       <EntireAnswerSection>
         <AnswerSection>

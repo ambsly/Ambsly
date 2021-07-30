@@ -35,6 +35,7 @@ const Title = styled.span`
   font-size: 20px;
   margin: 10px;
   padding: 10px;
+  border: solid 1px black;
   /* color: #FCFAF0; */
   /* background-color: #99B0B0; */
 `;
@@ -44,6 +45,7 @@ const Subtitle = styled.span`
   font-size: 16px;
   margin: 10px;
   padding: 10px;
+  border: solid 1px black;
   /* color: #FCFAF0; */
   /* background-color: #99B0B0; */
 `;

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 
@@ -35,6 +36,7 @@ const Title = styled.span`
   font-size: 20px;
   margin: 10px;
   padding: 10px;
+  border: solid 1px black;
   /* color: #FCFAF0; */
   /* background-color: #99B0B0; */
 `;
@@ -44,6 +46,7 @@ const Subtitle = styled.span`
   font-size: 16px;
   margin: 10px;
   padding: 10px;
+  border: solid 1px black;
   /* color: #FCFAF0; */
   /* background-color: #99B0B0; */
 `;
@@ -80,26 +83,46 @@ const Button = styled.button`
   /* color: #8A9EA0; */
 `;
 
-const ModalAnswerForm = ({ open, onClose }) => {
+const ModalAnswerForm = ({
+  open, onClose, question, refreshA,
+}) => {
   if (!open) return null;
+  const [formData, setFormData] = React.useState({
+    body: '',
+    name: '',
+    email: '',
+    photos: [],
+  });
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.className]: e.target.value,
+    });
+  };
+  const handleSubmit = () => {
+    // validate inputs
+    // POST request
+    // refreshA
+    // onClose?
+  };
   return ReactDOM.createPortal(
     <Container>
       <Overlay />
       <ModalForm>
         <Title>Submit Your Answer</Title>
-        <Subtitle>{`productName: questionBody`}</Subtitle>
+        <Subtitle>{`productName: ${question.question_body}`}</Subtitle>
         <form>
           <Label htmlFor="your-answer">
             Your Answer
             <Asterisk>*</Asterisk>
             <br />
-            <textarea maxLength="1000" />
+            <textarea maxLength="1000" className="body" onChange={(e) => handleChange(e)} />
           </Label>
           <Label htmlFor="your-nickname">
             What is your nickname?
             <Asterisk>*</Asterisk>
             <br />
-            <input type="text" maxLength="60" placeholder="Example: jack543!" />
+            <input type="text" maxLength="60" placeholder="Example: jack543!" className="name" onChange={(e) => handleChange(e)} />
             <br />
             <P>For privacy reasons, do not use your full name or email address.</P>
           </Label>
@@ -107,7 +130,7 @@ const ModalAnswerForm = ({ open, onClose }) => {
             Your email
             <Asterisk>*</Asterisk>
             <br />
-            <input type="text" maxLength="60" placeholder="Example: jack@email.com" />
+            <input type="text" maxLength="60" placeholder="Example: jack@email.com" className="email" onChange={(e) => handleChange(e)} />
             <br />
             <P>For authentication reasons, you will not be emailed.</P>
           </Label>

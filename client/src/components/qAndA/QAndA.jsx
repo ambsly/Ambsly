@@ -10,7 +10,7 @@ const QAndAModule = styled.div`
 `;
 
 const Title = styled.span`
-  font-size: 20px;
+  font-size: 24px;
   margin: 10px;
   padding: 10px;
   /* color: #FCFAF0; */

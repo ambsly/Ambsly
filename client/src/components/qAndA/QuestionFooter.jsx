@@ -21,7 +21,7 @@ const Span = styled.span`
   background-color: none;
 `;
 
-const QuestionFooter = ({ question }) => {
+const QuestionFooter = ({ question, refreshA }) => {
   const [isOpenA, setIsOpenA] = React.useState(false);
   const [qHelpfulScore, setQHelpfulScore] = React.useState(question.question_helpfulness);
   const markQHelpful = () => {
@@ -35,6 +35,7 @@ const QuestionFooter = ({ question }) => {
       })
       .catch((err) => console.error(err));
   };
+  console.log('what does question have?', question);
   return (
     <FooterSection>
       Helpful?
@@ -44,7 +45,12 @@ const QuestionFooter = ({ question }) => {
       {`(${qHelpfulScore}) |`}
       &nbsp;
       <Span onClick={() => setIsOpenA(true)}>Add Answer</Span>
-      <ModalAnswerForm open={isOpenA} onClose={() => setIsOpenA(false)} />
+      <ModalAnswerForm
+        open={isOpenA}
+        onClose={() => setIsOpenA(false)}
+        question={question}
+        refreshA={refreshA}
+      />
     </FooterSection>
   );
 };
