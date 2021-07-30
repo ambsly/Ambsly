@@ -1,6 +1,5 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import axios from 'axios';
-import propTypes from 'prop-types';
 import styled from 'styled-components';
 import AnswerFooter from './AnswerFooter';
 
@@ -11,10 +10,10 @@ const AnswerSection = styled.div`
   font-weight: 400;
 `;
 
-const IndividualAnswer = ({ answer }) => (
+const IndividualAnswer = ({ answer, refreshA }) => (
   <AnswerSection>
     {`${answer.body}`}
-    <AnswerFooter answer={answer} />
+    <AnswerFooter answer={answer} refreshA={refreshA} />
   </AnswerSection>
 );
 

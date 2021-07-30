@@ -29,7 +29,7 @@ const QuestionFooter = ({ question }) => {
       question_id: question.question_id,
     })
       .then((response) => {
-        if (response) {
+        if (response.status === 204) {
           setQHelpfulScore(qHelpfulScore + 1);
         }
       })

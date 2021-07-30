@@ -75,6 +75,28 @@ const IndividualQuestion = ({ question }) => {
       });
   }, []);
 
+  const refreshA = () => {
+    axios.get('/qa/questions/:question_id/answers', {
+      params: {
+        question_id: question.question_id,
+      },
+    })
+      .then((res) => {
+        const sellerAnswers = res.data.filter((answer) => (
+          answer.answerer_name.toLowerCase() === 'seller'
+        ));
+        const customerAnswers = res.data.filter((answer) => (
+          answer.answerer_name.toLowerCase() !== 'seller'
+        ));
+        customerAnswers.sort(customerAnswers.helpfulness);
+        const sortedAnswers = sellerAnswers.concat(customerAnswers);
+        setAnswers(sortedAnswers);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   return (
     <div>
       <QuestionBodyAndQuestionFooter>
@@ -89,7 +111,7 @@ const IndividualQuestion = ({ question }) => {
           {answers.length > 0 &&
           <AnswerBodyAndAnswerFooter>
             {answers.map((answer, index) => (
-              <IndividualAnswer key={index} answer={answer} />
+              <IndividualAnswer key={index} answer={answer} refreshA={refreshA} />
             ))}
           </AnswerBodyAndAnswerFooter>}
         </AnswerSection>

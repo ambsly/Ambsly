@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
@@ -19,7 +20,7 @@ const Span = styled.span`
   cursor: pointer;
 `;
 
-const AnswerFooter = ({ answer }) => {
+const AnswerFooter = ({ answer, refreshA }) => {
   const [aHelpfulScore, setAHelpfulScore] = React.useState(answer.helpfulness);
   const formatDate = (string) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -30,8 +31,19 @@ const AnswerFooter = ({ answer }) => {
       answer_id: answer.answer_id,
     })
       .then((response) => {
-        if (response) {
+        if (response.status === 204) {
           setAHelpfulScore(aHelpfulScore + 1);
+        }
+      })
+      .catch((err) => console.error(err));
+  };
+  const reportA = () => {
+    axios.put('/qa/answers/:answer_id/report', {
+      answer_id: answer.answer_id,
+    })
+      .then((response) => {
+        if (response.status === 204) {
+          refreshA();
         }
       })
       .catch((err) => console.error(err));
@@ -44,7 +56,7 @@ const AnswerFooter = ({ answer }) => {
       &nbsp;
       {`(${aHelpfulScore}) |`}
       &nbsp;
-      <Span>Report</Span>
+      <Span onClick={() => reportA()}>Report</Span>
     </FooterSection>
   );
 };
