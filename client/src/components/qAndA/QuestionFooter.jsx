@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
+import axios from 'axios';
 import ModalAnswerForm from './ModalAnswerForm';
 
 const FooterSection = styled.div`
@@ -15,17 +17,31 @@ const Span = styled.span`
   color: #B5B2B0;
   text-decoration: underline;
   cursor: pointer;
+  border: none;
+  background-color: none;
 `;
 
 const QuestionFooter = ({ question }) => {
   const [isOpenA, setIsOpenA] = React.useState(false);
+  const [qHelpfulScore, setQHelpfulScore] = React.useState(question.question_helpfulness);
+  const markQHelpful = () => {
+    axios.put('/qa/questions/:question_id/helpful', {
+      question_id: question.question_id,
+    })
+      .then((response) => {
+        if (response) {
+          setQHelpfulScore(qHelpfulScore + 1);
+        }
+      })
+      .catch((err) => console.error(err));
+  };
   return (
     <FooterSection>
-      {'Helpful?'}
+      Helpful?
       &nbsp;
-      <Span>Yes</Span>
+      <Span onClick={() => markQHelpful()}>Yes</Span>
       &nbsp;
-      {'(25) |'}
+      {`(${qHelpfulScore}) |`}
       &nbsp;
       <Span onClick={() => setIsOpenA(true)}>Add Answer</Span>
       <ModalAnswerForm open={isOpenA} onClose={() => setIsOpenA(false)} />

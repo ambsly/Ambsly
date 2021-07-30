@@ -126,6 +126,13 @@ app.get('/qa/questions/:question_id/answers', (req, res) => {
     .catch((err) => res.status(404).send(err));
 });
 
+app.put('/qa/questions/:question_id/helpful', (req, res) => {
+  axios.put(`/qa/questions/${req.body.question_id}/helpful`)
+    .then((response) => res.status(204).send(response.data))
+    .catch((err) => res.status(400).send(err));
+});
+// End of Q&A Routes
+
 app.get('/products/:product_id/related', (req, res) => {
   // console.log('this has been ran');
   const promise = Calls.getRelatedProductIds(req.params.product_id);
