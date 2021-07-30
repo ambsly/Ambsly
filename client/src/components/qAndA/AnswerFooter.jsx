@@ -1,6 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const FooterSection = styled.div`
   /* display: flex;
@@ -19,18 +20,29 @@ const Span = styled.span`
 `;
 
 const AnswerFooter = ({ answer }) => {
+  const [aHelpfulScore, setAHelpfulScore] = React.useState(answer.helpfulness);
   const formatDate = (string) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(string).toLocaleDateString([], options);
   };
-
+  const markAHelpful = () => {
+    axios.put('/qa/answers/:answer_id/helpful', {
+      answer_id: answer.answer_id,
+    })
+      .then((response) => {
+        if (response) {
+          setAHelpfulScore(aHelpfulScore + 1);
+        }
+      })
+      .catch((err) => console.error(err));
+  };
   return (
     <FooterSection>
       {`by ${answer.answerer_name}, ${formatDate(answer.date)} | Helpful?`}
       &nbsp;
-      <Span>Yes</Span>
+      <Span onClick={() => markAHelpful()}>Yes</Span>
       &nbsp;
-      {'(25) |'}
+      {`(${aHelpfulScore}) |`}
       &nbsp;
       <Span>Report</Span>
     </FooterSection>
