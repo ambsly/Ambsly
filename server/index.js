@@ -144,8 +144,14 @@ app.put('/qa/answers/:answer_id/report', (req, res) => {
     .catch((err) => res.status(400).send(err));
 });
 
-app.post('/qa/questions/:question_id/answers', (req, res) => {
+app.post('/qa/questions', (req, res) => {
   console.log('POST request made');
+  axios.post('/qa/questions', req.body)
+    .then((response) => res.status(201).send(response.data))
+    .catch((err) => res.status(400).send(err));
+});
+
+app.post('/qa/questions/:question_id/answers', (req, res) => {
   axios.post(`/qa/questions/${req.body.questionId}/answers`, req.body)
     .then((response) => res.status(201).send(response.data))
     .catch((err) => res.status(400).send(err));

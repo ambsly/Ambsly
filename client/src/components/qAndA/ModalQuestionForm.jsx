@@ -75,6 +75,18 @@ const Button = styled.button`
 
 const ModalQuestionForm = ({ open, onClose }) => {
   if (!open) return null;
+  const [formData, setFormData] = React.useState({
+    product_id: 28010,
+    body: '',
+    name: '',
+    email: '',
+  });
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.className]: e.target.value,
+    });
+  };
   return ReactDOM.createPortal(
     <Container>
       <Overlay />
@@ -87,13 +99,13 @@ const ModalQuestionForm = ({ open, onClose }) => {
             Your Question
             <Asterisk>*</Asterisk>
             <br />
-            <textarea maxLength="1000" />
+            <textarea maxLength="1000" className="body" onChange={(e) => handleChange(e)} />
           </Label>
           <Label htmlFor="your-nickname">
             What is your nickname?
             <Asterisk>*</Asterisk>
             <br />
-            <input type="text" maxLength="60" placeholder="Example: jackson11!" />
+            <input type="text" maxLength="60" placeholder="Example: jackson11!" className="name" onChange={(e) => handleChange(e)} />
             <br />
             <P>For privacy reasons, do not use your full name or email address.</P>
           </Label>
@@ -101,7 +113,7 @@ const ModalQuestionForm = ({ open, onClose }) => {
             Your email
             <Asterisk>*</Asterisk>
             <br />
-            <input type="text" maxLength="60" placeholder="Why did you like the product or not?" />
+            <input type="text" maxLength="60" placeholder="Why did you like the product or not?" className="email" onChange={(e) => handleChange(e)} />
             <br />
             <P>For authentication reasons, you will not be emailed.</P>
           </Label>
