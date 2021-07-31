@@ -112,6 +112,7 @@ app.post('/reviews', (req, res) => {
 
 // Q&A Routes
 app.get('/qa/questions', (req, res) => {
+  console.log('SERVER REQ QUERY', req.query);
   axios.get('/qa/questions', { params: req.query })
     .then((response) => {
       res.status(200).send(response.data.results);

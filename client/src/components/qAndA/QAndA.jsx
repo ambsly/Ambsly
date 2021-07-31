@@ -39,8 +39,9 @@ const QAndA = ({ productId }) => {
 
   React.useEffect(() => {
     axios
-      .get(`/qa/questions?product_id=${28010}&page=1&count=4`)
+      .get(`/qa/questions?product_id=${28010}&count=6`)
       .then((res) => {
+        console.log('USE EFFECT RES DATA', res.data);
         // api returns already sorted by helpfulness?
         setQuestions(res.data);
       })
@@ -51,8 +52,9 @@ const QAndA = ({ productId }) => {
 
   const refreshQ = () => {
     axios
-      .get(`/qa/questions?product_id=${28010}&page=1&count=4`)
+      .get(`/qa/questions?product_id=${28010}&count=6`)
       .then((res) => {
+        console.log('USE EFFECT RES DATA', res.data);
         // api returns already sorted by helpfulness?
         setQuestions(res.data);
       })
