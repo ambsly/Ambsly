@@ -88,6 +88,7 @@ const ModalAnswerForm = ({
 }) => {
   if (!open) return null;
   const [formData, setFormData] = React.useState({
+    questionId: question.question_id,
     body: '',
     name: '',
     email: '',
@@ -99,11 +100,24 @@ const ModalAnswerForm = ({
       [e.target.className]: e.target.value,
     });
   };
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     // validate inputs
     // POST request
     // refreshA
     // onClose?
+    e.preventDefault();
+    if (formData.body.length === 0 || formData.name.length === 0 || formData.email.length === 0) {
+      alert('Please fill in the required fields.');
+    } else {
+      axios.post('/qa/questions/:question_id/answers', formData)
+        .then((response) => {
+          if (response.status === 201) {
+            // refreshA();
+            onClose();
+          }
+        })
+        .catch((err) => console.error(err));
+    }
   };
   return ReactDOM.createPortal(
     <Container>
@@ -142,7 +156,13 @@ const ModalAnswerForm = ({
             <br />
           </Label>
           {/* on submit, validate fields and give warning message */}
-          <Button onClick={onClose}>Submit Answer</Button>
+          <Button onClick={(e) => {
+            handleSubmit(e);
+            // onClose();
+          }}
+          >
+            Submit Answer
+          </Button>
         </form>
       </ModalForm>
     </Container>,

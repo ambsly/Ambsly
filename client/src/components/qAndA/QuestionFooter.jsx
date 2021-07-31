@@ -35,7 +35,6 @@ const QuestionFooter = ({ question, refreshA }) => {
       })
       .catch((err) => console.error(err));
   };
-  console.log('what does question have?', question);
   return (
     <FooterSection>
       Helpful?
@@ -47,7 +46,10 @@ const QuestionFooter = ({ question, refreshA }) => {
       <Span onClick={() => setIsOpenA(true)}>Add Answer</Span>
       <ModalAnswerForm
         open={isOpenA}
-        onClose={() => setIsOpenA(false)}
+        onClose={() => {
+          setIsOpenA(false);
+          refreshA();
+        }}
         question={question}
         refreshA={refreshA}
       />

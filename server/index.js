@@ -143,6 +143,13 @@ app.put('/qa/answers/:answer_id/report', (req, res) => {
     .then((response) => res.status(204).send(response.data))
     .catch((err) => res.status(400).send(err));
 });
+
+app.post('/qa/questions/:question_id/answers', (req, res) => {
+  console.log('POST request made');
+  axios.post(`/qa/questions/${req.body.questionId}/answers`, req.body)
+    .then((response) => res.status(201).send(response.data))
+    .catch((err) => res.status(400).send(err));
+});
 // End of Q&A Routes
 
 app.get('/products/:product_id/related', (req, res) => {
