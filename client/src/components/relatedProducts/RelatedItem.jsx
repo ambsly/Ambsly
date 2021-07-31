@@ -1,7 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Modal from './Modal.jsx';
-import { FavoritesContext, buttonClickedContext } from '../globalState.jsx';
+import ModalCarousel from './ModalCarousel';
+import {
+  globalContext, ButtonClickedContext, FavoritesContext, ProductsContext,
+} from '../globalState.jsx';
 
 const BUTTON_WRAPER_STYLES = {
   position: 'relative',
@@ -9,7 +12,9 @@ const BUTTON_WRAPER_STYLES = {
 };
 
 function RelatedItem({ cardInfo }) {
-  const [buttonValue, setButtonValue] = useContext(buttonClickedContext);
+  const [products, setProducts] = useContext(ProductsContext);
+
+  const [buttonValue, setButtonValue] = useContext(ButtonClickedContext);
   const [favorites, setFavorites] = useContext(FavoritesContext);
   const card = cardInfo;
   const {
@@ -41,7 +46,7 @@ function RelatedItem({ cardInfo }) {
     <div className="card-container">
       <div className="card">
         <button type="submit" onClick={saveFavorite}>Favorites</button>
-        <img src={firstPhoto.thumbnail_url} alt="" className="cardImage" />
+        <img onMouseEnter={() => setIsOpen(true)} src={firstPhoto.thumbnail_url} alt="" className="cardImage" />
         <div className="productDetails">
           <div className="categoryName">{category}</div>
           <div className="productName">{name}</div>
@@ -50,12 +55,16 @@ function RelatedItem({ cardInfo }) {
 
             {default_price}
             <div style={BUTTON_WRAPER_STYLES}>
+              <button onClick={() => setIsOpen(true)}>OpenPicture</button>
               <button onClick={() => setIsOpen(true)}>Open Modal</button>
             </div>
           </div>
         </div>
+        <div>
+          <ModalCarousel open={isOpen} onClose={() => setIsOpen(false)} />
+        </div>
       </div>
-      {/* <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+      {/* <Modal open={isOpen} onClose={() => setIsOpen(false)} card={card}>
         Comparing
       </Modal> */}
     </div>

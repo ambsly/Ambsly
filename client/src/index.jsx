@@ -38,8 +38,8 @@ function App() {
           <ProductDetails productData={product} />
           <Related />
           <Favorites />
-          {/* <QAndA productId={productID} /> */}
-          {/* <RatingsAndReviews /> */}
+          {/* <QAndA productId={productID} />
+          <RatingsAndReviews /> */}
         </idContext.Provider>
       </GlobalStateProvider>
     </div>

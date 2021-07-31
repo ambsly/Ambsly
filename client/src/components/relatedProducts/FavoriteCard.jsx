@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { FavoritesContext, buttonClickedContext } from '../globalState.jsx';
+import { FavoritesContext, ButtonClickedContext } from '../globalState.jsx';
 
 function FavoriteCard({ cardInfo }) {
-  const [buttonValue, setButtonValue] = useContext(buttonClickedContext);
+  const [buttonValue, setButtonValue] = useContext(ButtonClickedContext);
   const [favorites, setFavorites] = useContext(FavoritesContext);
   const {
     // eslint-disable-next-line react/prop-types

@@ -3,22 +3,31 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { idContext } from '../../index.jsx';
 import RelatedItem from './RelatedItem.jsx';
-import { ProductsContext } from '../globalState';
+import { ProductsContext, globalContext } from '../globalState';
 
 function Related() {
-  const [products, setProducts] = useContext(ProductsContext);
-
-  const contextID = useContext(idContext);
+  const [products, setProducts] = useContext(globalContext);
+  let RelatedItems = [];
+  const [productInfo] = useContext(ProductsContext);
+  const [productInformation, setProductInformation] = useState(productInfo);
   const [width, setWidth] = useState(0);
-  const [productID, setNewID] = useState(contextID);
 
   useEffect(() => {
-    axios.get(`/products/25170/related`)
-      .then((results) => {
-        setProducts(results.data);
+    axios.get('/products/25170')
+      .then((result) => {
+        setProducts((prevState) => ({ ...prevState, currentItem: result.data }));
       })
       .catch((err) => {
-        // eslint-disable-next-line no-console
+      // eslint-disable-next-line no-console
+        console.log('Error retrieving product data: ', err);
+      });
+
+    axios.get('/products/25170/related')
+      .then((results) => {
+        setProducts((prevState) => ({ ...prevState, relatedProducts: results.data }));
+      })
+      .catch((err) => {
+      // eslint-disable-next-line no-console
         console.log('Error retrieving product data: ', err);
       });
   }, []);
@@ -36,15 +45,12 @@ function Related() {
     setWidth((prevState) => prevState - 253);
     track.current.style.transform = `translate(${width - 253}px`;
   }
-  let RelatedItems;
-  if (products.length > 0) {
-    RelatedItems = products.map((item) => (
-      <RelatedItem
-        key={item.id}
-        cardInfo={item}
-      />
-    ));
-  }
+  RelatedItems = products.relatedProducts.map((item) => (
+    <RelatedItem
+      key={item.id}
+      cardInfo={item}
+    />
+  ));
 
   return (
 

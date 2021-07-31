@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import FavoriteCard from './FavoriteCard.jsx';
-import { FavoritesContext, buttonClickedContext } from '../globalState.jsx';
+import { FavoritesContext, ButtonClickedContext } from '../globalState.jsx';
 
 function Favorites() {
-  const [buttonValue, setButtonValue] = useContext(buttonClickedContext);
+  const [buttonValue, setButtonValue] = useContext(ButtonClickedContext);
   const [favorites, setFavorites] = useContext(FavoritesContext);
   const [width, setWidth] = useState(0);
 
