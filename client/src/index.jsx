@@ -7,9 +7,9 @@ import Favorites from './components/relatedProducts/Favorites.jsx';
 import Modal from './components/relatedProducts/Modal.jsx';
 // eslint-disable-next-line import/extensions
 import Related from './components/relatedProducts/Related.jsx';
-import ButtonState from './components/buttonState.jsx';
 import QAndA from './components/qAndA/QAndA';
 import ProductDetails from './components/productDetails/index.jsx';
+import GlobalStateProvider from './components/globalState.jsx';
 
 export const idContext = React.createContext(0);
 
@@ -19,7 +19,7 @@ function App() {
   useEffect(() => {
     axios.get('/products')
       .then((results) => {
-        const { id } = results.data[4];
+        const { id } = results.data[2];
         setProduct(results.data[4]);
         setID(id);
       })
@@ -33,7 +33,7 @@ function App() {
 
   return (
     <div>
-      <ButtonState>
+      <GlobalStateProvider>
         <idContext.Provider value={productID}>
           <ProductDetails productData={product} />
           <Related />
@@ -41,7 +41,7 @@ function App() {
           <QAndA productId={productID} />
           <RatingsAndReviews />
         </idContext.Provider>
-      </ButtonState>
+      </GlobalStateProvider>
     </div>
   );
 }

@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { ClickedContext } from '../buttonState.jsx';
+import { FavoritesContext, buttonClickedContext } from '../globalState.jsx';
 
 function FavoriteCard({ cardInfo }) {
-  const [state, setState] = useContext(ClickedContext);
+  const [buttonValue, setButtonValue] = useContext(buttonClickedContext);
+  const [favorites, setFavorites] = useContext(FavoritesContext);
   const {
     // eslint-disable-next-line react/prop-types
     id, campus, name, slogan, description, category, create_At,
@@ -17,15 +18,10 @@ function FavoriteCard({ cardInfo }) {
   const [firstPhoto] = photos;
 
   function removeFavorite() {
-    const oldData = JSON.parse(localStorage.getItem('dataArray'));
-    if (oldData.length === 1) {
-      localStorage.setItem('dataArray', '[]');
-      setState((prevState) => ({ ...prevState, buttonClicked: true }));
-    } else {
-      const newArray = oldData.filter((value) => value !== id);
-      localStorage.setItem('dataArray', JSON.stringify(newArray));
-      setState((prevState) => ({ ...prevState, buttonClicked: true }));
-    }
+    const newFavorites = favorites;
+    delete newFavorites[id];
+    localStorage.setItem('favoriteProducts', JSON.stringify(favorites));
+    setButtonValue(true);
   }
 
   return (

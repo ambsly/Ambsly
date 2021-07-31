@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Modal from './Modal.jsx';
-import { ClickedContext } from '../buttonState.jsx';
+import { FavoritesContext, buttonClickedContext } from '../globalState.jsx';
 
 const BUTTON_WRAPER_STYLES = {
   position: 'relative',
@@ -9,6 +9,9 @@ const BUTTON_WRAPER_STYLES = {
 };
 
 function RelatedItem({ cardInfo }) {
+  const [buttonValue, setButtonValue] = useContext(buttonClickedContext);
+  const [favorites, setFavorites] = useContext(FavoritesContext);
+  const card = cardInfo;
   const {
     // eslint-disable-next-line react/prop-types
     id, campus, name, slogan, description, category, create_At,
@@ -21,17 +24,17 @@ function RelatedItem({ cardInfo }) {
   const { photos } = firstStyle;
   const [firstPhoto] = photos;
   // console.log(firstPhoto, 'what is this?');
-  const [state, setState] = useContext(ClickedContext);
   const [isOpen, setIsOpen] = useState(false);
   // const [buttonClicked, setbuttonClicked] = useState(false);
 
   function saveFavorite() {
-    const oldData = JSON.parse(localStorage.getItem('dataArray'));
-    if (!(oldData.includes(id))) {
-      oldData.push(id);
-      localStorage.setItem('dataArray', JSON.stringify(oldData));
-      setState((prevState) => ({ ...prevState, buttonClicked: true }));
-    }
+    const newFav = favorites;
+    const newObj = {};
+    newObj[id] = card;
+    newFav[id] = newObj
+    localStorage.setItem('favoriteProducts', JSON.stringify(newFav));
+    setFavorites((prevState) => ({ ...prevState, ...newObj }));
+    setButtonValue(true);
   }
 
   return (

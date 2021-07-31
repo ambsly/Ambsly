@@ -3,19 +3,17 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { idContext } from '../../index.jsx';
 import RelatedItem from './RelatedItem.jsx';
-import { ClickedContext } from '../buttonState.jsx';
+import { ProductsContext } from '../globalState';
 
 function Related() {
-  const [state, setState] = useContext(ClickedContext);
+  const [products, setProducts] = useContext(ProductsContext);
 
   const contextID = useContext(idContext);
   const [width, setWidth] = useState(0);
   const [productID, setNewID] = useState(contextID);
-  const [productsArray, setProducts] = useState([]);
 
   useEffect(() => {
-    setNewID(contextID);
-    axios.get(`/products/${contextID}/related`)
+    axios.get(`/products/25170/related`)
       .then((results) => {
         setProducts(results.data);
       })
@@ -23,7 +21,7 @@ function Related() {
         // eslint-disable-next-line no-console
         console.log('Error retrieving product data: ', err);
       });
-  }, [contextID]);
+  }, []);
 
   const track = React.createRef();
 
@@ -38,15 +36,18 @@ function Related() {
     setWidth((prevState) => prevState - 253);
     track.current.style.transform = `translate(${width - 253}px`;
   }
-
-  const RelatedItems = productsArray.map((item) => (
-    <RelatedItem
-      key={item.id}
-      cardInfo={item}
-    />
-  ));
+  let RelatedItems;
+  if (products.length > 0) {
+    RelatedItems = products.map((item) => (
+      <RelatedItem
+        key={item.id}
+        cardInfo={item}
+      />
+    ));
+  }
 
   return (
+
     <div className="carousel-container">
       <div className="carousel-inner">
         <div className="track" ref={track}>
