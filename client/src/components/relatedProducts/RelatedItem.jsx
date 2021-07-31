@@ -31,7 +31,7 @@ function RelatedItem({ cardInfo }) {
     const newFav = favorites;
     const newObj = {};
     newObj[id] = card;
-    newFav[id] = newObj
+    newFav[id] = newObj;
     localStorage.setItem('favoriteProducts', JSON.stringify(newFav));
     setFavorites((prevState) => ({ ...prevState, ...newObj }));
     setButtonValue(true);
@@ -39,8 +39,8 @@ function RelatedItem({ cardInfo }) {
 
   return (
     <div className="card-container">
-      <button type="submit" onClick={saveFavorite}>Favorites</button>
       <div className="card">
+        <button type="submit" onClick={saveFavorite}>Favorites</button>
         <img src={firstPhoto.thumbnail_url} alt="" className="cardImage" />
         <div className="productDetails">
           <div className="categoryName">{category}</div>
@@ -49,9 +49,9 @@ function RelatedItem({ cardInfo }) {
             $
 
             {default_price}
-          </div>
-          <div style={BUTTON_WRAPER_STYLES}>
-            <button onClick={() => setIsOpen(true)}>Open Modal</button>
+            <div style={BUTTON_WRAPER_STYLES}>
+              <button onClick={() => setIsOpen(true)}>Open Modal</button>
+            </div>
           </div>
         </div>
       </div>

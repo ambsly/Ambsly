@@ -9,30 +9,31 @@ body {
 
  .cardImage {
   width: 238px;
-  height: 200px;
+  height: 175px;
 }
 
 
 
 
 .categoryName{
-  font-size: 14px;
+  font-size: 12px;
+  font-style: italic;
   line-height: 20px;
   padding: 1px;
   margin: 2px;
-  color: #565959;
+  color: black;
 }
 .productName{
   font-size: 15px;
   padding: 1px;
   margin: 2px;
-  color: #0066c0;
+  color: black;
 }
 .productPrice{
-  font-size: 14px;
+  font-size: 16px;
   padding-top: 4px;
   margin: 2px;
-  color: #B12704;
+  color: black;
 }
 
 
@@ -46,6 +47,7 @@ body {
 .carousel-container .track {
   display: flex;
   transition: transform 0.35s;
+  height: 340px;
 }
 
 
@@ -74,7 +76,7 @@ body {
   border-radius: 50%;
   border: 1px solid #adadad;
   position: absolute;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%);
 
 }
