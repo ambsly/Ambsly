@@ -39,7 +39,7 @@ const QAndA = ({ productId }) => {
 
   React.useEffect(() => {
     axios
-      .get(`/qa/questions?product_id=${28010}`)
+      .get(`/qa/questions?product_id=${28010}&page=1&count=4`)
       .then((res) => {
         // api returns already sorted by helpfulness?
         setQuestions(res.data);
@@ -48,6 +48,18 @@ const QAndA = ({ productId }) => {
         console.error(err);
       });
   }, []);
+
+  const refreshQ = () => {
+    axios
+      .get(`/qa/questions?product_id=${28010}&page=1&count=4`)
+      .then((res) => {
+        // api returns already sorted by helpfulness?
+        setQuestions(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
   return (
     <QAndAModule>
@@ -60,7 +72,7 @@ const QAndA = ({ productId }) => {
           placeholder="Have a question? Search for answers..."
         />
       </Section>
-      <QuestionsList questions={questions} searchText={searchText} />
+      <QuestionsList questions={questions} searchText={searchText} refreshQ={refreshQ} />
     </QAndAModule>
   );
 };

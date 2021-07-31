@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
 import styled from 'styled-components';
@@ -27,7 +28,7 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const QuestionsList = ({ questions, searchText }) => {
+const QuestionsList = ({ questions, searchText, refreshQ }) => {
   const [isOpenQ, setIsOpenQ] = React.useState(false);
   const [currentQs, setCurrentQs] = React.useState([...questions]);
   console.log('questions', questions);
@@ -53,7 +54,13 @@ const QuestionsList = ({ questions, searchText }) => {
       </QuestionSection>
       <Button>More Answered Questions</Button>
       <Button onClick={() => setIsOpenQ(true)}>Add a Question +</Button>
-      <ModalQuestionForm open={isOpenQ} onClose={() => setIsOpenQ(false)} />
+      <ModalQuestionForm
+        open={isOpenQ}
+        onClose={() => {
+          setIsOpenQ(false);
+          refreshQ();
+        }}
+      />
     </Section>
   );
 };

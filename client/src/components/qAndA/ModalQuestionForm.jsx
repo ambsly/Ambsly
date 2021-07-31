@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
+import axios from 'axios';
 import propTypes from 'prop-types';
 
 const Container = styled.div`
@@ -87,6 +88,23 @@ const ModalQuestionForm = ({ open, onClose }) => {
       [e.target.className]: e.target.value,
     });
   };
+  const handleSubmit = (e) => {
+    // validate inputs
+    // POST request
+    // onClose --> refreshQ
+    e.preventDefault();
+    if (formData.body.length === 0 || formData.name.length === 0 || formData.email.length === 0) {
+      alert('Please fill in the required fields.');
+    } else {
+      axios.post('/qa/questions', formData)
+        .then((response) => {
+          if (response.status === 201) {
+            onClose();
+          }
+        })
+        .catch((err) => console.error(err));
+    }
+  };
   return ReactDOM.createPortal(
     <Container>
       <Overlay />
@@ -118,7 +136,7 @@ const ModalQuestionForm = ({ open, onClose }) => {
             <P>For authentication reasons, you will not be emailed.</P>
           </Label>
           {/* on submit, validate fields and give warning message */}
-          <Button onClick={onClose}>Submit Question</Button>
+          <Button onClick={(e) => handleSubmit(e)}>Submit Question</Button>
         </form>
       </ModalForm>
     </Container>,
