@@ -43,7 +43,7 @@ const AnswerBodyAndAnswerFooter = styled.div`
   font-weight: 400;
 `;
 
-const LoadMoreAnswersButton = styled.button`
+const BorderlessButton = styled.button`
   border: none;
   margin: 10px;
   /* color: #B5B2B0; */
@@ -54,19 +54,20 @@ const IndividualQuestion = ({ question, productName }) => {
   const [answers, setAnswers] = React.useState([]);
 
   React.useEffect(() => {
-    axios.get('/qa/questions/:question_id/answers', {
-      params: {
-        question_id: question.question_id,
-        count: 2,
-      },
-    })
+    axios
+      .get('/qa/questions/:question_id/answers', {
+        params: {
+          question_id: question.question_id,
+          count: 2,
+        },
+      })
       .then((res) => {
-        const sellerAnswers = res.data.filter((answer) => (
-          answer.answerer_name.toLowerCase() === 'seller'
-        ));
-        const customerAnswers = res.data.filter((answer) => (
-          answer.answerer_name.toLowerCase() !== 'seller'
-        ));
+        const sellerAnswers = res.data.filter(
+          (answer) => answer.answerer_name.toLowerCase() === 'seller'
+        );
+        const customerAnswers = res.data.filter(
+          (answer) => answer.answerer_name.toLowerCase() !== 'seller'
+        );
         customerAnswers.sort(customerAnswers.helpfulness);
         const sortedAnswers = sellerAnswers.concat(customerAnswers);
         setAnswers(sortedAnswers);
@@ -77,19 +78,20 @@ const IndividualQuestion = ({ question, productName }) => {
   }, []);
 
   const refreshA = (count) => {
-    axios.get('/qa/questions/:question_id/answers', {
-      params: {
-        question_id: question.question_id,
-        count,
-      },
-    })
+    axios
+      .get('/qa/questions/:question_id/answers', {
+        params: {
+          question_id: question.question_id,
+          count,
+        },
+      })
       .then((res) => {
-        const sellerAnswers = res.data.filter((answer) => (
-          answer.answerer_name.toLowerCase() === 'seller'
-        ));
-        const customerAnswers = res.data.filter((answer) => (
-          answer.answerer_name.toLowerCase() !== 'seller'
-        ));
+        const sellerAnswers = res.data.filter(
+          (answer) => answer.answerer_name.toLowerCase() === 'seller'
+        );
+        const customerAnswers = res.data.filter(
+          (answer) => answer.answerer_name.toLowerCase() !== 'seller'
+        );
         customerAnswers.sort(customerAnswers.helpfulness);
         const sortedAnswers = sellerAnswers.concat(customerAnswers);
         setAnswers(sortedAnswers);
@@ -114,16 +116,25 @@ const IndividualQuestion = ({ question, productName }) => {
       <EntireAnswerSection>
         <AnswerSection>
           {answers.length > 0 && <A>A:&nbsp;</A>}
-          {answers.length > 0 &&
-          <AnswerBodyAndAnswerFooter>
-            {answers.map((answer, index) => (
-              <IndividualAnswer key={index} answer={answer} refreshA={refreshA} />
-            ))}
-          </AnswerBodyAndAnswerFooter>}
+          {answers.length > 0 && (
+            <AnswerBodyAndAnswerFooter>
+              {answers.map((answer, index) => (
+                <IndividualAnswer
+                  key={index}
+                  answer={answer}
+                  refreshA={refreshA}
+                />
+              ))}
+            </AnswerBodyAndAnswerFooter>
+          )}
         </AnswerSection>
-        <LoadMoreAnswersButton onClick={() => refreshA(100)}>
-          Load More Answers
-        </LoadMoreAnswersButton>
+        {answers.length > 2 ? (
+          <BorderlessButton onClick={() => refreshA(2)}>Collapse answers</BorderlessButton>
+        ) : (
+          <BorderlessButton onClick={() => refreshA(100)}>
+            See more answers
+          </BorderlessButton>
+        )}
       </EntireAnswerSection>
     </div>
   );
