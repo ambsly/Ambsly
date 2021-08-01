@@ -50,7 +50,7 @@ const LoadMoreAnswersButton = styled.button`
   cursor: pointer;
 `;
 
-const IndividualQuestion = ({ question }) => {
+const IndividualQuestion = ({ question, productName }) => {
   const [answers, setAnswers] = React.useState([]);
 
   React.useEffect(() => {
@@ -103,7 +103,11 @@ const IndividualQuestion = ({ question }) => {
         <QuestionBody key={question.question_id}>
           {`Q: ${question.question_body}`}
         </QuestionBody>
-        <QuestionFooter question={question} refreshA={refreshA} />
+        <QuestionFooter
+          question={question}
+          refreshA={refreshA}
+          productName={productName}
+        />
       </QuestionBodyAndQuestionFooter>
       <EntireAnswerSection>
         <AnswerSection>

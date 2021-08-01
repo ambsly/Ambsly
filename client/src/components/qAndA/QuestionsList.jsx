@@ -28,7 +28,13 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const QuestionsList = ({ questions, searchText, refreshQ, productId, productName }) => {
+const QuestionsList = ({
+  questions,
+  searchText,
+  refreshQ,
+  productId,
+  productName,
+}) => {
   const [isOpenQ, setIsOpenQ] = React.useState(false);
   const [currentQs, setCurrentQs] = React.useState([...questions]);
   // console.log('currentQs', currentQs);
@@ -48,7 +54,11 @@ const QuestionsList = ({ questions, searchText, refreshQ, productId, productName
     <Section>
       <QuestionSection>
         {questions.map((question, index) => (
-          <IndividualQuestion key={index} question={question} />
+          <IndividualQuestion
+            key={index}
+            question={question}
+            productName={productName}
+          />
         ))}
       </QuestionSection>
       <Button>More Answered Questions</Button>

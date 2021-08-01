@@ -21,7 +21,9 @@ const Span = styled.span`
   background-color: none;
 `;
 
-const QuestionFooter = ({ question, refreshA }) => {
+const QuestionFooter = ({
+  question, refreshA, productName,
+}) => {
   const [isOpenA, setIsOpenA] = React.useState(false);
   const [qHelpfulScore, setQHelpfulScore] = React.useState(question.question_helpfulness);
   const markQHelpful = () => {
@@ -52,6 +54,7 @@ const QuestionFooter = ({ question, refreshA }) => {
         }}
         question={question}
         refreshA={refreshA}
+        productName={productName}
       />
     </FooterSection>
   );

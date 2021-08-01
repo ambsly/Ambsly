@@ -83,7 +83,9 @@ const Button = styled.button`
   /* color: #8A9EA0; */
 `;
 
-const ModalAnswerForm = ({ open, onClose, question }) => {
+const ModalAnswerForm = ({
+  open, onClose, question, productName,
+}) => {
   if (!open) return null;
   const [formData, setFormData] = React.useState({
     questionId: question.question_id,
@@ -120,7 +122,7 @@ const ModalAnswerForm = ({ open, onClose, question }) => {
       <Overlay />
       <ModalForm>
         <Title>Submit Your Answer</Title>
-        <Subtitle>{`productName: ${question.question_body}`}</Subtitle>
+        <Subtitle>{`${productName}: ${question.question_body}`}</Subtitle>
         <form>
           <Label htmlFor="your-answer">
             Your Answer
