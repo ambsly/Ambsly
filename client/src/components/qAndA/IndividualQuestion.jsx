@@ -121,7 +121,7 @@ const IndividualQuestion = ({ question, productName }) => {
             ))}
           </AnswerBodyAndAnswerFooter>}
         </AnswerSection>
-        <LoadMoreAnswersButton>
+        <LoadMoreAnswersButton onClick={() => refreshA(100)}>
           Load More Answers
         </LoadMoreAnswersButton>
       </EntireAnswerSection>
