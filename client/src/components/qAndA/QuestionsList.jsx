@@ -28,10 +28,9 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const QuestionsList = ({ questions, searchText, refreshQ }) => {
+const QuestionsList = ({ questions, searchText, refreshQ, productId, productName }) => {
   const [isOpenQ, setIsOpenQ] = React.useState(false);
   const [currentQs, setCurrentQs] = React.useState([...questions]);
-  console.log('questions', questions);
   // console.log('currentQs', currentQs);
   // React.useEffect(() => {
   //   if (searchText.length >= 3) {
@@ -60,6 +59,8 @@ const QuestionsList = ({ questions, searchText, refreshQ }) => {
           setIsOpenQ(false);
           refreshQ();
         }}
+        productId={productId}
+        productName={productName}
       />
     </Section>
   );

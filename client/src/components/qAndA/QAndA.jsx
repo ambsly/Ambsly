@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import propTypes from 'prop-types';
+// import propTypes from 'prop-types';
 import QuestionsList from './QuestionsList';
 
 const QAndAModule = styled.div`
@@ -33,28 +33,42 @@ const SearchBar = styled.input`
   /* color: #B5B2B0; */
 `;
 
-const QAndA = ({ productId }) => {
+const QAndA = () => {
   const [questions, setQuestions] = React.useState([]);
   const [searchText, setSearchText] = React.useState('');
+  const [productId, setProductId] = React.useState(0);
+  const [productName, setProductName] = React.useState('');
 
   React.useEffect(() => {
+    // Get product
     axios
-      .get(`/qa/questions?product_id=${28010}&count=6`)
+      .get('/products?product_id=25171')
       .then((res) => {
-        console.log('USE EFFECT RES DATA', res.data);
-        // api returns already sorted by helpfulness?
-        setQuestions(res.data);
+        setProductId(res.data[4].id);
+        setProductName(res.data[4].name);
       })
       .catch((err) => {
         console.error(err);
       });
   }, []);
 
+  React.useEffect(() => {
+    // Get questions list
+    axios
+      .get(`/qa/questions?product_id=${productId}&count=4`)
+      .then((res) => {
+        // api returns already sorted by helpfulness?
+        setQuestions(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [productName]);
+
   const refreshQ = () => {
     axios
-      .get(`/qa/questions?product_id=${28010}&count=6`)
+      .get(`/qa/questions?product_id=${productId}&count=4`)
       .then((res) => {
-        console.log('USE EFFECT RES DATA', res.data);
         // api returns already sorted by helpfulness?
         setQuestions(res.data);
       })
@@ -74,17 +88,23 @@ const QAndA = ({ productId }) => {
           placeholder="Have a question? Search for answers..."
         />
       </Section>
-      <QuestionsList questions={questions} searchText={searchText} refreshQ={refreshQ} />
+      <QuestionsList
+        questions={questions}
+        searchText={searchText}
+        refreshQ={refreshQ}
+        productId={productId}
+        productName={productName}
+      />
     </QAndAModule>
   );
 };
 
-QAndA.defaultProps = {
-  productId: propTypes.number,
-};
+// QAndA.defaultProps = {
+//   productId: propTypes.number,
+// };
 
-QAndA.propTypes = {
-  productId: propTypes.number,
-};
+// QAndA.propTypes = {
+//   productId: propTypes.number,
+// };
 
 export default QAndA;

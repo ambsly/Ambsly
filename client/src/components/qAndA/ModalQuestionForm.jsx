@@ -74,10 +74,12 @@ const Button = styled.button`
   /* color: #8A9EA0; */
 `;
 
-const ModalQuestionForm = ({ open, onClose }) => {
+const ModalQuestionForm = ({
+  open, onClose, productId, productName,
+}) => {
   if (!open) return null;
   const [formData, setFormData] = React.useState({
-    product_id: 28010,
+    product_id: productId,
     body: '',
     name: '',
     email: '',
@@ -110,8 +112,7 @@ const ModalQuestionForm = ({ open, onClose }) => {
       <Overlay />
       <ModalForm>
         <Title>Ask Your Question</Title>
-        <Subtitle>About the {`productName`}</Subtitle>
-
+        <Subtitle>{`About the ${productName}`}</Subtitle>
         <form>
           <Label htmlFor="your-question">
             Your Question

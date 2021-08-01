@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import propTypes from 'prop-types';
+// import propTypes from 'prop-types';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -61,19 +61,19 @@ const AnswerFooter = ({ answer, refreshA }) => {
   );
 };
 
-AnswerFooter.defaultProps = {
-  answer: [],
-};
+// AnswerFooter.defaultProps = {
+//   answer: [],
+// };
 
-AnswerFooter.propTypes = {
-  answer: propTypes.arrayOf({
-    answer_id: propTypes.number,
-    answerer_name: propTypes.string,
-    body: propTypes.string,
-    date: propTypes.string,
-    helpfulness: propTypes.number,
-    photos: propTypes.array,
-  }),
-};
+// AnswerFooter.propTypes = {
+//   answer: propTypes.arrayOf({
+//     answer_id: propTypes.number,
+//     answerer_name: propTypes.string,
+//     body: propTypes.string,
+//     date: propTypes.string,
+//     helpfulness: propTypes.number,
+//     photos: propTypes.array,
+//   }),
+// };
 
 export default AnswerFooter;

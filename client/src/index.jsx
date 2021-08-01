@@ -38,7 +38,7 @@ function App() {
           <ProductDetails productData={product} />
           <Related />
           <Favorites />
-          <QAndA productId={productID} />
+          <QAndA />
           <RatingsAndReviews />
         </idContext.Provider>
       </ButtonState>
