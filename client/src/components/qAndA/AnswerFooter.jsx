@@ -43,7 +43,7 @@ const AnswerFooter = ({ answer, refreshA }) => {
     })
       .then((response) => {
         if (response.status === 204) {
-          refreshA();
+          refreshA(2);
         }
       })
       .catch((err) => console.error(err));

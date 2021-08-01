@@ -50,7 +50,7 @@ const QuestionFooter = ({
         open={isOpenA}
         onClose={() => {
           setIsOpenA(false);
-          refreshA();
+          refreshA(2);
         }}
         question={question}
         refreshA={refreshA}

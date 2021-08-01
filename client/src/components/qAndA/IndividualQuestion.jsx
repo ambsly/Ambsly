@@ -57,6 +57,7 @@ const IndividualQuestion = ({ question, productName }) => {
     axios.get('/qa/questions/:question_id/answers', {
       params: {
         question_id: question.question_id,
+        count: 2,
       },
     })
       .then((res) => {
@@ -75,10 +76,11 @@ const IndividualQuestion = ({ question, productName }) => {
       });
   }, []);
 
-  const refreshA = () => {
+  const refreshA = (count) => {
     axios.get('/qa/questions/:question_id/answers', {
       params: {
         question_id: question.question_id,
+        count,
       },
     })
       .then((res) => {
