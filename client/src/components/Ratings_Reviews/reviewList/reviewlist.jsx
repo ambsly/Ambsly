@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ReviewListItem from './reviewlistitem.jsx';
+import AddReviewModal from './addReviewModal.jsx';
 
 const Container = styled.div`
   display: flex;
@@ -28,8 +29,7 @@ const Button = styled.button`
 `;
 
 const ReviewList = ({ reviews }) => {
-  console.log('product on reviewList', reviews);
-  // let list = reviews.results.map((item) => <ReviewListItem item={item} />);
+  const [modalOpened, setModal] = useState(false);
   return (
     <Container>
       <ReviewSorter>
@@ -44,8 +44,9 @@ const ReviewList = ({ reviews }) => {
       {reviews.results.map((item) => <ReviewListItem key={item.review_id} item={item} />)}
       <ButtonWrapper>
         <Button>More Reviews</Button>
-        <Button>Add a Review   +</Button>
+        <Button onClick={() => setModal(true)}>Add a Review   +</Button>
       </ButtonWrapper>
+      <AddReviewModal open={modalOpened} onClose={() => setModal(false)} />
     </Container>
   );
 };

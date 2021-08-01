@@ -56,7 +56,7 @@ app.get('/reviews/meta', (req, res) => {
 app.post('/reviews', (req, res) => {
   axios.post('/reviews', req.body)
     .then((results) => {
-      res.send('gucci');
+      res.send(results);
     })
     .catch((err) => {
       res.send(err);
