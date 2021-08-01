@@ -61,13 +61,13 @@ const QuestionsList = ({
           />
         ))}
       </QuestionSection>
-      <Button>More Answered Questions</Button>
+      <Button onClick={() => refreshQ(100)}>More Answered Questions</Button>
       <Button onClick={() => setIsOpenQ(true)}>Add a Question +</Button>
       <ModalQuestionForm
         open={isOpenQ}
         onClose={() => {
           setIsOpenQ(false);
-          refreshQ();
+          refreshQ(4);
         }}
         productId={productId}
         productName={productName}

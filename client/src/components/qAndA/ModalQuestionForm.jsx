@@ -69,7 +69,7 @@ const Button = styled.button`
   padding: 10px;
   /* border: solid 1px #8A9EA0; */
   border: solid 1px;
-  border-radius: 5px;
+  border-radius: 2px;
   /* background-color: #FCFAF0; */
   /* color: #8A9EA0; */
 `;

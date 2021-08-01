@@ -65,9 +65,9 @@ const QAndA = () => {
       });
   }, [productName]);
 
-  const refreshQ = () => {
+  const refreshQ = (count) => {
     axios
-      .get(`/qa/questions?product_id=${productId}&count=4`)
+      .get(`/qa/questions?product_id=${productId}&count=${count}`)
       .then((res) => {
         // api returns already sorted by helpfulness?
         setQuestions(res.data);
