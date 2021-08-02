@@ -37,6 +37,12 @@ const QuestionFooter = ({
       })
       .catch((err) => console.error(err));
   };
+  if (isOpenA) {
+    document.documentElement.style.overflow = 'clip';
+  } else {
+    document.documentElement.style.overflow = 'scroll';
+  }
+  console.log('question footer/answer', document.documentElement.style.overflow);
   return (
     <FooterSection>
       Helpful?

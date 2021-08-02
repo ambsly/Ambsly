@@ -132,7 +132,7 @@ const ModalQuestionForm = ({
             Your email
             <Asterisk>*</Asterisk>
             <br />
-            <input type="text" maxLength="60" placeholder="Why did you like the product or not?" className="email" onChange={(e) => handleChange(e)} />
+            <input type="text" maxLength="60" placeholder="Example: jackson@email.com" className="email" onChange={(e) => handleChange(e)} />
             <br />
             <P>For authentication reasons, you will not be emailed.</P>
           </Label>
