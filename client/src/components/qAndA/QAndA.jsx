@@ -36,6 +36,7 @@ const SearchBar = styled.input`
 const QAndA = () => {
   const [questions, setQuestions] = React.useState([]);
   const [searchText, setSearchText] = React.useState('');
+  const [filteredQs, setFilteredQs] = React.useState([]);
   const [productId, setProductId] = React.useState(0);
   const [productName, setProductName] = React.useState('');
 
@@ -59,11 +60,28 @@ const QAndA = () => {
       .then((res) => {
         // api returns already sorted by helpfulness?
         setQuestions(res.data);
+        setFilteredQs(res.data);
       })
       .catch((err) => {
         console.error(err);
       });
   }, [productName]);
+
+  const filterQuestions = () => {
+    if (searchText.length >= 3) {
+      setFilteredQs(questions.filter((question) => {
+        const qBody = question.question_body.toLowerCase();
+        return qBody.includes(searchText.toLowerCase());
+      }));
+    } else {
+      setFilteredQs(questions);
+    }
+  };
+
+  React.useEffect(() => {
+    // Filter questions whenever searchText or questions are changed
+    filterQuestions();
+  }, [searchText, questions]);
 
   const refreshQ = (count) => {
     axios
@@ -89,7 +107,7 @@ const QAndA = () => {
         />
       </Section>
       <QuestionsList
-        questions={questions}
+        questions={filteredQs}
         searchText={searchText}
         refreshQ={refreshQ}
         productId={productId}

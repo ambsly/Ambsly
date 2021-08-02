@@ -30,26 +30,13 @@ const Button = styled.button`
 
 const QuestionsList = ({
   questions,
-  searchText,
+  // searchText,
   refreshQ,
   productId,
   productName,
 }) => {
   const [isOpenQ, setIsOpenQ] = React.useState(false);
-  const [currentQs, setCurrentQs] = React.useState([...questions]);
-  // console.log('currentQs', currentQs);
-  // React.useEffect(() => {
-  //   if (searchText.length >= 3) {
-  //     const filteredQs = questions.filter((question) => {
-  //       const qBody = question.question_body.toLowerCase();
-  //       return qBody.includes(searchText.toLowerCase());
-  //     });
-  //     setCurrentQs(filteredQs);
-  //   }
-  //   if (searchText.length < 3) {
-  //     setCurrentQs(questions);
-  //   }
-  // }, [searchText]);
+
   if (isOpenQ) {
     document.documentElement.style.overflow = 'clip';
   } else {
@@ -84,12 +71,10 @@ const QuestionsList = ({
 
 QuestionsList.defaultProps = {
   questions: [],
-  searchText: '',
 };
 
 QuestionsList.propTypes = {
   questions: propTypes.arrayOf(propTypes.object),
-  searchText: propTypes.string,
 };
 
 export default QuestionsList;
