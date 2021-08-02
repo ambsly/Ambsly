@@ -11,7 +11,9 @@ const Container = styled.div`
 
 const ModalForm = styled.div`
   position: fixed;
-  /* left: 50%; */
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, -30%);
   z-Index: 1000;
   /* background-color: #FCFAF0; */
   /* border: solid 2px #99B0B0; */

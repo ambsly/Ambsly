@@ -55,7 +55,6 @@ const QuestionsList = ({
   } else {
     document.documentElement.style.overflow = 'scroll';
   }
-  console.log('question list/question', document.documentElement.style.overflow);
   return (
     <Section>
       <QuestionSection>

@@ -42,7 +42,6 @@ const QuestionFooter = ({
   } else {
     document.documentElement.style.overflow = 'scroll';
   }
-  console.log('question footer/answer', document.documentElement.style.overflow);
   return (
     <FooterSection>
       Helpful?
