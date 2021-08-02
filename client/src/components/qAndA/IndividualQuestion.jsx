@@ -50,7 +50,7 @@ const BorderlessButton = styled.button`
   cursor: pointer;
 `;
 
-const IndividualQuestion = ({ question, productName }) => {
+const IndividualQuestion = ({ question, productName, isOpenQ }) => {
   const [answers, setAnswers] = React.useState([]);
 
   React.useEffect(() => {
@@ -111,6 +111,7 @@ const IndividualQuestion = ({ question, productName }) => {
           question={question}
           refreshA={refreshA}
           productName={productName}
+          isOpenQ={isOpenQ}
         />
       </QuestionBodyAndQuestionFooter>
       <EntireAnswerSection>

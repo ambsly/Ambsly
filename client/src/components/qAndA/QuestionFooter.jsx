@@ -22,7 +22,7 @@ const Span = styled.span`
 `;
 
 const QuestionFooter = ({
-  question, refreshA, productName,
+  question, refreshA, productName, isOpenQ,
 }) => {
   const [isOpenA, setIsOpenA] = React.useState(false);
   const [qHelpfulScore, setQHelpfulScore] = React.useState(question.question_helpfulness);
@@ -37,7 +37,7 @@ const QuestionFooter = ({
       })
       .catch((err) => console.error(err));
   };
-  if (isOpenA) {
+  if (isOpenA || isOpenQ) {
     document.documentElement.style.overflow = 'clip';
   } else {
     document.documentElement.style.overflow = 'scroll';

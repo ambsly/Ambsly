@@ -64,6 +64,7 @@ const QuestionsList = ({
             key={index}
             question={question}
             productName={productName}
+            isOpenQ={isOpenQ}
           />
         ))}
       </QuestionSection>
