@@ -102,11 +102,10 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
     const container = document.getElementById('gallery');
     container.style.overflow = 'hidden';
     let styles = {};
-    let styleObj = {};
 
     if (!zoom && e.type !== 'mouseleave') {
       setZoom(true);
-      styleObj = {
+      styles = {
         cursor: 'zoom-out',
         transform: 'scale(2.5)',
         transformOrigin: `${xPos}px ${yPos}px`,
@@ -115,14 +114,14 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
     } else {
       setFullViewIcon('✛');
       setZoom(false);
-      styleObj = {
+      styles = {
         cursor: 'zoom-in',
         transform: undefined,
         transformOrigin: undefined,
         zIndex: undefined,
       };
     }
-    styles = Object.assign(styles, styleObj);
+
     setStyle(styles);
   };
 

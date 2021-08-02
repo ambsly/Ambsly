@@ -25,14 +25,6 @@ backgroundColor: transparent;
 border: 1px solid black;
 `;
 
-const QtySelector = styled.select`
-width: 110px;
-height: 40px;
-padding: 10px 5px;
-backgroundColor: transparent;
-border: 1px solid black;
-`;
-
 const ProductSelection = ({ currentStyle }) => {
   const styleList = Object.values(currentStyle.skus);
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import ProductStyles from './productStyles.jsx';
 import ProductSelection from './productSelection.jsx';
+import ShareProduct from './shareProduct.jsx';
 import styled from 'styled-components';
 import { Facebook } from '@styled-icons/fa-brands/Facebook';
 import { Twitter } from '@styled-icons/fa-brands/Twitter';
@@ -11,15 +12,11 @@ margin-top: 50px;
 `;
 
 const Category = styled.div`
-font-size: 12px;
+font-size: 14px;
 `;
 
 const ProductName = styled.div`
 font-size: 32px;
-`;
-
-const Style = styled.div`
-font-size: 14px;
 `;
 
 const Price = styled.div`
@@ -42,7 +39,6 @@ const ProductOverview = ({ productData, currentStyle, styles, changeStyle }) => 
     <Container>
       <Category><i>{category} </i></Category>
       <ProductName><b>{name}</b></ProductName>
-      <Style>{styleName}</Style>
       <span
         style={{
           fontSize: '12px',
@@ -50,49 +46,11 @@ const ProductOverview = ({ productData, currentStyle, styles, changeStyle }) => 
       >[★★★★★ x,xxx ratings]</span>
       <br />
       <br />
-      <Price><b>${default_price}</b></Price>
+      <Price>${default_price}</Price>
       <br />
-      <br />
-      <br />
-      <span
-        style={{
-          fontSize: '14px',
-          marginLeft: '10px',
-        }}
-      >
-        <b>STYLES</b>
-        <br />
-      </span>
       <ProductStyles styles={styles} currentStyle={currentStyle} changeStyle={changeStyle} />
-
       <ProductSelection currentStyle={currentStyle} />
-      <br />
-      <div
-        className="share"
-        // style={{
-        //   position: 'absolute',
-        //   top: '500px',
-        //   width: '260px',
-        // }}
-      >
-        <span
-          style={{
-            fontSize: '14px',
-          }}
-        ><b>Share Item</b></span>
-        <Facebook size="24" style={{
-          margin: '10px',
-          cursor: 'pointer',
-        }}/>
-        <Twitter size="24" style={{
-          margin: '10px',
-          cursor: 'pointer',
-        }}/>
-        <Pinterest size="24" style={{
-          margin: '10px',
-          cursor: 'pointer',
-        }}/>
-      </div>
+      <ShareProduct />
     </Container>
   );
 };
