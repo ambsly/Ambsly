@@ -90,13 +90,13 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
     );
   }
 
-  const [expanded, setExpand] = useState(false);
+  const [zoom, setZoom] = useState(false);
   const [fullViewIcon, setFullViewIcon] = useState('✛');
   const [style, setStyle] = useState({
     cursor: 'zoom-in',
   });
 
-  const handleExpand = (e) => {
+  const handleZoom = (e) => {
     const xPos = (e.clientX - e.target.x);
     const yPos = (e.clientY - e.target.y);
     const container = document.getElementById('gallery');
@@ -104,8 +104,8 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
     let styles = {};
     let styleObj = {};
 
-    if (!expanded && e.type !== 'mouseleave') {
-      setExpand(true);
+    if (!zoom && e.type !== 'mouseleave') {
+      setZoom(true);
       styleObj = {
         cursor: 'zoom-out',
         transform: 'scale(2.5)',
@@ -113,7 +113,8 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
         zIndex: '1000',
       };
     } else {
-      setExpand(false);
+      setFullViewIcon('✛');
+      setZoom(false);
       styleObj = {
         cursor: 'zoom-in',
         transform: undefined,
@@ -132,7 +133,7 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
 
     if (fullViewIcon === '✛') {
       setFullViewIcon('✕');
-      setExpand(true);
+      setZoom(true);
       container.style.overflow = 'visible';
       styleObj = {
         cursor: 'zoom-out',
@@ -142,7 +143,7 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
       };
     } else {
       setFullViewIcon('✛');
-      setExpand(false);
+      setZoom(false);
       container.style.overflow = 'hidden';
       styleObj = {
         cursor: 'pointer',
@@ -164,12 +165,12 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
   return (
     <ImageContainer
       id="gallery"
-      onMouseLeave={handleExpand}
+      onMouseLeave={handleZoom}
     >
       <MainImage
         src={currentImage}
         alt=""
-        onClick={handleExpand}
+        onClick={handleZoom}
         style={style}
       />
       <ExpandButton

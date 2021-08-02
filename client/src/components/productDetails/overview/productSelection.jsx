@@ -12,6 +12,25 @@ const Button = styled.button`
 background: transparent;
 border: none;
 cursor: pointer;
+height: 40px;
+padding: 10px 5px;
+backgroundColor: transparent;
+border: 1px solid black;
+`;
+
+const DropDownSelector = styled.select`
+height: 40px;
+padding: 10px 5px;
+backgroundColor: transparent;
+border: 1px solid black;
+`;
+
+const QtySelector = styled.select`
+width: 110px;
+height: 40px;
+padding: 10px 5px;
+backgroundColor: transparent;
+border: 1px solid black;
 `;
 
 const ProductSelection = ({ currentStyle }) => {
@@ -75,15 +94,11 @@ const ProductSelection = ({ currentStyle }) => {
   return (
     <>
       <Container>
-        <select
+        <DropDownSelector
           name="size-selector"
           onChange={sizeSelected}
           style={{
             width: '120px',
-            height: '40px',
-            padding: '10px 5px',
-            backgroundColor: 'transparent',
-            border: '1px solid black',
           }}
         >
           <option defaultValue="SELECT SIZE" hidden>SELECT SIZE</option>
@@ -103,17 +118,13 @@ const ProductSelection = ({ currentStyle }) => {
               );
             }
           })}
-        </select>
-        <select
+        </DropDownSelector>
+        <DropDownSelector
           name="qty-selector"
           id="qty-selector"
           onChange={qtySelected}
           style={{
             width: '110px',
-            height: '40px',
-            padding: '10px 5px',
-            backgroundColor: 'transparent',
-            border: '1px solid black',
           }}
         >
           {/* {() => {
@@ -143,7 +154,7 @@ const ProductSelection = ({ currentStyle }) => {
               </option>
             );
           })}
-        </select>
+        </DropDownSelector>
       </Container>
       <br />
       <Container>
@@ -154,10 +165,6 @@ const ProductSelection = ({ currentStyle }) => {
           onClick={handleBagClick}
           style={{
             width: '185px',
-            height: '40px',
-            padding: '10px 5px',
-            backgroundColor: 'transparent',
-            border: '1px solid black',
             textAlign: 'center',
           }}
         >
@@ -170,10 +177,6 @@ const ProductSelection = ({ currentStyle }) => {
           onClick={handleFavoritedClick}
           style={{
             width: '45px',
-            height: '40px',
-            padding: '10px 5px',
-            backgroundColor: 'transparent',
-            border: '1px solid black',
           }}
         >
           {favorited}
