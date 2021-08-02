@@ -137,3 +137,7 @@ body {
   overflow: hidden;
   color: #f80;
 }
+
+html {
+  padding-left: calc(100vw - 100%);
+}

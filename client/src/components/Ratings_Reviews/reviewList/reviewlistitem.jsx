@@ -55,41 +55,44 @@ let ReportBtn = styled.button`
 `;
 
 const formatDate = (dateString) => {
-  const options = { year: "numeric", month: "long", day: "numeric" };
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
   return new Date(dateString).toLocaleDateString(undefined, options);
 };
 
-
 const ReviewListItem = ({ item }) => {
-  const [helpfulBtnContents, setHelpful] = useState(`Yes  (${item.helpfulness})`);
-  const [reportBtnContents, setReport] = useState('Report');
+  const [helpfulBtnContents, setHelpfulContents] = useState(`Yes  (${item.helpfulness})`);
+  const [reportBtnContents, setReportContents] = useState('Report');
 
   const markHelpful = () => {
-    axios.put(`/reviews/${item.review_id}/helpful`)
-      .then((result) => {
-        HelpfulBtn = styled.span`
-          margin-left: 7px;
-          font-size: small;
-        `;
-        setHelpful('Thank you for your response.');
-      })
-      .catch((err) => {
-        console.log('err');
-      });
+    if (helpfulBtnContents === `Yes  (${item.helpfulness})`) {
+      axios.put(`/reviews/${item.review_id}/helpful`)
+        .then((result) => {
+          HelpfulBtn = styled.span`
+            margin-left: 7px;
+            font-size: small;
+          `;
+          setHelpfulContents('Thank you for your response.');
+        })
+        .catch((err) => {
+          console.log('err');
+        });
+    }
   };
 
   const report = () => {
-    axios.put(`/reviews/${item.review_id}/report`)
-      .then((result) => {
-        ReportBtn = styled.span`
-          margin-left: 7px;
-          font-size: small;
-        `;
-        setReport('Reported Successfully');
-      })
-      .catch((err) => {
-        console.log('err');
-      });
+    if (reportBtnContents === 'Report') {
+      axios.put(`/reviews/${item.review_id}/report`)
+        .then((result) => {
+          ReportBtn = styled.span`
+            margin-left: 7px;
+            font-size: small;
+          `;
+          setReportContents('Reported Successfully');
+        })
+        .catch((err) => {
+          console.log('err');
+        });
+    }
   };
 
   return (

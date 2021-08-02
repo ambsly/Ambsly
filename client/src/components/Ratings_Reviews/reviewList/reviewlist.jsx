@@ -15,6 +15,11 @@ const ReviewSorter = styled.div`
   margin-bottom: 12px;
 `;
 
+const List = styled.div`
+  overflow: auto;
+  height: 500px;
+`;
+
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -30,6 +35,11 @@ const Button = styled.button`
 
 const ReviewList = ({ reviews }) => {
   const [modalOpened, setModal] = useState(false);
+  if (modalOpened) {
+    document.documentElement.style.overflow = 'clip';
+  } else {
+    document.documentElement.style.overflow = 'scroll';
+  }
   return (
     <Container>
       <ReviewSorter>
@@ -41,7 +51,9 @@ const ReviewList = ({ reviews }) => {
           <option>most upvoted</option>
         </select>
       </ReviewSorter>
-      {reviews.results.map((item) => <ReviewListItem key={item.review_id} item={item} />)}
+      <List>
+        {reviews.results.map((item) => <ReviewListItem key={item.review_id} item={item} />)}
+      </List>
       <ButtonWrapper>
         <Button>More Reviews</Button>
         <Button onClick={() => setModal(true)}>Add a Review   +</Button>
