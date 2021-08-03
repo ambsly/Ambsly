@@ -52,6 +52,25 @@ const BorderlessButton = styled.button`
 
 const IndividualQuestion = ({ question, productName, isOpenQ }) => {
   const [answers, setAnswers] = useState([]);
+  const [currentAnswers, setCurrentAnswers] = useState([]);
+  const [isMoreA, setIsMoreA] = useState(false);
+
+  const fetchAnswers = () => {
+    axios
+      .get('/qa/questions/:question_id/answers', {
+        params: {
+          question_id: question.question_id,
+          count: 50,
+        },
+      })
+      .then((res) => {
+        // Set answers
+        setAnswers(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
   const filterAnswers = (answersData) => {
     const sellerAnswers = answersData.filter(
@@ -62,41 +81,42 @@ const IndividualQuestion = ({ question, productName, isOpenQ }) => {
     );
     customerAnswers.sort(customerAnswers.helpfulness);
     const sortedAnswers = sellerAnswers.concat(customerAnswers);
-    setAnswers(sortedAnswers);
+    if (isMoreA) {
+      setCurrentAnswers(sortedAnswers);
+    } else {
+      setCurrentAnswers(sortedAnswers.slice(0, 2));
+    }
   };
 
-  useEffect(() => {
-    axios
-      .get('/qa/questions/:question_id/answers', {
-        params: {
-          question_id: question.question_id,
-          count: 2,
-        },
-      })
-      .then((res) => {
-        // Filter answers and set answers
-        filterAnswers(res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
+  useEffect(() => fetchAnswers(), []);
 
-  const refreshA = (count) => {
-    axios
-      .get('/qa/questions/:question_id/answers', {
-        params: {
-          question_id: question.question_id,
-          count,
-        },
-      })
-      .then((res) => {
-        // Filter answers and set answers
-        filterAnswers(res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+  useEffect(() => {
+    // Filter answers and set current answers
+    filterAnswers(answers);
+  }, [answers]);
+
+  const refreshA = () => {
+    fetchAnswers();
+  };
+
+  useEffect(refreshA, [question, isMoreA]);
+
+  const seeMoreOrLessA = () => {
+    let buttonMsg = '';
+    let setButtonBool = true;
+    if (!isMoreA) {
+      buttonMsg = 'See more answers';
+      setButtonBool = true;
+    } else if (isMoreA) {
+      buttonMsg = 'Collapse answers';
+      setButtonBool = false;
+    }
+
+    return answers.length > 0 ? (
+      <BorderlessButton onClick={() => setIsMoreA(setButtonBool)}>{buttonMsg}</BorderlessButton>
+    ) : (
+      <></>
+    );
   };
 
   return (
@@ -117,7 +137,7 @@ const IndividualQuestion = ({ question, productName, isOpenQ }) => {
           {answers.length > 0 && <A>A:&nbsp;</A>}
           {answers.length > 0 && (
             <AnswerBodyAndAnswerFooter>
-              {answers.map((answer, index) => (
+              {currentAnswers.map((answer, index) => (
                 <IndividualAnswer
                   key={index}
                   answer={answer}
@@ -127,13 +147,14 @@ const IndividualQuestion = ({ question, productName, isOpenQ }) => {
             </AnswerBodyAndAnswerFooter>
           )}
         </AnswerSection>
-        {answers.length > 2 ? (
-          <BorderlessButton onClick={() => refreshA(2)}>Collapse answers</BorderlessButton>
+        {/* {isMoreA && answers.length > 0 ? (
+          <BorderlessButton onClick={() => setIsMoreA(false)}>Collapse answers</BorderlessButton>
         ) : (
-          <BorderlessButton onClick={() => refreshA(100)}>
+          <BorderlessButton onClick={() => setIsMoreA(true)}>
             See more answers
           </BorderlessButton>
-        )}
+        )} */}
+        {seeMoreOrLessA()}
       </EntireAnswerSection>
     </div>
   );

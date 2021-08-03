@@ -84,7 +84,9 @@ const QAndA = () => {
 
   useEffect(() => {
     // Filter questions whenever searchText or questions are changed
-    filterQuestions();
+    // filterQuestions();
+    // Prevent sending requests too quickly
+    setTimeout(filterQuestions, 500);
   }, [searchText, questions]);
 
   const refreshQ = (count) => {
