@@ -41,7 +41,6 @@ const ShareProduct = () => {
   const [expandStyle, setExpanded] = useState([false, { color: "rgba(144,164,174)" }]);
 
   const isExpanded = () => {
-    console.log(expandStyle)
     if (!expandStyle[0]) {
       setExpanded([true, { color: "rgba(255,255,255)" }])
     } else {

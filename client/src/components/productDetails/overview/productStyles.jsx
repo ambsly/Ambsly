@@ -16,7 +16,7 @@ height: 50px;
 box-shadow: 0 0 3px;
 border-radius: 50%;
 object-fit: cover;
-transition: 0.4s;
+transition: 0.6s;
 opacity: 0.3;
 `;
 
@@ -40,7 +40,7 @@ const ProductStyles = ({ styles, currentStyle, changeStyle }) => {
                 alt=""
                 id={key}
                 key={key}
-                style={{ opacity: 1 }}
+                style={{ opacity: 1, boxShadow: '0 0 5px' }}
                 onClick={onStyleClick}
               />
             );
