@@ -26,9 +26,15 @@ function FavoriteCard({ cardInfo }) {
 
   return (
     <div className="card-container">
-      <button type="submit" onClick={removeFavorite}>Remove</button>
       <div className="card">
-        <img src={firstPhoto.thumbnail_url} alt="" className="cardImage" />
+        <div className="imagecard-container">
+          <button className="like-button" type="submit" onClick={removeFavorite}>
+            <span className="material-icons fav">
+              favorite
+            </span>
+          </button>
+          <img src={firstPhoto.thumbnail_url} alt="" className="cardImage" />
+        </div>
         <div className="productDetails">
           <div className="categoryName">{category}</div>
           <div className="productName">{name}</div>

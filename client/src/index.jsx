@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import RatingsAndReviews from './components/Ratings_Reviews/RatingsReviews.jsx';
@@ -9,7 +9,7 @@ import Modal from './components/relatedProducts/Modal.jsx';
 import Related from './components/relatedProducts/Related.jsx';
 import QAndA from './components/qAndA/QAndA';
 import ProductDetails from './components/productDetails/index.jsx';
-import GlobalStateProvider from './components/globalState.jsx';
+import GlobalStateProvider, { ProductsContext } from './components/globalState.jsx';
 
 export const idContext = React.createContext(0);
 
@@ -29,8 +29,6 @@ function App() {
       });
   }, []);
 
-  // console.log(productID, 'checking here in index');
-
   return (
     <div>
       <GlobalStateProvider>
@@ -38,8 +36,8 @@ function App() {
           <ProductDetails productData={product} />
           <Related />
           <Favorites />
-          {/* <QAndA productId={productID} />
-          <RatingsAndReviews /> */}
+          <QAndA productId={productID} />
+          <RatingsAndReviews />
         </idContext.Provider>
       </GlobalStateProvider>
     </div>

@@ -49,8 +49,8 @@ function Modal({
     compareArray[i] = [currentFeature, compareArray[i], cardFeature];
   }
 
-  console.log(cardFeatures);
-  console.log(currentFeatures);
+  // console.log(cardFeatures);
+  // console.log(currentFeatures);
 
   const modalCompares = compareArray.map((array) => (
     <tr>
