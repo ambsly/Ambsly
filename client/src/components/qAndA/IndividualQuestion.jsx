@@ -113,8 +113,7 @@ const IndividualQuestion = ({ question, productName, isOpenQ }) => {
       buttonMsg = 'Collapse answers';
       setButtonBool = false;
     }
-
-    return answers.length > 0 ? (
+    return answers.length > 2 ? (
       <BorderlessButton onClick={() => setIsMoreA(setButtonBool)}>{buttonMsg}</BorderlessButton>
     ) : (
       <></>
