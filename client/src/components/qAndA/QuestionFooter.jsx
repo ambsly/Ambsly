@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/forbid-prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -24,8 +24,8 @@ const Span = styled.span`
 const QuestionFooter = ({
   question, refreshA, productName, isOpenQ,
 }) => {
-  const [isOpenA, setIsOpenA] = React.useState(false);
-  const [qHelpfulScore, setQHelpfulScore] = React.useState(question.question_helpfulness);
+  const [isOpenA, setIsOpenA] = useState(false);
+  const [qHelpfulScore, setQHelpfulScore] = useState(question.question_helpfulness);
   const markQHelpful = () => {
     axios.put('/qa/questions/:question_id/helpful', {
       question_id: question.question_id,

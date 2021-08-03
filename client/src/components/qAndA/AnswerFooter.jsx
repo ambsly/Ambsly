@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 // import propTypes from 'prop-types';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -21,7 +21,7 @@ const Span = styled.span`
 `;
 
 const AnswerFooter = ({ answer, refreshA }) => {
-  const [aHelpfulScore, setAHelpfulScore] = React.useState(answer.helpfulness);
+  const [aHelpfulScore, setAHelpfulScore] = useState(answer.helpfulness);
   const formatDate = (string) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(string).toLocaleDateString([], options);

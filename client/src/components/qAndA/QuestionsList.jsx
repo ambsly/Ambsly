@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-array-index-key */
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 import IndividualQuestion from './IndividualQuestion';
@@ -35,7 +35,7 @@ const QuestionsList = ({
   productId,
   productName,
 }) => {
-  const [isOpenQ, setIsOpenQ] = React.useState(false);
+  const [isOpenQ, setIsOpenQ] = useState(false);
 
   if (isOpenQ) {
     document.documentElement.style.overflow = 'clip';

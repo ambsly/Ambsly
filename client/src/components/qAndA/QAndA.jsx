@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 // import propTypes from 'prop-types';
@@ -34,13 +34,13 @@ const SearchBar = styled.input`
 `;
 
 const QAndA = () => {
-  const [questions, setQuestions] = React.useState([]);
-  const [searchText, setSearchText] = React.useState('');
-  const [filteredQs, setFilteredQs] = React.useState([]);
-  const [productId, setProductId] = React.useState(0);
-  const [productName, setProductName] = React.useState('');
+  const [questions, setQuestions] = useState([]);
+  const [searchText, setSearchText] = useState('');
+  const [filteredQs, setFilteredQs] = useState([]);
+  const [productId, setProductId] = useState(0);
+  const [productName, setProductName] = useState('');
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Get product
     axios
       .get('/products?product_id=25171')
@@ -53,7 +53,7 @@ const QAndA = () => {
       });
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Get questions list
     axios
       .get(`/qa/questions?product_id=${productId}&count=4`)
@@ -78,7 +78,7 @@ const QAndA = () => {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Filter questions whenever searchText or questions are changed
     filterQuestions();
   }, [searchText, questions]);

@@ -3,7 +3,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/forbid-prop-types */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
@@ -51,13 +51,13 @@ const BorderlessButton = styled.button`
 `;
 
 const IndividualQuestion = ({ question, productName, isOpenQ }) => {
-  const [answers, setAnswers] = React.useState([]);
+  const [answers, setAnswers] = useState([]);
 
-  const filterAnswers = (answers) => {
-    const sellerAnswers = answers.filter(
+  const filterAnswers = (answersData) => {
+    const sellerAnswers = answersData.filter(
       (answer) => answer.answerer_name.toLowerCase() === 'seller',
     );
-    const customerAnswers = answers.filter(
+    const customerAnswers = answersData.filter(
       (answer) => answer.answerer_name.toLowerCase() !== 'seller',
     );
     customerAnswers.sort(customerAnswers.helpfulness);
@@ -65,7 +65,7 @@ const IndividualQuestion = ({ question, productName, isOpenQ }) => {
     setAnswers(sortedAnswers);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     axios
       .get('/qa/questions/:question_id/answers', {
         params: {

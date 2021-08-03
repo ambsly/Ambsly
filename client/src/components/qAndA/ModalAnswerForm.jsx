@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -89,7 +89,7 @@ const ModalAnswerForm = ({
   open, onClose, question, productName,
 }) => {
   if (!open) return null;
-  const [formData, setFormData] = React.useState({
+  const [formData, setFormData] = useState({
     questionId: question.question_id,
     body: '',
     name: '',
