@@ -145,7 +145,6 @@ app.put('/qa/answers/:answer_id/report', (req, res) => {
 });
 
 app.post('/qa/questions', (req, res) => {
-  console.log('POST request made');
   axios.post('/qa/questions', req.body)
     .then((response) => res.status(201).send(response.data))
     .catch((err) => res.status(400).send(err));
