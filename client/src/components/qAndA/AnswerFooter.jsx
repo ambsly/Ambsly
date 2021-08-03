@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import propTypes from 'prop-types';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -48,6 +48,9 @@ const AnswerFooter = ({ answer, refreshA }) => {
       })
       .catch((err) => console.error(err));
   };
+
+  useEffect(() => setAHelpfulScore(answer.helpfulness), [answer]);
+
   return (
     <FooterSection>
       {`by ${answer.answerer_name}, ${formatDate(answer.date)} | Helpful?`}
