@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import StarRatings from 'react-star-ratings';
 
 const Container = styled.div`
   border-style: solid;
   border-width: 1px 0 1px 0;
-  margin: 1px;
+  margin-bottom: -1px;
   padding: 4px 16px 4px 16px;
   width: 700px;
 `;
@@ -98,7 +99,14 @@ const ReviewListItem = ({ item }) => {
   return (
     <Container>
       <FirstLineWrapper>
-        <div>★★★★</div>
+        <StarRatings
+          rating={item.rating}
+          starRatedColor="gold"
+          starDimension="15px"
+          starSpacing="0"
+          numberOfStars={5}
+          name="rating"
+        />
         <div>{item.reviewer_name}</div>
       </FirstLineWrapper>
       <SecondLineWrapper>
