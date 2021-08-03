@@ -60,7 +60,7 @@ const IndividualQuestion = ({ question, productName, isOpenQ }) => {
       .get('/qa/questions/:question_id/answers', {
         params: {
           question_id: question.question_id,
-          count: 50,
+          count: 10,
         },
       })
       .then((res) => {
@@ -99,7 +99,9 @@ const IndividualQuestion = ({ question, productName, isOpenQ }) => {
     fetchAnswers();
   };
 
-  useEffect(refreshA, [question, isMoreA]);
+  useEffect(refreshA, [question]);
+
+  useEffect(() => filterAnswers(answers), [isMoreA]);
 
   const seeMoreOrLessA = () => {
     let buttonMsg = '';

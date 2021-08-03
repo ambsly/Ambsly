@@ -56,7 +56,7 @@ const QuestionsList = ({
         ))}
       </QuestionSection>
       <Button onClick={() => {
-        refreshQ(50);
+        refreshQ(20);
         setIsMoreQ(true);
       }}
       >
@@ -68,7 +68,7 @@ const QuestionsList = ({
         onClose={() => {
           setIsOpenQ(false);
           if (isMoreQ) {
-            refreshQ(50);
+            refreshQ(20);
           } else {
             refreshQ(4);
           }

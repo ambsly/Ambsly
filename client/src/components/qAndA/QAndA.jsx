@@ -57,7 +57,7 @@ const QAndA = () => {
   useEffect(() => {
     // Get questions list
     axios
-      .get(`/qa/questions?product_id=${productId}&count=50`)
+      .get(`/qa/questions?product_id=${productId}&count=20`)
       .then((res) => {
         setQuestions(res.data);
         setFilteredQs(res.data.slice(0, 4));
@@ -86,7 +86,7 @@ const QAndA = () => {
     // Filter questions whenever searchText or questions are changed
     // filterQuestions();
     // Prevent sending requests too quickly
-    setTimeout(filterQuestions, 500);
+    setTimeout(filterQuestions, 300);
   }, [searchText, questions]);
 
   const refreshQ = (count) => {
