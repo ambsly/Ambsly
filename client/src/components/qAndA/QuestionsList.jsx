@@ -34,6 +34,7 @@ const QuestionsList = ({
   productId,
   productName,
   setIsMoreQ,
+  isMoreQ,
 }) => {
   const [isOpenQ, setIsOpenQ] = useState(false);
 
@@ -54,13 +55,23 @@ const QuestionsList = ({
           />
         ))}
       </QuestionSection>
-      <Button onClick={() => setIsMoreQ(true)}>More Answered Questions</Button>
+      <Button onClick={() => {
+        refreshQ(50);
+        setIsMoreQ(true);
+      }}
+      >
+        More Answered Questions
+      </Button>
       <Button onClick={() => setIsOpenQ(true)}>Add a Question +</Button>
       <ModalQuestionForm
         open={isOpenQ}
         onClose={() => {
           setIsOpenQ(false);
-          refreshQ(4);
+          if (isMoreQ) {
+            refreshQ(50);
+          } else {
+            refreshQ(4);
+          }
         }}
         productId={productId}
         productName={productName}

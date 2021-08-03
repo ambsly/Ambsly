@@ -116,6 +116,7 @@ const QAndA = () => {
         refreshQ={refreshQ}
         productId={productId}
         productName={productName}
+        isMoreQ={isMoreQ}
         setIsMoreQ={setIsMoreQ}
       />
     </QAndAModule>
