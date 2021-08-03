@@ -53,6 +53,18 @@ const BorderlessButton = styled.button`
 const IndividualQuestion = ({ question, productName, isOpenQ }) => {
   const [answers, setAnswers] = React.useState([]);
 
+  const filterAnswers = (answers) => {
+    const sellerAnswers = answers.filter(
+      (answer) => answer.answerer_name.toLowerCase() === 'seller',
+    );
+    const customerAnswers = answers.filter(
+      (answer) => answer.answerer_name.toLowerCase() !== 'seller',
+    );
+    customerAnswers.sort(customerAnswers.helpfulness);
+    const sortedAnswers = sellerAnswers.concat(customerAnswers);
+    setAnswers(sortedAnswers);
+  };
+
   React.useEffect(() => {
     axios
       .get('/qa/questions/:question_id/answers', {
@@ -62,15 +74,8 @@ const IndividualQuestion = ({ question, productName, isOpenQ }) => {
         },
       })
       .then((res) => {
-        const sellerAnswers = res.data.filter(
-          (answer) => answer.answerer_name.toLowerCase() === 'seller'
-        );
-        const customerAnswers = res.data.filter(
-          (answer) => answer.answerer_name.toLowerCase() !== 'seller'
-        );
-        customerAnswers.sort(customerAnswers.helpfulness);
-        const sortedAnswers = sellerAnswers.concat(customerAnswers);
-        setAnswers(sortedAnswers);
+        // Filter answers and set answers
+        filterAnswers(res.data);
       })
       .catch((err) => {
         console.error(err);
@@ -86,15 +91,8 @@ const IndividualQuestion = ({ question, productName, isOpenQ }) => {
         },
       })
       .then((res) => {
-        const sellerAnswers = res.data.filter(
-          (answer) => answer.answerer_name.toLowerCase() === 'seller'
-        );
-        const customerAnswers = res.data.filter(
-          (answer) => answer.answerer_name.toLowerCase() !== 'seller'
-        );
-        customerAnswers.sort(customerAnswers.helpfulness);
-        const sortedAnswers = sellerAnswers.concat(customerAnswers);
-        setAnswers(sortedAnswers);
+        // Filter answers and set answers
+        filterAnswers(res.data);
       })
       .catch((err) => {
         console.error(err);
