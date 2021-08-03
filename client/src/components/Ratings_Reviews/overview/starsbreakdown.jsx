@@ -1,7 +1,12 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const StarList = styled.div`
+  margin-bottom: 25px;
+`;
 
 const StarsBreakdown = ( {ratings, totalRatings} ) => (
-  <>
+  <StarList>
     <div>
       <label htmlFor="5starbar">5  stars</label>
       {'  '}
@@ -27,7 +32,7 @@ const StarsBreakdown = ( {ratings, totalRatings} ) => (
       {'  '}
       <meter className="1starbar" min="0" max={totalRatings.toString()} value={ratings[1]} />
     </div>
-  </>
+  </StarList>
 );
 
 export default StarsBreakdown;

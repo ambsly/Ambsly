@@ -6,27 +6,28 @@ import StarsBreakdown from './starsbreakdown.jsx';
 import CharacteristicsBreakdown from './characteristics.jsx';
 
 const Container = styled.div`
-  /* display: flex;
-  flex-direction: column; */
+  display: flex;
+  flex-direction: column;
   font-size: large;
   margin-left: 15px;
-  padding: 5px;
   /* border: 0.5px solid;
   border-radius: 3px; */
 `;
 
 const RatingWrapper = styled.div`
   display: flex;
+  /* margin-bottom: 25px; */
 `;
 
 const Rating = styled.div`
   display: inline-block;
-  font-size: x-large;
-  padding: 0 3px 8px 0;
+  font-size: xx-large;
+  padding-right: 3px;
 `;
 
 const Recommends = styled.div`
   padding-bottom: 6px;
+  margin: 25px 0px;
 `;
 
 const Overview = ({ metaData }) => {
