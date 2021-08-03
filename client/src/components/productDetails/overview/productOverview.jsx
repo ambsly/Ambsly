@@ -1,7 +1,6 @@
 import React from 'react';
 import ProductStyles from './productStyles.jsx';
 import ProductSelection from './productSelection.jsx';
-import ShareProduct from './shareProduct.jsx';
 import styled from 'styled-components';
 import { Facebook } from '@styled-icons/fa-brands/Facebook';
 import { Twitter } from '@styled-icons/fa-brands/Twitter';
@@ -50,7 +49,6 @@ const ProductOverview = ({ productData, currentStyle, styles, changeStyle }) => 
       <br />
       <ProductStyles styles={styles} currentStyle={currentStyle} changeStyle={changeStyle} />
       <ProductSelection currentStyle={currentStyle} />
-      <ShareProduct />
     </Container>
   );
 };

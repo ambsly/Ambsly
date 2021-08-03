@@ -3,18 +3,18 @@ import styled from 'styled-components';
 
 const ImageContainer = styled.div`
 display: flex;
-flex-basis: 625px;
-height: 500px;
+flex-basis: 700px;
+height: 560px;
 position: relative;
 overflow: hidden;
-margin: 25px;
+margin: 25px 25px 0px 25px;
 box-shadow: 0 0 3px;
 `;
 
 const MainImage = styled.img`
 position: absolute;
-width: 625px;
-height: 500px;
+width: 700px;
+height: 560px;
 object-fit: cover;
 transition: 0.4s linear;
 `;
@@ -38,15 +38,15 @@ left: 10%;
 const ScrollBackground = styled.div`
 position: absolute;
 height: 80px;
-width: 625px;
-top: 420px;
+width: 700px;
+top: 480px;
 background-color: black;
 opacity: 0.2;
 `;
 
 const ScrollMenu = styled.div`
 position: relative;
-top: 210px;
+top: 240px;
 max-width: 525px;
 margin: auto;
 overflow-x: auto;

@@ -1,9 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import ProductDisplay from './display/productDisplay.jsx';
 import ProductOverview from './overview/productOverview.jsx';
 import ProductDescription from './description/productDescription.jsx';
+import ShareProduct from './shareProduct.jsx';
+
+const TopContainer = styled.div`
+display: flex;
+justify-content: space-between;
+margin: auto;
+width: 1000px;
+`;
 
 const Container = styled.div`
 display: flex;
@@ -51,7 +59,7 @@ const ProductDetails = ({ productData }) => {
 
   return (
     <>
-      <Container className="productDetails">
+      <TopContainer>
         <ProductDisplay
           currentStyle={currentStyle}
           mainImageKey={mainImageKey}
@@ -63,8 +71,11 @@ const ProductDetails = ({ productData }) => {
           styles={styles}
           changeStyle={changeStyle}
         />
-      </Container>
+      </TopContainer>
       <br />
+      <Container>
+        <ShareProduct />
+      </Container>
       <Container>
         <ProductDescription
           productData={productData}

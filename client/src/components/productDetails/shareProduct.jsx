@@ -5,7 +5,8 @@ import { Twitter } from '@styled-icons/fa-brands/Twitter';
 import { Pinterest } from '@styled-icons/fa-brands/Pinterest';
 
 const Container = styled.div`
-margin-top: 25px;
+margin-left: 25px;
+margin-bottom: 25px;
 transition: 0.6s;
 border-radius: 50%;
 background-color: rgba(144, 164, 174, 0.2);
@@ -25,7 +26,7 @@ const Share = styled.span`
 display: inline-block;
 font-size: 12px;
 margin-left: 3px;
-margin-top: 13px;
+margin-top: 12.5px;
 `;
 
 const Icon = styled.span`

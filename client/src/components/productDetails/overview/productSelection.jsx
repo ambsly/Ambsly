@@ -119,12 +119,6 @@ const ProductSelection = ({ currentStyle }) => {
             width: '110px',
           }}
         >
-          {/* {() => {
-            console.log('hello');
-            if ({ size } === 'SELECT SIZE') {
-              return <option value="QTY" defaultValue disabled hidden>QTY</option>;
-            }
-          }} */}
           <option defaultValue="QTY" hidden>QTY</option>
           {qtyRange.map((value, key) => {
             if ({ size } === 'Out of Stock') {
