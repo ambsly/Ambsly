@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const Container = styled.div`
   /* display: flex; */
@@ -30,6 +31,11 @@ const ModalForm = styled.div`
   padding: 30px;
   width: 720px;
   min-width: 30%;
+`;
+
+const Heading = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const Title = styled.div`
@@ -78,15 +84,21 @@ const ReviewBody = styled.textarea`
   min-width: 70%;
 `;
 
+const CloseBtn = styled.button`
+  width: 25px;
+  height: auto;
+  align-self: flex-end;
+`;
+
 // handle submit
 // state will be an obj with username: '', other placeholders
 // then on each field input, state will update on Change to populate empty strings
 // that state obj will be packaged up and sent in an axios.post
 
-// also include x on top right in case they dont' wanna submit review
 const AddReviewModal = ({ open, onClose }) => {
-  const [reviewInput, setReviewInput] = useState({
-    product_id: null,
+  const [recommendedInput, setRecommendedInput] = useState(true);
+  const [reviewInputs, setReviewInputs] = useState({
+    product_id: 25167,
     rating: null,
     summary: '',
     body: '',
@@ -94,46 +106,98 @@ const AddReviewModal = ({ open, onClose }) => {
     name: '',
     email: '',
     photos: [],
-    characteristics: {},
+    characteristics: {
+      84504: 5, 84505: 5, 84506: 5, 84507: 5,
+    },
   });
 
-  const handleInputChange = (event) => {
-    console.log(event);
+  const handleTextInputChange = (e) => {
+    let { id, value } = e.target;
+    if (id === 'rating') {
+      value = Number(value);
+    }
+    setReviewInputs((prevState) => (
+      {
+        ...prevState,
+        [id]: value,
+      }
+    ));
+    console.log(reviewInputs);
   };
 
-  // setReviewInput({ [e.target.name]: e.target.value });
+  const handleRecommendInputChange = (e) => {
+    if (e.target.id === 'no') {
+      setRecommendedInput(false);
+    } else if (e.target.id === 'yes') {
+      setRecommendedInput(true);
+    }
+    setReviewInputs((prevState) => ({
+      ...prevState,
+      recommend: recommendedInput,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    // if all fields filled out properly, then submit (& close)
+    // tomorrow: fix server side so it res.sends success only on 200 or 201 whatever
+    // for other status codes send as error so i can handle in catch block
+
+    // what to work on: change review button text once submitted
+    // star rating
+    // use context to share characteristic id's from metadata
+    // dynamically render product name based on use context from product GET
+    e.preventDefault();
+    axios.post('/reviews', reviewInputs)
+      .then((results) => {
+        if (results.data.name !== 'Error') {
+          submitBtnText = 'Review Submitted!';
+          setTimeout(() => {
+            onClose();
+          }, 1500);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  let submitBtnText = 'Submit';
+
   if (!open) return null;
   return ReactDOM.createPortal(
     <Container>
       <Overlay />
       <ModalForm>
-        <Title>Write a Review</Title>
-        <Subtitle>{`productName`}</Subtitle>
+        <Heading>
+          <CloseBtn onClick={onClose}>x</CloseBtn>
+          <Title>Write a Review</Title>
+          <Subtitle>productName</Subtitle>
+        </Heading>
         <form>
           <Label htmlFor="rating">Rating:</Label>
-          <Input type="number" min="1" max="5" id="rating" onChange={(e) => handleInputChange(e)} />
+          <Input type="number" min="1" max="5" id="rating" onChange={handleTextInputChange} required />
 
-          <Label htmlFor="title">Title:</Label>
-          <ReviewTitleInput type="text" id="title" onChange={handleInputChange} />
+          <Label htmlFor="summary">Title:</Label>
+          <ReviewTitleInput type="text" id="summary" onChange={handleTextInputChange} required />
 
-          <Label htmlFor="summary">Review (50 - 1000 characters):</Label>
-          <ReviewBody required minLength="50" maxLength="1000" id="summary" />
+          <Label htmlFor="body">Review (50 - 1000 characters):</Label>
+          <ReviewBody required minLength="50" maxLength="1000" id="body" onChange={handleTextInputChange} required />
 
           <div style={{ marginTop: '20px' }}>Would you recommend this product to a friend?</div>
           <label htmlFor="yes">Yes</label>
-          <RadioInput type="radio" id="yes" name="recommend" />
+          <RadioInput type="radio" id="yes" name="recommend" onClick={handleRecommendInputChange} />
 
           <label htmlFor="no">No</label>
-          <RadioInput type="radio" id="no" name="recommend" />
+          <RadioInput type="radio" id="no" name="recommend" onClick={handleRecommendInputChange} />
 
-          <Label htmlFor="username">Your Name:</Label>
-          <Input type="text" id="username" />
+          <Label htmlFor="name">Your Name:</Label>
+          <Input type="text" id="name" onChange={handleTextInputChange} required />
 
           <Label htmlFor="email">Email:</Label>
-          <Input type="email" id="email" />
+          <Input type="email" id="email" onChange={handleTextInputChange} required />
 
           <Label className="button" />
-          <button onClick={onClose} type="submit">Post</button>
+          <button onClick={handleSubmit} type="submit">{submitBtnText}</button>
 
         </form>
       </ModalForm>
