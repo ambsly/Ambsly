@@ -39,6 +39,7 @@ const QAndA = () => {
   const [filteredQs, setFilteredQs] = useState([]);
   const [productId, setProductId] = useState(0);
   const [productName, setProductName] = useState('');
+  const [isMoreQ, setIsMoreQ] = useState(false);
 
   useEffect(() => {
     // Get product
@@ -56,16 +57,17 @@ const QAndA = () => {
   useEffect(() => {
     // Get questions list
     axios
-      .get(`/qa/questions?product_id=${productId}&count=4`)
+      .get(`/qa/questions?product_id=${productId}&count=50`)
       .then((res) => {
-        // api returns already sorted by helpfulness?
         setQuestions(res.data);
-        setFilteredQs(res.data);
+        setFilteredQs(res.data.slice(0, 4));
       })
       .catch((err) => {
         console.error(err);
       });
   }, [productName]);
+
+  useEffect(() => setFilteredQs(questions), [isMoreQ]);
 
   const filterQuestions = () => {
     if (searchText.length >= 3) {
@@ -73,8 +75,10 @@ const QAndA = () => {
         const qBody = question.question_body.toLowerCase();
         return qBody.includes(searchText.toLowerCase());
       }));
-    } else {
+    } else if (isMoreQ) {
       setFilteredQs(questions);
+    } else {
+      setFilteredQs(questions.slice(0, 4));
     }
   };
 
@@ -112,6 +116,7 @@ const QAndA = () => {
         refreshQ={refreshQ}
         productId={productId}
         productName={productName}
+        setIsMoreQ={setIsMoreQ}
       />
     </QAndAModule>
   );

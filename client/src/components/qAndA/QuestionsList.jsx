@@ -30,10 +30,10 @@ const Button = styled.button`
 
 const QuestionsList = ({
   questions,
-  // searchText,
   refreshQ,
   productId,
   productName,
+  setIsMoreQ,
 }) => {
   const [isOpenQ, setIsOpenQ] = useState(false);
 
@@ -54,7 +54,7 @@ const QuestionsList = ({
           />
         ))}
       </QuestionSection>
-      <Button onClick={() => refreshQ(100)}>More Answered Questions</Button>
+      <Button onClick={() => setIsMoreQ(true)}>More Answered Questions</Button>
       <Button onClick={() => setIsOpenQ(true)}>Add a Question +</Button>
       <ModalQuestionForm
         open={isOpenQ}
