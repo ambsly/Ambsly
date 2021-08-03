@@ -18,6 +18,7 @@ const Container = styled.div`
 
 const Header = styled.div`
   font-size: 24px;
+  margin-bottom: 8px;
 `;
 
 const RatingsAndReviews = () => {
