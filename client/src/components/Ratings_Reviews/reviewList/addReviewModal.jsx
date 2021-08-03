@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  /* display: flex;
-  justify-content: center; */
+  /* display: flex; */
+  /* justify-content: center; */
 `;
 
 const Overlay = styled.div`
@@ -44,6 +44,20 @@ const Subtitle = styled.div`
   margin-bottom: 8px;
 `;
 
+const Label = styled.label`
+  display: block;
+  margin-top: 20px;
+`;
+
+const ReviewTitleInput = styled.input`
+  overflow: hidden;
+  text-align: left;
+  padding: 5px 5px 5px 10px;
+  margin: 8px 0 8px 0;
+  width: 400px;
+  font-size: 18px;
+`;
+
 const Input = styled.input`
   overflow: hidden;
   text-align: left;
@@ -52,7 +66,7 @@ const Input = styled.input`
 `;
 
 const RadioInput = styled.input`
-  margin: 8px 30px 0px 6px;
+  margin: 8px 25px 0px 6px;
 `;
 
 const ReviewBody = styled.textarea`
@@ -64,11 +78,6 @@ const ReviewBody = styled.textarea`
   min-width: 70%;
 `;
 
-const Label = styled.label`
-  display: block;
-  margin-top: 20px;
-`;
-
 // handle submit
 // state will be an obj with username: '', other placeholders
 // then on each field input, state will update on Change to populate empty strings
@@ -76,6 +85,23 @@ const Label = styled.label`
 
 // also include x on top right in case they dont' wanna submit review
 const AddReviewModal = ({ open, onClose }) => {
+  const [reviewInput, setReviewInput] = useState({
+    product_id: null,
+    rating: null,
+    summary: '',
+    body: '',
+    recommend: null,
+    name: '',
+    email: '',
+    photos: [],
+    characteristics: {},
+  });
+
+  const handleInputChange = (event) => {
+    console.log(event);
+  };
+
+  // setReviewInput({ [e.target.name]: e.target.value });
   if (!open) return null;
   return ReactDOM.createPortal(
     <Container>
@@ -85,16 +111,15 @@ const AddReviewModal = ({ open, onClose }) => {
         <Subtitle>{`productName`}</Subtitle>
         <form>
           <Label htmlFor="rating">Rating:</Label>
-          <Input type="number" min="1" max="5" id="rating" />
+          <Input type="number" min="1" max="5" id="rating" onChange={(e) => handleInputChange(e)} />
 
           <Label htmlFor="title">Title:</Label>
-          <Input type="text" id="title" />
+          <ReviewTitleInput type="text" id="title" onChange={handleInputChange} />
 
           <Label htmlFor="summary">Review (50 - 1000 characters):</Label>
           <ReviewBody required minLength="50" maxLength="1000" id="summary" />
 
-          <div>Would you recommend this product?</div>
-          <br />
+          <div style={{ marginTop: '20px' }}>Would you recommend this product to a friend?</div>
           <label htmlFor="yes">Yes</label>
           <RadioInput type="radio" id="yes" name="recommend" />
 
