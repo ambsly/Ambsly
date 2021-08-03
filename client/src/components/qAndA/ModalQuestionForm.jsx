@@ -97,9 +97,10 @@ const ModalQuestionForm = ({
     // POST request
     // onClose --> refreshQ
     e.preventDefault();
+    const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.([a-zA-Z0-9-]+)*$/;
     if (formData.body.length === 0 || formData.name.length === 0 || formData.email.length === 0) {
       alert('Please fill in the required fields.');
-    } else {
+    } else if (formData.email.match(validRegex)) {
       axios.post('/qa/questions', formData)
         .then((response) => {
           if (response.status === 201) {
@@ -107,6 +108,8 @@ const ModalQuestionForm = ({
           }
         })
         .catch((err) => console.error(err));
+    } else {
+      alert('Please enter a valid email address.');
     }
   };
   return ReactDOM.createPortal(
