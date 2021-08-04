@@ -17,6 +17,8 @@ const Container = styled.div`
 const RatingWrapper = styled.div`
   display: flex;
   /* margin-bottom: 25px; */
+  /* border-bottom: 1px solid;
+  border-color: rgb(238, 238, 238); */
 `;
 
 const Rating = styled.div`
@@ -28,6 +30,8 @@ const Rating = styled.div`
 const Recommends = styled.div`
   padding-bottom: 6px;
   margin: 25px 0px;
+  border-bottom: 1px solid;
+  border-color: rgb(238, 238, 238);
 `;
 
 let totalRatingsCount = 0;

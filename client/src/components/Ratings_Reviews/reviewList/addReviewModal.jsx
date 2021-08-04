@@ -20,6 +20,8 @@ const Overlay = styled.div`
 
 const ModalForm = styled.div`
   position: fixed;
+  /* overflow: scroll !important; */
+  /* max-height: 80%; */
   left: 50%;
   top: 30%;
   transform: translate(-50%, -30%);
@@ -79,7 +81,7 @@ const ReviewBody = styled.textarea`
   overflow: auto;
   padding: 5px 5px 5px 10px;
   margin: 8px 0 8px 0;
-  height: 160px;
+  height: 120px;
   width: 660px;
   min-width: 70%;
 `;
