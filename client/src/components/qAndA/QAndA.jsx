@@ -48,7 +48,6 @@ const QAndA = () => {
     axios
       .get(`/products?product_id=${productId}`)
       .then((res) => {
-        console.log('res.data now', res.data);
         setProductId(res.data[4].id);
         setProductName(res.data[4].name);
       })
