@@ -45,11 +45,12 @@ const QAndA = () => {
 
   useEffect(() => {
     // Get product
+    console.log('productId', productId);
     axios
-      .get(`/products?product_id=${productId}`)
-      .then((res) => {
-        setProductId(res.data[4].id);
-        setProductName(res.data[4].name);
+      .get(`/products/25171`)
+      .then(({ data }) => {
+        setProductId(data.id);
+        setProductName(data.name);
       })
       .catch((err) => {
         console.error(err);
