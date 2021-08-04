@@ -13,6 +13,7 @@ font-weight: bold;
 margin-left: 25px;
 font-size: 50px;
 width: 1000px;
+// color: rgba(0, 206, 209, .5);
 color: rgba(144, 164, 174, 0.8);
 `;
 

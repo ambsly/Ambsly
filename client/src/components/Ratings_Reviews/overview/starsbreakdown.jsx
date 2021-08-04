@@ -5,7 +5,7 @@ const StarList = styled.div`
   margin-bottom: 25px;
 `;
 
-const StarsBreakdown = ( {ratings, totalRatings} ) => (
+const StarsBreakdown = ({ ratings, totalRatings }) => (
   <StarList>
     <div>
       <label htmlFor="5starbar">5  stars</label>
