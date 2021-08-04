@@ -3,18 +3,18 @@ import styled from 'styled-components';
 
 const ImageContainer = styled.div`
 display: flex;
-flex-basis: 625px;
-height: 500px;
+flex-basis: 700px;
+height: 560px;
 position: relative;
 overflow: hidden;
-margin: 25px;
+margin: 25px 25px 0px 25px;
 box-shadow: 0 0 3px;
 `;
 
 const MainImage = styled.img`
 position: absolute;
-width: 625px;
-height: 500px;
+width: 700px;
+height: 560px;
 object-fit: cover;
 transition: 0.4s linear;
 `;
@@ -38,15 +38,15 @@ left: 10%;
 const ScrollBackground = styled.div`
 position: absolute;
 height: 80px;
-width: 625px;
-top: 420px;
+width: 700px;
+top: 480px;
 background-color: black;
 opacity: 0.2;
 `;
 
 const ScrollMenu = styled.div`
 position: relative;
-top: 210px;
+top: 240px;
 max-width: 525px;
 margin: auto;
 overflow-x: auto;
@@ -90,38 +90,38 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
     );
   }
 
-  const [expanded, setExpand] = useState(false);
+  const [zoom, setZoom] = useState(false);
   const [fullViewIcon, setFullViewIcon] = useState('✛');
   const [style, setStyle] = useState({
     cursor: 'zoom-in',
   });
 
-  const handleExpand = (e) => {
+  const handleZoom = (e) => {
     const xPos = (e.clientX - e.target.x);
     const yPos = (e.clientY - e.target.y);
     const container = document.getElementById('gallery');
     container.style.overflow = 'hidden';
     let styles = {};
-    let styleObj = {};
 
-    if (!expanded && e.type !== 'mouseleave') {
-      setExpand(true);
-      styleObj = {
+    if (!zoom && e.type !== 'mouseleave') {
+      setZoom(true);
+      styles = {
         cursor: 'zoom-out',
         transform: 'scale(2.5)',
         transformOrigin: `${xPos}px ${yPos}px`,
         zIndex: '1000',
       };
     } else {
-      setExpand(false);
-      styleObj = {
+      setFullViewIcon('✛');
+      setZoom(false);
+      styles = {
         cursor: 'zoom-in',
         transform: undefined,
         transformOrigin: undefined,
         zIndex: undefined,
       };
     }
-    styles = Object.assign(styles, styleObj);
+
     setStyle(styles);
   };
 
@@ -132,7 +132,7 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
 
     if (fullViewIcon === '✛') {
       setFullViewIcon('✕');
-      setExpand(true);
+      setZoom(true);
       container.style.overflow = 'visible';
       styleObj = {
         cursor: 'zoom-out',
@@ -142,7 +142,7 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
       };
     } else {
       setFullViewIcon('✛');
-      setExpand(false);
+      setZoom(false);
       container.style.overflow = 'hidden';
       styleObj = {
         cursor: 'pointer',
@@ -164,12 +164,12 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
   return (
     <ImageContainer
       id="gallery"
-      onMouseLeave={handleExpand}
+      onMouseLeave={handleZoom}
     >
       <MainImage
         src={currentImage}
         alt=""
-        onClick={handleExpand}
+        onClick={handleZoom}
         style={style}
       />
       <ExpandButton

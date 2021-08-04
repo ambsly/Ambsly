@@ -1,6 +1,16 @@
 import React from 'react';
 import _ from 'underscore';
+import styled from 'styled-components';
 import CharacteristicItem from './characteristicItem.jsx';
+
+const CharacteristicsList = styled.div`
+  /* margin: 10px 0; */
+`;
+
+const Title = styled.div`
+  font-size: 20px;
+  margin-bottom: 5px;
+`;
 
 const CharacteristicsBreakdown = ({ characteristics }) => {
   const charsArr = [];
@@ -9,9 +19,10 @@ const CharacteristicsBreakdown = ({ characteristics }) => {
   });
 
   return (
-    <div>
+    <CharacteristicsList>
+      <Title>Item Specific</Title>
       {charsArr.map((item) => <CharacteristicItem key={item.id} name={item.key} val={item.val} />)}
-    </div>
+    </CharacteristicsList>
   );
 };
 

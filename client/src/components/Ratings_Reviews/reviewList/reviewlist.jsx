@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ReviewListItem from './reviewlistitem.jsx';
+import AddReviewModal from './addReviewModal.jsx';
 
 const Container = styled.div`
   display: flex;
@@ -12,6 +13,11 @@ const Container = styled.div`
 const ReviewSorter = styled.div`
   font-size: large;
   margin-bottom: 12px;
+`;
+
+const List = styled.div`
+  overflow: auto;
+  height: 500px;
 `;
 
 const ButtonWrapper = styled.div`
@@ -28,8 +34,12 @@ const Button = styled.button`
 `;
 
 const ReviewList = ({ reviews }) => {
-  console.log('product on reviewList', reviews);
-  // let list = reviews.results.map((item) => <ReviewListItem item={item} />);
+  const [modalOpened, setModal] = useState(false);
+  if (modalOpened) {
+    document.documentElement.style.overflow = 'clip';
+  } else {
+    document.documentElement.style.overflow = 'scroll';
+  }
   return (
     <Container>
       <ReviewSorter>
@@ -41,11 +51,14 @@ const ReviewList = ({ reviews }) => {
           <option>most upvoted</option>
         </select>
       </ReviewSorter>
-      {reviews.results.map((item) => <ReviewListItem key={item.review_id} item={item} />)}
+      <List>
+        {reviews.results.map((item) => <ReviewListItem key={item.review_id} item={item} />)}
+      </List>
       <ButtonWrapper>
         <Button>More Reviews</Button>
-        <Button>Add a Review   +</Button>
+        <Button onClick={() => setModal(true)}>Add a Review   +</Button>
       </ButtonWrapper>
+      <AddReviewModal open={modalOpened} onClose={() => setModal(false)} />
     </Container>
   );
 };

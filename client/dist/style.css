@@ -232,7 +232,7 @@ span.material-icons.fav {
     -webkit-text-fill-color: transparent;
 }; */
 
-.star {
+/* .star {
   display: inline-block;
   position: relative;
   font-size: 100px;
@@ -248,4 +248,8 @@ span.material-icons.fav {
   width: 60%;
   overflow: hidden;
   color: #f80;
+} */
+
+html {
+  padding-left: calc(100vw - 100%);
 }
