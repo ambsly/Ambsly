@@ -85,10 +85,15 @@ const Button = styled.button`
   /* color: #8A9EA0; */
 `;
 
+const PhotoField = styled.input`
+  margin: 5px;
+`;
+
 const ModalAnswerForm = ({
   open, onClose, question, productName,
 }) => {
   if (!open) return null;
+
   const [formData, setFormData] = useState({
     questionId: question.question_id,
     body: '',
@@ -96,12 +101,32 @@ const ModalAnswerForm = ({
     email: '',
     photos: [],
   });
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.className]: e.target.value,
     });
   };
+
+  const handlePhotoURL = (e) => {
+    const newPhoto = e.target.value;
+    if (newPhoto.length !== 0) {
+      const newPhotos = formData.photos.concat([e.target.value]);
+      setFormData({
+        ...formData,
+        photos: newPhotos,
+      });
+    }
+  };
+
+  const handleUpload = (e) => {
+    e.preventDefault();
+    formData.photos.map((photo, index) => (
+      <img alt={`${index + 1}`} src={photo} />
+    ));
+  };
+
   const handleSubmit = (e) => {
     // validate inputs
     // POST request
@@ -154,11 +179,19 @@ const ModalAnswerForm = ({
           <Label htmlFor="your-photos">
             Upload photos
             <br />
-            {/* add upload functionality */}
-            <UploadButton>Upload</UploadButton>
+            <PhotoField type="text" placeholder="Paste photo URL here" className="photo" onChange={(e) => handlePhotoURL(e)} />
+            <br />
+            <PhotoField type="text" placeholder="Paste photo URL here" className="photo" onChange={(e) => handlePhotoURL(e)} />
+            <br />
+            <PhotoField type="text" placeholder="Paste photo URL here" className="photo" onChange={(e) => handlePhotoURL(e)} />
+            <br />
+            <PhotoField type="text" placeholder="Paste photo URL here" className="photo" onChange={(e) => handlePhotoURL(e)} />
+            <br />
+            <PhotoField type="text" placeholder="Paste photo URL here" className="photo" onChange={(e) => handlePhotoURL(e)} />
+            <br />
+            <UploadButton onClick={(e) => handleUpload(e)}>Upload</UploadButton>
             <br />
           </Label>
-          {/* on submit, validate fields and give warning message */}
           <Button onClick={(e) => handleSubmit(e)}>
             Submit Answer
           </Button>

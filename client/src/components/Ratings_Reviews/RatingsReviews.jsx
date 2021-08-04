@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
-import Overview from './overview/overview.jsx';
+import { Overview } from './overview/overview.jsx';
 import ReviewList from './reviewList/reviewlist.jsx';
 
 const OuterContainer = styled.div`
