@@ -3,35 +3,38 @@ import styled from 'styled-components';
 
 const StarList = styled.div`
   margin-bottom: 25px;
+  width: 160px;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 3px 0;
 `;
 
 const StarsBreakdown = ({ ratings, totalRatings }) => (
   <StarList>
-    <div>
+    <Wrapper>
       <label htmlFor="5starbar">5  stars</label>
-      {'  '}
       <meter className="5starbar" min="0" max={totalRatings.toString()} value={ratings[5]} />
-    </div>
-    <div>
+    </Wrapper>
+    <Wrapper>
       <label htmlFor="4starbar">4  stars</label>
-      {'  '}
       <meter className="4starbar" min="0" max={totalRatings.toString()} value={ratings[4]} />
-    </div>
-    <div>
+    </Wrapper>
+    <Wrapper>
       <label htmlFor="3starbar">3  stars</label>
-      {'  '}
       <meter className="3starbar" min="0" max={totalRatings.toString()} value={ratings[3]} />
-    </div>
-    <div>
+    </Wrapper>
+    <Wrapper>
       <label htmlFor="2starbar">2  stars</label>
-      {'  '}
       <meter className="2starbar" min="0" max={totalRatings.toString()} value={ratings[2]} />
-    </div>
-    <div>
+    </Wrapper>
+    <Wrapper>
       <label htmlFor="1starbar">1  star</label>
-      {'  '}
       <meter className="1starbar" min="0" max={totalRatings.toString()} value={ratings[1]} />
-    </div>
+    </Wrapper>
   </StarList>
 );
 
