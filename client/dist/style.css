@@ -7,32 +7,31 @@ body {
 
 
 
- .cardImage {
-  width: 238px;
-  height: 200px;
-}
+
 
 
 
 
 .categoryName{
-  font-size: 14px;
+  font-size: 12px;
+  font-style: italic;
   line-height: 20px;
   padding: 1px;
   margin: 2px;
-  color: #565959;
+  color: black;
 }
 .productName{
   font-size: 15px;
   padding: 1px;
   margin: 2px;
-  color: #0066c0;
+  color: black;
 }
 .productPrice{
-  font-size: 14px;
+  font-weight: bold;
+  font-size: 16px;
   padding-top: 4px;
   margin: 2px;
-  color: #B12704;
+  color: black;
 }
 
 
@@ -40,12 +39,37 @@ body {
   width: 1000px;
   margin: 100px auto;
   min-height: 200px;
+  top: 100px;
+  position: relative;
+  border: 1px grey;
+}
+
+.modalcarousel-container{
+  width: 400px;
+  height: 100px;
+  min-height:  100px;
   position: relative;
 }
+
+span.material-icons.chev{
+  font-size: 150px;
+}
+
+span.material-icons.fav {
+  font-size: 50px;
+}
+
 
 .carousel-container .track {
   display: flex;
   transition: transform 0.35s;
+  height: 340px;
+}
+
+.modalcarousel-container .modalcarousel-track {
+  background-color: white;
+  display: flex;
+  height: 100px;
 }
 
 
@@ -57,43 +81,131 @@ body {
   box-sizing: border-box;
 }
 
+.modalcarousel-container .modalcard-container {
+  width:  100px;
+  height: 100px;
+  flex-shrink: 0;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
 
 .carousel-container .card-container .card {
   width: 100%;
   height: 100%;
-  border:  1px solid #ccc;
+  border: 1px solid black;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
 }
 
+.modalcarousel-container .modalcard-container .modalcard {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  border: 1px saddlebrown;
+}
+
 
 .nav button {
+  font-size: 100px !important;
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  border: 1px solid #adadad;
+  background-color: transparent;
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-
+  border: none;
+  top: 40%;
+  color: darkturquoise;
+  transform: translateY(-85%);
 }
 
 .track {
   width: 100px;
 }
+.relatedTitle {
+  font-size: 32px;
+  font-weight: bold;
+}
 
 .carousel-container .carousel-inner {
   overflow: hidden;
+  transition: 0.35s;
 }
+
+.modalcarousel-container .modalcarousel-inner {
+  overflow: hidden;
+  transition: 0.6s;
+  background-color: white;
+}
+
+.modalCarouselButtons {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  transform: translateY(-291%);
+}
+
+.modalCarouselButtons .rightModalCarouselButton {
+  left: -10px;
+  top: -10px;
+  border: 1px solid #adadad;
+  position: relative;
+  border-radius: 50%;
+}
+
+
+.modalCarouselButtons .leftModalCarouselButton {
+  position: relative;
+  left: 370px;
+  border: 1px solid #adadad;
+  bottom: 41px;
+  border-radius: 50%;
+}
+
+.imagecard-container{
+  object-fit: cover;
+  position: relative;
+  height: 175px;
+}
+
+.cardImage {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+.like-button {
+  position: absolute;
+  transform: translateX(180px);
+  background-color: transparent;
+  border: none;
+}
+
+
+
+.imagecard-container .mouse-hover {
+  position: absolute;
+  top: 10%;
+  left: 75px;
+  width: 75px;
+  height: 75px;
+}
+
 .nav .prev {
-  left: -30px
+  left: -85px;
 }
 
 
 .nav .next {
-  right: -30px;
+  right: 18px;
 }
+
+
 
 /* STARS */
 
@@ -120,7 +232,7 @@ body {
     -webkit-text-fill-color: transparent;
 }; */
 
-.star {
+/* .star {
   display: inline-block;
   position: relative;
   font-size: 100px;
@@ -136,4 +248,8 @@ body {
   width: 60%;
   overflow: hidden;
   color: #f80;
+} */
+
+html {
+  padding-left: calc(100vw - 100%);
 }

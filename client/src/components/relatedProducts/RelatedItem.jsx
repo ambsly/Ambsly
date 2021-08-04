@@ -1,7 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Modal from './Modal.jsx';
-import { ClickedContext } from '../buttonState.jsx';
+import ModalCarousel from './ModalCarousel';
+import {
+  GlobalContext, ButtonClickedContext, FavoritesContext, ProductsContext,
+} from '../globalState.jsx';
 
 const BUTTON_WRAPER_STYLES = {
   position: 'relative',
@@ -9,6 +12,14 @@ const BUTTON_WRAPER_STYLES = {
 };
 
 function RelatedItem({ cardInfo }) {
+
+  const [products, setProducts] = useContext(ProductsContext);
+
+
+
+  const [buttonValue, setButtonValue] = useContext(ButtonClickedContext);
+  const [favorites, setFavorites] = useContext(FavoritesContext);
+  const card = cardInfo;
   const {
     // eslint-disable-next-line react/prop-types
     id, campus, name, slogan, description, category, create_At,
@@ -21,24 +32,38 @@ function RelatedItem({ cardInfo }) {
   const { photos } = firstStyle;
   const [firstPhoto] = photos;
   // console.log(firstPhoto, 'what is this?');
-  const [state, setState] = useContext(ClickedContext);
   const [isOpen, setIsOpen] = useState(false);
   // const [buttonClicked, setbuttonClicked] = useState(false);
 
   function saveFavorite() {
-    const oldData = JSON.parse(localStorage.getItem('dataArray'));
-    if (!(oldData.includes(id))) {
-      oldData.push(id);
-      localStorage.setItem('dataArray', JSON.stringify(oldData));
-      setState((prevState) => ({ ...prevState, buttonClicked: true }));
-    }
+    const newFav = favorites;
+    const newObj = {};
+    newObj[id] = card;
+    newFav[id] = newObj;
+    localStorage.setItem('favoriteProducts', JSON.stringify(newFav));
+    setFavorites((prevState) => ({ ...prevState, ...newObj }));
+    setButtonValue(true);
+  }
+  function changeProduct() {
+    // setProducts((prevState) => ({ ...prevState, currentItemId: id }));
+    // // console.table(products.currentItemId);
+    // // console.log(id, 'the id');
   }
 
   return (
     <div className="card-container">
-      <button type="submit" onClick={saveFavorite}>Favorites</button>
-      <div className="card">
-        <img src={firstPhoto.thumbnail_url} alt="" className="cardImage" />
+      <div className="card" onClick={changeProduct}>
+        <div className="imagecard-container">
+          <button className="like-button" type="submit" onClick={saveFavorite}>
+            <span className="material-icons fav">
+              favorite_border
+            </span>
+          </button>
+          <div className="mouse-hover" onMouseEnter={() => setIsOpen(true)} />
+
+          <img src={firstPhoto.thumbnail_url} alt="" className="cardImage" />
+        </div>
+
         <div className="productDetails">
           <div className="categoryName">{category}</div>
           <div className="productName">{name}</div>
@@ -46,13 +71,17 @@ function RelatedItem({ cardInfo }) {
             $
 
             {default_price}
-          </div>
-          <div style={BUTTON_WRAPER_STYLES}>
-            <button onClick={() => setIsOpen(true)}>Open Modal</button>
+            <div style={BUTTON_WRAPER_STYLES}>
+              <button onClick={() => setIsOpen(true)}>OpenPicture</button>
+              <button onClick={() => setIsOpen(true)}>Open Modal</button>
+            </div>
           </div>
         </div>
+        <div>
+          <ModalCarousel id={id} photos={photos} open={isOpen} onClose={() => setIsOpen(false)} />
+        </div>
       </div>
-      {/* <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+      {/* <Modal open={isOpen} onClose={() => setIsOpen(false)} card={card}>
         Comparing
       </Modal> */}
     </div>

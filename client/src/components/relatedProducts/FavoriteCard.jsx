@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { ClickedContext } from '../buttonState.jsx';
+import { FavoritesContext, ButtonClickedContext } from '../globalState.jsx';
 
 function FavoriteCard({ cardInfo }) {
-  const [state, setState] = useContext(ClickedContext);
+  const [buttonValue, setButtonValue] = useContext(ButtonClickedContext);
+  const [favorites, setFavorites] = useContext(FavoritesContext);
   const {
     // eslint-disable-next-line react/prop-types
     id, campus, name, slogan, description, category, create_At,
@@ -17,22 +18,23 @@ function FavoriteCard({ cardInfo }) {
   const [firstPhoto] = photos;
 
   function removeFavorite() {
-    const oldData = JSON.parse(localStorage.getItem('dataArray'));
-    if (oldData.length === 1) {
-      localStorage.setItem('dataArray', '[]');
-      setState((prevState) => ({ ...prevState, buttonClicked: true }));
-    } else {
-      const newArray = oldData.filter((value) => value !== id);
-      localStorage.setItem('dataArray', JSON.stringify(newArray));
-      setState((prevState) => ({ ...prevState, buttonClicked: true }));
-    }
+    const newFavorites = favorites;
+    delete newFavorites[id];
+    localStorage.setItem('favoriteProducts', JSON.stringify(favorites));
+    setButtonValue(true);
   }
 
   return (
     <div className="card-container">
-      <button type="submit" onClick={removeFavorite}>Remove</button>
       <div className="card">
-        <img src={firstPhoto.thumbnail_url} alt="" className="cardImage" />
+        <div className="imagecard-container">
+          <button className="like-button" type="submit" onClick={removeFavorite}>
+            <span className="material-icons fav">
+              favorite
+            </span>
+          </button>
+          <img src={firstPhoto.thumbnail_url} alt="" className="cardImage" />
+        </div>
         <div className="productDetails">
           <div className="categoryName">{category}</div>
           <div className="productName">{name}</div>

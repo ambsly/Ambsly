@@ -1,42 +1,33 @@
 import React from 'react';
 import styled from 'styled-components';
+import StarRatings from 'react-star-ratings';
 import PropTypes from 'prop-types';
 import StarsBreakdown from './starsbreakdown.jsx';
 import CharacteristicsBreakdown from './characteristics.jsx';
-
-// const Stars = styled.div`
-//   display: inline-block;
-//   font-size: 25px;
-//   font-family: Times;
-//   line-height: 1;
-
-//   &::before {
-//     content: "★★★★★";
-//     letter-spacing: 3px;
-//     background: linear-gradient(90deg, #fco ${props => props.rating}),
-//     #000 ${props => prop.rating});
-//     -webkit-background-clip: text;
-//     -webkit-text-fill-color: transparent;
-//   }
-// `;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   font-size: large;
   margin-left: 15px;
-  padding: 5px;
   /* border: 0.5px solid;
   border-radius: 3px; */
 `;
 
+const RatingWrapper = styled.div`
+  display: flex;
+  /* margin-bottom: 25px; */
+`;
+
 const Rating = styled.div`
-  font-size: x-large;
-  padding-bottom: 8px;
+  display: inline-block;
+  font-size: xx-large;
+  padding-right: 3px;
 `;
 
 const Recommends = styled.div`
   padding-bottom: 6px;
+  margin: 25px 0px;
 `;
 
 const Overview = ({ metaData }) => {
@@ -55,15 +46,6 @@ const Overview = ({ metaData }) => {
     return Math.round(subtotal / totalRatingsCount * 10) / 10;
   };
 
-  const rating = averageRating(metaData.ratings);
-  let ratingStr;
-  if (!rating) {
-    ratingStr = 'No Reviews Yet!';
-  } else {
-    ratingStr = `${rating}  ★★★★`;
-    // the stars will have to be dynamic
-  }
-
   const usersRecommendedCalculator = (data) => {
     let recommendedStr;
     if (!data.true) {
@@ -73,16 +55,34 @@ const Overview = ({ metaData }) => {
     if (!data.false) {
       data.false = 0;
     }
-    let percent = Math.round(Number(data.true) / (Number(data.true) + Number(data.false)) * 100);
+    const percent = Math.round(Number(data.true) / (Number(data.true) + Number(data.false)) * 100);
     recommendedStr = `${percent}% of reviews recommend this product`;
     return recommendedStr;
   };
 
+  const rating = averageRating(metaData.ratings);
+  let ratingStr;
+  if (!rating) {
+    ratingStr = 'No Reviews Yet!';
+  } else {
+    ratingStr = `${rating}`;
+  }
+
   return (
     <Container>
-      <Rating>
-        {ratingStr}
-      </Rating>
+      <RatingWrapper>
+        <Rating>
+          {ratingStr}
+        </Rating>
+        <StarRatings
+          rating={rating}
+          starRatedColor="gold"
+          starDimension="15px"
+          starSpacing="0"
+          numberOfStars={5}
+          name="rating"
+        />
+      </RatingWrapper>
       <Recommends>
         {usersRecommendedCalculator(metaData.recommended)}
       </Recommends>

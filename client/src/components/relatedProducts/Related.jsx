@@ -3,27 +3,34 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { idContext } from '../../index.jsx';
 import RelatedItem from './RelatedItem.jsx';
-import { ClickedContext } from '../buttonState.jsx';
+import { ProductsContext, GlobalContext } from '../globalState';
 
 function Related() {
-  const [state, setState] = useContext(ClickedContext);
-
-  const contextID = useContext(idContext);
+  const [products, setProducts] = useContext(GlobalContext);
+  let RelatedItems = [];
+  const [productInfo] = useContext(ProductsContext);
+  const [productInformation, setProductInformation] = useState(productInfo);
   const [width, setWidth] = useState(0);
-  const [productID, setNewID] = useState(contextID);
-  const [productsArray, setProducts] = useState([]);
 
   useEffect(() => {
-    setNewID(contextID);
-    axios.get(`/products/${contextID}/related`)
-      .then((results) => {
-        setProducts(results.data);
+    axios.get('/products/25170')
+      .then((result) => {
+        setProducts((prevState) => ({ ...prevState, currentItem: result.data }));
       })
       .catch((err) => {
-        // eslint-disable-next-line no-console
+      // eslint-disable-next-line no-console
         console.log('Error retrieving product data: ', err);
       });
-  }, [contextID]);
+
+    axios.get('/products/25170/related')
+      .then((results) => {
+        setProducts((prevState) => ({ ...prevState, relatedProducts: results.data }));
+      })
+      .catch((err) => {
+      // eslint-disable-next-line no-console
+        console.log('Error retrieving product data: ', err);
+      });
+  }, []);
 
   const track = React.createRef();
 
@@ -35,11 +42,19 @@ function Related() {
   }
 
   function onClickRight() {
-    setWidth((prevState) => prevState - 253);
-    track.current.style.transform = `translate(${width - 253}px`;
+    if (width === (products.relatedProducts.length * -253) + 1012
+    || (products.relatedProducts.length * -253) > -1012) {
+      console.log(width, 'when capp hits');
+      console.log('capped hit');
+    } else {
+      console.log('checking formula', products.relatedProducts.length * -253 + 1012);
+      console.log(width, 'looking at what width ish');
+      setWidth((prevState) => prevState - 253);
+      track.current.style.transform = `translate(${width - 253}px`;
+    }
   }
 
-  const RelatedItems = productsArray.map((item) => (
+  RelatedItems = products.relatedProducts.map((item) => (
     <RelatedItem
       key={item.id}
       cardInfo={item}
@@ -47,7 +62,9 @@ function Related() {
   ));
 
   return (
+
     <div className="carousel-container">
+      <span className="relatedTitle"> Related Products</span>
       <div className="carousel-inner">
         <div className="track" ref={track}>
           {RelatedItems}
@@ -55,12 +72,12 @@ function Related() {
       </div>
       <div className="nav">
         <button className="prev" onClick={onClickLeft}>
-          <span className="material-icons">
+          <span className="material-icons chev">
             chevron_left
           </span>
         </button>
         <button className="next" onClick={onClickRight}>
-          <span className="material-icons">
+          <span className="material-icons chev">
             chevron_right
           </span>
         </button>
