@@ -6,6 +6,7 @@ import StarRatings from 'react-star-ratings';
 const Container = styled.div`
   border-style: solid;
   border-width: 1px 0 1px 0;
+  border-color: rgb(238, 238, 238);
   margin-bottom: -1px;
   padding: 4px 16px 4px 16px;
   width: 700px;
