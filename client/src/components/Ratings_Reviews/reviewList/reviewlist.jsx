@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import ReviewListItem from './reviewlistitem.jsx';
 import AddReviewModal from './addReviewModal.jsx';
-import rat0rito from '../overview/overview.jsx';
 
 const Container = styled.div`
   display: flex;
@@ -35,7 +34,6 @@ const Button = styled.button`
 `;
 
 const ReviewList = ({ reviews }) => {
-  console.log('rat0rito', rat0rito);
   const [modalOpened, setModal] = useState(false);
   if (modalOpened) {
     document.documentElement.style.overflow = 'clip';
