@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import StarRatings from 'react-star-ratings';
 import PropTypes from 'prop-types';
@@ -34,22 +34,25 @@ const Recommends = styled.div`
   border-color: rgb(238, 238, 238);
 `;
 
-const Overview = ({ metaData }) => {
-  let totalRatingsCount = 0;
+let totalRatingsCount = 0;
 
-  const averageRating = (ratings) => {
-    let subtotal = 0;
-    let n = 1;
-    while (n < 6) {
-      if (ratings[n]) {
-        totalRatingsCount += Number(ratings[n]);
-        subtotal += n * Number(ratings[n]);
-      }
-      n++;
+const averageRating = (ratings) => {
+  totalRatingsCount = 0;
+  let subtotal = 0;
+  let n = 1;
+  while (n < 6) {
+    if (ratings[n]) {
+      totalRatingsCount += Number(ratings[n]);
+      subtotal += n * Number(ratings[n]);
     }
-    return Math.round(subtotal / totalRatingsCount * 10) / 10;
-  };
+    n++;
+  }
+  return Math.round(subtotal / totalRatingsCount * 10) / 10;
+};
 
+let rating;
+
+export const Overview = ({ metaData }) => {
   const usersRecommendedCalculator = (data) => {
     let recommendedStr;
     if (!data.true) {
@@ -64,7 +67,7 @@ const Overview = ({ metaData }) => {
     return recommendedStr;
   };
 
-  const rating = averageRating(metaData.ratings);
+  rating = averageRating(metaData.ratings);
   let ratingStr;
   if (!rating) {
     ratingStr = 'No Reviews Yet!';
@@ -96,8 +99,6 @@ const Overview = ({ metaData }) => {
   );
 };
 
-// Overview.propTypes = {
-//   product: PropTypes.
-// };
+export const rate = () => [rating, totalRatingsCount];
 
-export default Overview;
+export default { Overview, rate };

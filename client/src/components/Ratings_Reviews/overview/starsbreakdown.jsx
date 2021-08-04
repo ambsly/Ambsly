@@ -6,6 +6,7 @@ const StarList = styled.div`
   width: 160px;
 `;
 
+<<<<<<< HEAD
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -13,6 +14,8 @@ const Wrapper = styled.div`
   margin: 3px 0;
 `;
 
+=======
+>>>>>>> development
 const StarsBreakdown = ({ ratings, totalRatings }) => (
   <StarList>
     <Wrapper>
