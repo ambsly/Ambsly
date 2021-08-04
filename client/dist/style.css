@@ -57,7 +57,45 @@ span.material-icons.chev{
 
 span.material-icons.fav {
   font-size: 50px;
+ position: absolute;
+  color: #222
 }
+
+span.material-icons.fav::before {
+  overflow: hidden;
+  transition: 0.5s ease-in-out;
+  color: aqua;
+  border-top: 2px solid aquamarine;
+}
+
+span.material-icons:hover::before {
+  height: 100%;
+}
+
+
+/*
+span.material-icons.fav:hover {
+  font-size: 50px;
+  color: aqua;
+}
+
+span.material-icons.fav:hover {
+  font-size: 50px;
+  color: aqua;
+} */
+/*
+span.material-icons.fav::before {
+  overflow: hidden;
+  transition: 0.5s ease-in-out;
+  color: aqua;
+  border-bottom:  4px solid aqua;
+}
+
+span.material-icons.fav:hover::before {
+ height: 100%;
+} */
+
+
 
 
 .carousel-container .track {
