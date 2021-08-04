@@ -14,7 +14,7 @@ const Section = styled.div`
 const QuestionSection = styled.div`
   display: block;
   margin-top: 10px;
-  max-height: 80vh;
+  max-height: 75vh;
   overflow-y: auto;
 `;
 
