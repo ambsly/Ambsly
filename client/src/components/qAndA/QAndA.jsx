@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 // import propTypes from 'prop-types';
+import { ProductsContext } from '../globalState';
 import QuestionsList from './QuestionsList';
 
 const QAndAModule = styled.div`
@@ -37,15 +38,17 @@ const QAndA = () => {
   const [questions, setQuestions] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [filteredQs, setFilteredQs] = useState([]);
-  const [productId, setProductId] = useState(0);
+  const [product] = useContext(ProductsContext);
+  const [productId, setProductId] = useState(product.currentItemId);
   const [productName, setProductName] = useState('');
   const [isMoreQ, setIsMoreQ] = useState(false);
 
   useEffect(() => {
     // Get product
     axios
-      .get('/products?product_id=25171')
+      .get(`/products?product_id=${productId}`)
       .then((res) => {
+        console.log('res.data now', res.data);
         setProductId(res.data[4].id);
         setProductName(res.data[4].name);
       })
