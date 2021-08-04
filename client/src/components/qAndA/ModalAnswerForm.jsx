@@ -167,7 +167,11 @@ const ModalAnswerForm = ({
 
   const handleUpload = (e) => {
     e.preventDefault();
-    setIsUploaded(true);
+    if (formData.photos.length > 0) {
+      setIsUploaded(true);
+    } else {
+      alert('To upload photo(s), please enter the photo URL(s).');
+    }
   };
 
   const handleSubmit = (e) => {
