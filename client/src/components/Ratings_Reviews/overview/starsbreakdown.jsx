@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   margin: 3px 0;
 `;
 
-const StarsBreakdown = ( {ratings, totalRatings} ) => (
+const StarsBreakdown = ({ ratings, totalRatings }) => (
   <StarList>
     <Wrapper>
       <label htmlFor="5starbar">5  stars</label>
