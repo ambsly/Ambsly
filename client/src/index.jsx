@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import Header from './components/header/header.jsx';
 import RatingsAndReviews from './components/Ratings_Reviews/RatingsReviews.jsx';
 import Favorites from './components/relatedProducts/Favorites.jsx';
 import Modal from './components/relatedProducts/Modal.jsx';
@@ -31,6 +32,7 @@ function App() {
 
   return (
     <div>
+      <Header />
       <GlobalStateProvider>
         <idContext.Provider value={productID}>
           <ProductDetails productData={product} />
