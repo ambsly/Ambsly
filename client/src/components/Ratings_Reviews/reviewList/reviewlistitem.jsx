@@ -4,12 +4,16 @@ import axios from 'axios';
 import StarRatings from 'react-star-ratings';
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   border-style: solid;
   border-width: 1px 0 1px 0;
   border-color: rgb(238, 238, 238);
   margin-bottom: -1px;
   padding: 4px 16px 4px 16px;
   width: 700px;
+  height: 200px;
 `;
 
 const FirstLineWrapper = styled.div`
@@ -62,6 +66,7 @@ const formatDate = (dateString) => {
 };
 
 const ReviewListItem = ({ item }) => {
+  console.log('item', item);
   const [helpfulBtnContents, setHelpfulContents] = useState(`Yes  (${item.helpfulness})`);
   const [reportBtnContents, setReportContents] = useState('Report');
 
@@ -108,7 +113,11 @@ const ReviewListItem = ({ item }) => {
           numberOfStars={5}
           name="rating"
         />
-        <div>{item.reviewer_name}</div>
+        <div>
+          <i className="far fa-user" />
+          {' '}
+          {item.reviewer_name}
+        </div>
       </FirstLineWrapper>
       <SecondLineWrapper>
         <ReviewSummary>{item.summary}</ReviewSummary>
@@ -117,6 +126,9 @@ const ReviewListItem = ({ item }) => {
       <p>
         {item.body}
       </p>
+      {/* <div>
+        Recommended: {item.recommend.toString()}
+      </div> */}
       <ThirdLineWrapper>
         <div>
           Was this review helpful?
