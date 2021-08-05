@@ -14,27 +14,41 @@ width: 40px;
 height: 40px;
 white-space: nowrap;
 text-align: center;
+display: flex;
+align-items: center;
 
  &:hover {
   width: 250px;
+  padding-left: 25px;
   border-radius: 0;
   background-color: rgba(144, 164, 174);
  }
 `;
 
-const Share = styled.span`
-display: inline-block;
+const Content = styled.div`
+display: flex;
+vertical-align: middle;
+align-items: center;
+`;
+
+const Share = styled.div`
+// display: inline-block;
+// position: relative;
+align-items: center;
 font-size: 12px;
 margin-left: 3px;
-margin-top: 12.5px;
 `;
 
 const Icon = styled.span`
-display: inline-block;
+// display: inline-block;
+position: relative;
+align-items: center;
 margin-right: 20px;
 margin-left: 20px;
 cursor: pointer;
 color: white;
+// display: table-cell;
+// vertical-align: middle;
 `;
 
 const ShareProduct = () => {
@@ -54,18 +68,20 @@ const ShareProduct = () => {
       onMouseEnter={isExpanded}
       onMouseLeave={isExpanded}
     >
-      <Share
-        style={expandStyle[1]}
-      ><b>Share</b> </Share>
-      <Icon>
-        <Facebook size="24" />
-      </Icon>
-      <Icon>
-        <Twitter size="24" />
-      </Icon>
-      <Icon>
-        <Pinterest size="24" />
-      </Icon>
+      <Content>
+        <Share
+          style={expandStyle[1]}
+        ><b>Share</b> </Share>
+        <Icon>
+          <Facebook size="24" />
+        </Icon>
+        <Icon>
+          <Twitter size="24" />
+        </Icon>
+        <Icon>
+          <Pinterest size="24" />
+        </Icon>
+      </Content>
     </Container>
   );
 };

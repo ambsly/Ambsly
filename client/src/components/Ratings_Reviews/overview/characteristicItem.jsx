@@ -2,29 +2,52 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  margin: 5px 0;
+  margin: 20px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 40px 0;
 `;
 
 const CharLabel = styled.label`
-  align-self: center;
-  margin-bottom: 10px;
+  /* align-self: center; */
+  margin-bottom: 3px;
 `;
 
-const Meterito = styled.meter`
+const Bar = styled.progress`
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   width: 100%;
   position: relative;
-  height: 9px;
+  height: 6px;
+  &::before {
+    background: #74e474;
+    content: "";
+    height: 10px;
+    position: absolute;
+    left: ${(props) => props.barPosition}%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2px;
+  }
+  &::-webkit-progress-bar {
+    background: rgb(238, 238, 238);
+  }
+  &::-webkit-progress-value {
+  background-color: #74e474;
+}
 `;
 
-const CharacteristicItem = ({ name, val }) => (
-  <Container>
-    <CharLabel htmlFor="characteristicItem">{name}</CharLabel>
-    <Meterito className="characteristicItem" min="0" max="5" value={Math.round(Number(val)).toString()} />
-  </Container>
-);
+const positioner = (value) => Math.round(Number(value)) / 5 * 100;
+
+const CharacteristicItem = ({ name, val }) => {
+  const barPosition = positioner(val);
+  return (
+    <Container>
+      <CharLabel htmlFor="characteristicItem">{name}</CharLabel>
+      <Bar className="characteristicItem" min="0" max="5" value={Math.round(Number(val)).toString()} barPosition={barPosition.toString()} />
+    </Container>
+  );
+};
 
 export default CharacteristicItem;

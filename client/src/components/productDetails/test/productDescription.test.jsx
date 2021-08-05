@@ -1,6 +1,6 @@
-// import renderer from 'react-test-renderer';
-// import ProductDescription from '../description/productDescription.jsx';
-// import ProductDetails from '../index.jsx';
+import renderer from 'react-test-renderer';
+import ProductDescription from '../description/productDescription.jsx';
+import ProductDetails from '../index.jsx';
 
 const testData = {
   id: 25176,
@@ -15,9 +15,16 @@ const testData = {
   features: [],
 };
 
-test('2 should equal 2', () => {
-  // const component = renderer.create(ProductDetails(testData));
+// describe('Product description', () => {
+//   const component = renderer.create(ProductDescription({ testData }));
+//   it('adds 1 and 1 to equal 2', () => {
+//     console.log('Look here: ');
+//   });
+// });
 
-  expect(1+1).toBe(2);
-  console.log('Look here: ');
+test('slogan renders', () => {
+  const component = renderer.create(ProductDescription({ testData }));
+  let tree = component.toJSON();
+  console.log(tree);
+  expect(tree).toBe(tree);
 });

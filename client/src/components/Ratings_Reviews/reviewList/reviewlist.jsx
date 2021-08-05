@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import ReviewListItem from './reviewlistitem.jsx';
 import AddReviewModal from './addReviewModal.jsx';
-import rat0rito from '../overview/overview.jsx';
 
 const Container = styled.div`
   display: flex;
@@ -18,7 +17,10 @@ const ReviewSorter = styled.div`
 
 const List = styled.div`
   overflow: auto;
-  height: 500px;
+  height: 550px;
+  border-style: solid;
+  border-width: 1px 0 1px 0;
+  border-color: rgb(238, 238, 238);
 `;
 
 const ButtonWrapper = styled.div`
@@ -35,7 +37,6 @@ const Button = styled.button`
 `;
 
 const ReviewList = ({ reviews }) => {
-  console.log('rat0rito', rat0rito);
   const [modalOpened, setModal] = useState(false);
   if (modalOpened) {
     document.documentElement.style.overflow = 'clip';
