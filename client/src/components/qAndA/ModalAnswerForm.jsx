@@ -89,11 +89,31 @@ const PhotoField = styled.input`
   margin: 5px;
 `;
 
+const PhotosSection = styled.div`
+  display: block;
+`;
+
+const PhotoDiv = styled.div`
+  display: inline-block;
+  margin: 10px 10px 0 0;
+  width: 75px;
+  height: 75px;
+  overflow: hidden;
+  }
+`;
+
+const Img = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
 const ModalAnswerForm = ({
   open, onClose, question, productName,
 }) => {
   if (!open) return null;
 
+  const [isUploaded, setIsUploaded] = useState(false);
   const [formData, setFormData] = useState({
     questionId: question.question_id,
     body: '',
@@ -120,11 +140,38 @@ const ModalAnswerForm = ({
     }
   };
 
+  const PhotoFields = () => (
+    <>
+      <PhotoField type="text" placeholder="Paste photo URL here" className="photo" onChange={(e) => handlePhotoURL(e)} />
+      <br />
+      <PhotoField type="text" placeholder="Paste photo URL here" className="photo" onChange={(e) => handlePhotoURL(e)} />
+      <br />
+      <PhotoField type="text" placeholder="Paste photo URL here" className="photo" onChange={(e) => handlePhotoURL(e)} />
+      <br />
+      <PhotoField type="text" placeholder="Paste photo URL here" className="photo" onChange={(e) => handlePhotoURL(e)} />
+      <br />
+      <PhotoField type="text" placeholder="Paste photo URL here" className="photo" onChange={(e) => handlePhotoURL(e)} />
+      <br />
+    </>
+  );
+
+  const Thumbnails = () => (
+    <PhotosSection>
+      {formData.photos.map((photo, index) => (
+        <PhotoDiv key={photo}>
+          <Img alt={index + 1} src={photo} />
+        </PhotoDiv>
+      ))}
+    </PhotosSection>
+  );
+
   const handleUpload = (e) => {
     e.preventDefault();
-    formData.photos.map((photo, index) => (
-      <img alt={`${index + 1}`} src={photo} />
-    ));
+    if (formData.photos.length > 0) {
+      setIsUploaded(true);
+    } else {
+      alert('To upload photo(s), please enter the photo URL(s).');
+    }
   };
 
   const handleSubmit = (e) => {
@@ -179,16 +226,7 @@ const ModalAnswerForm = ({
           <Label htmlFor="your-photos">
             Upload photos
             <br />
-            <PhotoField type="text" placeholder="Paste photo URL here" className="photo" onChange={(e) => handlePhotoURL(e)} />
-            <br />
-            <PhotoField type="text" placeholder="Paste photo URL here" className="photo" onChange={(e) => handlePhotoURL(e)} />
-            <br />
-            <PhotoField type="text" placeholder="Paste photo URL here" className="photo" onChange={(e) => handlePhotoURL(e)} />
-            <br />
-            <PhotoField type="text" placeholder="Paste photo URL here" className="photo" onChange={(e) => handlePhotoURL(e)} />
-            <br />
-            <PhotoField type="text" placeholder="Paste photo URL here" className="photo" onChange={(e) => handlePhotoURL(e)} />
-            <br />
+            {isUploaded ? Thumbnails() : PhotoFields()}
             <UploadButton onClick={(e) => handleUpload(e)}>Upload</UploadButton>
             <br />
           </Label>
