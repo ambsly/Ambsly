@@ -17,7 +17,10 @@ const ReviewSorter = styled.div`
 
 const List = styled.div`
   overflow: auto;
-  height: 500px;
+  height: 550px;
+  border-style: solid;
+  border-width: 1px 0 1px 0;
+  border-color: rgb(238, 238, 238);
 `;
 
 const ButtonWrapper = styled.div`

@@ -8,7 +8,7 @@ import CharacteristicsBreakdown from './characteristics.jsx';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: large;
+  /* font-size: large; */
   margin-left: 15px;
   /* border: 0.5px solid;
   border-radius: 3px; */
