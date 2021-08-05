@@ -2,15 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StarList = styled.div`
-  margin-bottom: 25px;
-  width: 160px;
+  margin: 25px 0;
+  width: 180px;
 `;
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin: 3px 0;
+  margin: 8px 0;
 `;
 
 const StarsBreakdown = ({ ratings, totalRatings }) => (
