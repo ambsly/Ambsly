@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 // // import { test, expect } from 'jest';
 // import React from 'react';
 // import { render, screen } from '@testing-library/react';
@@ -14,3 +16,7 @@
 // it('should have correct title', () => {
 //   render(<QAndA />);
 // });
+
+test('demo', () => {
+  expect(2).toBe(2);
+});

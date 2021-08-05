@@ -1,61 +1,164 @@
+/* eslint-disable operator-linebreak */
+/* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/forbid-prop-types */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
 import QuestionFooter from './QuestionFooter';
 import IndividualAnswer from './IndividualAnswer';
 
-const Block = styled.div`
+const QuestionBodyAndQuestionFooter = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
-const QuestionSection = styled.div`
-  display: block;
+const QuestionBody = styled.div`
   margin: 10px;
-  color: #8a9ea0;
+  /* color: #8a9ea0; */
   font-weight: 700;
 `;
 
-const AnswerSection = styled.div`
+const EntireAnswerSection = styled.div`
   display: block;
-  margin-top: 10px;
-  color: #8a9ea0;
+`;
+
+const AnswerSection = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const A = styled.div`
+  flex: 1;
+  margin: 10px 0 0 10px;
+  /* color: #8a9ea0; */
+  font-weight: 700;
+`;
+
+const AnswerBodyAndAnswerFooter = styled.div`
+  flex: 49;
+  /* color: #8a9ea0; */
   font-weight: 400;
 `;
 
-const IndividualQuestion = ({ question }) => {
-  const [answers, setAnswers] = React.useState([]);
+const BorderlessButton = styled.button`
+  border: none;
+  margin: 10px;
+  /* color: #B5B2B0; */
+  cursor: pointer;
+`;
 
-  React.useEffect(() => {
-    axios.get('/qa/questions/:question_id/answers', {
-      params: {
-        question_id: question.question_id,
-      },
-    })
+const IndividualQuestion = ({ question, productName, isOpenQ }) => {
+  const [answers, setAnswers] = useState([]);
+  const [currentAnswers, setCurrentAnswers] = useState([]);
+  const [isMoreA, setIsMoreA] = useState(false);
+
+  const fetchAnswers = () => {
+    axios
+      .get('/qa/questions/:question_id/answers', {
+        params: {
+          question_id: question.question_id,
+          count: 10,
+        },
+      })
       .then((res) => {
-        console.log('answers', res.data);
+        // Set answers
         setAnswers(res.data);
       })
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  };
+
+  const filterAnswers = (answersData) => {
+    const sellerAnswers = answersData.filter(
+      (answer) => answer.answerer_name.toLowerCase() === 'seller',
+    );
+    const customerAnswers = answersData.filter(
+      (answer) => answer.answerer_name.toLowerCase() !== 'seller',
+    );
+    customerAnswers.sort(customerAnswers.helpfulness);
+    const sortedAnswers = sellerAnswers.concat(customerAnswers);
+    if (isMoreA) {
+      setCurrentAnswers(sortedAnswers);
+    } else {
+      setCurrentAnswers(sortedAnswers.slice(0, 2));
+    }
+  };
+
+  useEffect(() => fetchAnswers(), []);
+
+  useEffect(() => {
+    // Filter answers and set current answers
+    filterAnswers(answers);
+  }, [answers]);
+
+  const refreshA = () => {
+    fetchAnswers();
+  };
+
+  useEffect(refreshA, [question]);
+
+  useEffect(() => filterAnswers(answers), [isMoreA]);
+
+  const seeMoreOrLessA = () => {
+    let buttonMsg = '';
+    let setButtonBool = true;
+    if (!isMoreA) {
+      buttonMsg = 'See more answers';
+      setButtonBool = true;
+    } else if (isMoreA) {
+      buttonMsg = 'Collapse answers';
+      setButtonBool = false;
+    }
+    return answers.length > 2 ? (
+      <BorderlessButton onClick={() => setIsMoreA(setButtonBool)}>{buttonMsg}</BorderlessButton>
+    ) : (
+      <></>
+    );
+  };
 
   return (
-    <Block>
-      <QuestionSection key={question.question_id}>
-        {`Q: ${question.question_body}`}
+    <div>
+      <QuestionBodyAndQuestionFooter>
+        <QuestionBody key={question.question_id}>
+          {`Q: ${question.question_body}`}
+        </QuestionBody>
+        <QuestionFooter
+          question={question}
+          refreshA={refreshA}
+          productName={productName}
+          isOpenQ={isOpenQ}
+        />
+      </QuestionBodyAndQuestionFooter>
+      <EntireAnswerSection>
         <AnswerSection>
-          A:
-          &nbsp;
+          {answers.length > 0 && <A>A:&nbsp;</A>}
+          {answers.length > 0 && (
+            <AnswerBodyAndAnswerFooter>
+              {currentAnswers.map((answer, index) => (
+                <IndividualAnswer
+                  key={index}
+                  answer={answer}
+                  refreshA={refreshA}
+                />
+              ))}
+            </AnswerBodyAndAnswerFooter>
+          )}
         </AnswerSection>
-      </QuestionSection>
-      <QuestionFooter />
-    </Block>
-  )
+        {/* {isMoreA && answers.length > 0 ? (
+          <BorderlessButton onClick={() => setIsMoreA(false)}>Collapse answers</BorderlessButton>
+        ) : (
+          <BorderlessButton onClick={() => setIsMoreA(true)}>
+            See more answers
+          </BorderlessButton>
+        )} */}
+        {seeMoreOrLessA()}
+      </EntireAnswerSection>
+    </div>
+  );
 };
 
 IndividualQuestion.defaultProps = {

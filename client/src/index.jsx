@@ -1,38 +1,49 @@
-import React from 'react';
+/* eslint-disable import/extensions */
+import React, { useState, useEffect, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import Header from './components/header/header.jsx';
+import RatingsAndReviews from './components/Ratings_Reviews/RatingsReviews.jsx';
+import Favorites from './components/relatedProducts/Favorites.jsx';
+import Modal from './components/relatedProducts/Modal.jsx';
+// eslint-disable-next-line import/extensions
+import Related from './components/relatedProducts/Related.jsx';
 import QAndA from './components/qAndA/QAndA';
+import ProductDetails from './components/productDetails/index.jsx';
+import GlobalStateProvider, { ProductsContext } from './components/globalState.jsx';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+export const idContext = React.createContext(0);
 
-    this.state = {
-      products: [],
-    };
-  }
-
-  componentDidMount() {
-    const { products } = this.state;
+function App() {
+  const [productID, setID] = useState(0);
+  const [product, setProduct] = useState();
+  useEffect(() => {
     axios.get('/products')
       .then((results) => {
-        this.setState({
-          products: results.data,
-        });
-        console.log('Products from componentDidMount: ', products);
+        const { id } = results.data[2];
+        setProduct(results.data[4]);
+        setID(id);
       })
       .catch((err) => {
+      // eslint-disable-next-line no-console
         console.log('Error retrieving product data: ', err);
       });
-  }
+  }, []);
 
-  render() {
-    return (
-      <div>
-        <QAndA />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Header />
+      <GlobalStateProvider>
+        <idContext.Provider value={productID}>
+          <ProductDetails productData={product} />
+          <Related />
+          <Favorites />
+          <QAndA />
+          <RatingsAndReviews />
+        </idContext.Provider>
+      </GlobalStateProvider>
+    </div>
+  );
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
