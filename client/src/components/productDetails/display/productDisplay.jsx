@@ -19,7 +19,7 @@ object-fit: cover;
 transition: 0.4s linear;
 `;
 
-const ExpandButton = styled.button`
+const Button = styled.button`
 z-index: 1001;
 background: rgba(255, 255, 255, 0.50);
 width: 30px;
@@ -31,8 +31,6 @@ font-size: 18px;
 text-align: center;
 cursor: pointer;
 position: absolute;
-top: 10%;
-left: 10%;
 `;
 
 const ScrollBackground = styled.div`
@@ -107,7 +105,7 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
       setZoom(true);
       styles = {
         cursor: 'zoom-out',
-        transform: 'scale(2.5)',
+        transform: 'scale(2)',
         transformOrigin: `${xPos}px ${yPos}px`,
         zIndex: '1000',
       };
@@ -159,6 +157,24 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
     changeImage(e.target.id);
   };
 
+  const handleCarouselClick = (e) => {
+    let newImage = mainImageKey;
+    const photosLength = currentStyle.photos.length - 1;
+    if (e.target.value === 'right') {
+      newImage += 1;
+      if (newImage > photosLength) {
+        newImage = 0;
+      }
+      changeImage(newImage);
+    } else {
+      newImage -= 1;
+      if (newImage < 0) {
+        newImage = photosLength;
+      }
+      changeImage(newImage);
+    }
+  };
+
   const currentImage = currentStyle.photos[mainImageKey].url || currentStyle.photos[0].url;
 
   return (
@@ -172,11 +188,15 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
         onClick={handleZoom}
         style={style}
       />
-      <ExpandButton
+      <Button
         onClick={handleFullView}
+        style={{
+          top: '5%',
+          left: '5%',
+        }}
       >
         {fullViewIcon}
-      </ExpandButton>
+      </Button>
       <ScrollBackground />
       <ScrollMenu>
         {currentStyle.photos.map((image, key) => {
@@ -208,6 +228,28 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
           );
         })}
       </ScrollMenu>
+      <Button
+        onClick={handleCarouselClick}
+        value="left"
+        style={{
+          display: zoom ? 'none' : undefined,
+          top: '45%',
+          left: '5%',
+        }}
+      >
+        &#60;
+      </Button>
+      <Button
+        onClick={handleCarouselClick}
+        value="right"
+        style={{
+          display: zoom ? 'none' : undefined,
+          top: '45%',
+          left: '90%',
+        }}
+      >
+        &#62;
+      </Button>
     </ImageContainer>
   );
 };
