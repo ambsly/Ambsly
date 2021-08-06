@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import ReviewListItem from './reviewlistitem.jsx';
 import AddReviewModal from './addReviewModal.jsx';
+import MetaContext from '../context/MetaContext.js';
 
 const Container = styled.div`
   display: flex;
@@ -36,8 +37,19 @@ const Button = styled.button`
   width: 130px;
 `;
 
+// put an onchange listener on select
+// if a new option is selected, set state of sort to that option
+//
+
 const ReviewList = ({ reviews }) => {
   const [modalOpened, setModal] = useState(false);
+  const { sortType, setSortType } = useContext(MetaContext);
+
+  const handleSort = (e) => {
+    setSortType(e.target.value);
+  };
+
+  console.log('context', sortType);
   if (modalOpened) {
     document.documentElement.style.overflow = 'clip';
   } else {
@@ -48,10 +60,10 @@ const ReviewList = ({ reviews }) => {
       <ReviewSorter>
         248 reviews, sorted by:
         {'  '}
-        <select>
-          <option>relevance</option>
+        <select onChange={handleSort}>
+          <option>helpful</option>
           <option>newest</option>
-          <option>most upvoted</option>
+          <option>relevant</option>
         </select>
       </ReviewSorter>
       <List>

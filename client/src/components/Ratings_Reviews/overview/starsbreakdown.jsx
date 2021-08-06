@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import MetaContext from '../context/MetaContext.js';
 
 const StarList = styled.div`
   margin: 25px 0;
@@ -29,29 +30,31 @@ const Bar = styled.progress`
 }
 `;
 
-const StarsBreakdown = ({ ratings, totalRatings }) => (
-  <StarList>
-    <Wrapper>
-      <label htmlFor="5starbar">5  star</label>
-      <Bar className="5starbar" min="0" max={totalRatings.toString()} value={ratings[5]} />
-    </Wrapper>
-    <Wrapper>
-      <label htmlFor="4starbar">4  star</label>
-      <Bar className="4starbar" min="0" max={totalRatings.toString()} value={ratings[4]} />
-    </Wrapper>
-    <Wrapper>
-      <label htmlFor="3starbar">3  star</label>
-      <Bar className="3starbar" min="0" max={totalRatings.toString()} value={ratings[3]} />
-    </Wrapper>
-    <Wrapper>
-      <label htmlFor="2starbar">2  star</label>
-      <Bar className="2starbar" min="0" max={totalRatings.toString()} value={ratings[2]} />
-    </Wrapper>
-    <Wrapper>
-      <label htmlFor="1starbar">1  star</label>
-      <Bar className="1starbar" min="0" max={totalRatings.toString()} value={ratings[1]} />
-    </Wrapper>
-  </StarList>
-);
-
+const StarsBreakdown = ({ ratings, totalRatings }) => {
+  const msg = useContext(MetaContext);
+  return (
+    <StarList>
+      <Wrapper>
+        <label htmlFor="5starbar">5 star</label>
+        <Bar className="5starbar" min="0" max={totalRatings.toString()} value={ratings[5]} />
+      </Wrapper>
+      <Wrapper>
+        <label htmlFor="4starbar">4 star</label>
+        <Bar className="4starbar" min="0" max={totalRatings.toString()} value={ratings[4]} />
+      </Wrapper>
+      <Wrapper>
+        <label htmlFor="3starbar">3 star</label>
+        <Bar className="3starbar" min="0" max={totalRatings.toString()} value={ratings[3]} />
+      </Wrapper>
+      <Wrapper>
+        <label htmlFor="2starbar">2 star</label>
+        <Bar className="2starbar" min="0" max={totalRatings.toString()} value={ratings[2]} />
+      </Wrapper>
+      <Wrapper>
+        <label htmlFor="1starbar">1 star</label>
+        <Bar className="1starbar" min="0" max={totalRatings.toString()} value={ratings[1]} />
+      </Wrapper>
+    </StarList>
+  );
+}
 export default StarsBreakdown;
