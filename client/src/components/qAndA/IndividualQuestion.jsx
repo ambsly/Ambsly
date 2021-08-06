@@ -63,9 +63,9 @@ const IndividualQuestion = ({ question, productName, isOpenQ }) => {
           count: 10,
         },
       })
-      .then((res) => {
+      .then(({ data }) => {
         // Set answers
-        setAnswers(res.data);
+        setAnswers(data);
       })
       .catch((err) => {
         console.error(err);

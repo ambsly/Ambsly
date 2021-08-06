@@ -1,13 +1,7 @@
 /* eslint-disable no-undef */
 
-// // import { test, expect } from 'jest';
-// import React from 'react';
-// import { render, screen } from '@testing-library/react';
-// import userEvent from '@testing-library/user-event';
-// import QAndA from './QAndA';
-
-// // const { test, expect } = require('jest');
-// // const QAndA = require('./QAndA');
+// const axios = require('axios');
+const QAndA = require('../QAndA');
 
 // // test('Title is correct', () => {
 // //   expect(typeof QAndA).toEqual('function');
@@ -17,6 +11,31 @@
 //   render(<QAndA />);
 // });
 
-test('demo', () => {
-  expect(2).toBe(2);
+test('Q and A component should exist', () => {
+  expect(QAndA).toBeDefined();
 });
+
+// // For async code in test, pass in done
+// test('Questions should be more than 0, with timeout', (done) => {
+//   setTimeout(() => {
+//     expect(QAndA.questions.length).toBeGreaterThan(0);
+//     done();
+//     // then invoke done in async code
+//   }, 200);
+// });
+
+// // For async code in test, pass in done
+// test('Questions should be more than 0, with get request', (done) => {
+//   axios.get('qa/questions/25171')
+//     .then(({ data }) => {
+//       expect(data.length).toBeGreaterThan(0);
+//       done();
+//       // then invoke done in async code
+//     });
+// });
+
+// // Async await
+// test('Questions should be more than 0, with get request', async () => {
+//   const { data } = await axios.get('qa/questions/25171');
+//   expect(data.length).toBeGreaterThan(0);
+// });
