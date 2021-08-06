@@ -15,22 +15,9 @@ span.material-icons.fav {
   position: absolute;
   color: rgba(144,164,174, 1);
 }
-
-
-
-
-
-.nav button {
-  font-size: 100px !important;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: transparent;
-  position: absolute;
-  border: none;
-  top: 40%;
-  color:   rgba(144,164,174,0.8);
-  transform: translateY(-85%);
+span.material-icons.modalButton {
+  font-size: 75px;
+  color: rgba(144,164,174, 1);
 }
 
 
@@ -42,24 +29,6 @@ span.material-icons.fav {
   transform: translateY(-291%);
 }
 
-.modalCarouselButtons .rightModalCarouselButton {
-  left: -10px;
-  top: -10px;
-  border: 1px solid #adadad;
-  position: relative;
-  border-radius: 50%;
-}
-
-
-.modalCarouselButtons .leftModalCarouselButton {
-  position: relative;
-  left: 370px;
-  border: 1px solid #adadad;
-  bottom: 41px;
-  border-radius: 50%;
-}
-
-
 
 
 .like-button {
@@ -70,16 +39,6 @@ span.material-icons.fav {
 }
 
 
-
-
-.nav .prev {
-  left: -85px;
-}
-
-
-.nav .next {
-  right: 18px;
-}
 
 
 

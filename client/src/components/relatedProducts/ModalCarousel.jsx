@@ -21,6 +21,7 @@ const Inner_MODAL_STYLES = {
   height: 400,
   position: 'relative',
   top: '80%',
+  border: '1px solid black',
 };
 
 const StyledModalCarouselContainer = styled.div`
@@ -40,43 +41,29 @@ display: flex;
 height: 100px;
 `;
 
-const modalCarouselCardContainer = {
-  width: 100,
-  height: 100,
-  flexShrink: 0,
-  padding: 10,
-  boxSizing: 'border-box',
-};
-
-const modalCarouselCard = {
-  width: '100%',
-  height: '100%',
-  border: '1px solid rgba(0, 0, 0, 0.05)',
-  boxSizing: 'border-box',
-  display: 'flex',
-  flexDirection: 'column',
-};
-
-const leftModalCarouselButton = {
-  left: -30,
-};
-
-const rightModalCarouselButton = {
-  right: -30,
-};
-
 const modalCarouselContainerImage = {
   display: 'block',
   height: 300,
   width: 400,
 };
 
-// const modalCarouselButtons = {
-//   transform: 'translateY(-150%)',
-//   top: '50%',
-//   position: 'absolute',
-// };
+const StyledRightButton = styled.div`
+left: 360px;
+position: absolute;
+border-radius: 50%;
+border: none;
+top: -145%;
+background-color: transparent;
+`;
 
+const StyledLeftButton = styled.div`
+left: -35px;
+position: absolute;
+border-radius: 50%;
+border: none;
+background-color: transparent;
+top: -145%;
+`;
 function ModalCarousel({
   open, children, onClose, photos, id,
 }) {
@@ -84,7 +71,9 @@ function ModalCarousel({
     return null;
   }
 
+  const rightButton = React.createRef();
   const track = React.createRef();
+  const leftButton = React.createRef();
   const photo = photos[0].thumbnail_url;
   // console.log(img);
   const [products, setProducts] = useContext(ProductsContext);
@@ -100,6 +89,20 @@ function ModalCarousel({
     }
   },
   []);
+
+  useEffect(() => {
+    if (width === 0 && leftButton.current !== null) {
+      leftButton.current.hidden = true;
+    } else {
+      leftButton.current.hidden = false;
+    }
+
+    if ((width === (photos.length * -100) + 400) || photos.length <= 4) {
+      rightButton.current.hidden = true;
+    } else {
+      rightButton.current.hidden = false;
+    }
+  }, [width]);
 
   function onClickLeft() {
     if (width !== 0) {
@@ -136,17 +139,16 @@ function ModalCarousel({
 
           </StyledMoodalCarouselInner>
           <div className="modalCarouselButtons">
-            <button className="rightModalCarouselButton" onClick={onClickLeft}>
-              <span className="material-icons">
-                chevron_left
-              </span>
-            </button>
-            <button className="leftModalCarouselButton" onClick={onClickRight}>
-              <span className="material-icons">
+            <StyledRightButton onClick={onClickRight} ref={rightButton}>
+              <span className="material-icons modalButton">
                 chevron_right
               </span>
-
-            </button>
+            </StyledRightButton>
+            <StyledLeftButton onClick={onClickLeft} ref={leftButton}>
+              <span className="material-icons modalButton">
+                chevron_left
+              </span>
+            </StyledLeftButton>
           </div>
 
           {children}

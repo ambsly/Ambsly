@@ -27,7 +27,7 @@ const StyleModalCardImageContainer = styled.div`
 
 let modalCardImg = {
   objectFit: 'cover',
-  opacity: 0.5,
+  opacity: 0.7,
   height: 80,
   width: 80,
 };
@@ -43,7 +43,7 @@ function ModalCarouselCard({ picture, setIMG, id }) {
     };
   } else {
     modalCardImg = {
-      opacity: 0.5,
+      opacity: 0.7,
       height: 80,
       width: 80,
     };

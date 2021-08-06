@@ -26,19 +26,42 @@ font-size: 32px;
 font-weight: bold;
  `;
 
-const StyledNavButtons = styled.div`
-  font-size: 100px !important;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: transparent;
-  position: absolute;
-  border: none;
-  top: 40%;
-  color:   rgba(144,164,174,0.8);
-  transform: translateY(-85%);
+// const StyledNavButtons = styled.div`
+//   font-size: 100px !important;
+//   width: 60px;
+//   height: 60px;
+//   border-radius: 50%;
+//   background-color: transparent;
+//   position: absolute;
+//   border: none;
+//   top: 40%;
+//   color:   rgba(144,164,174,0.8);
+//   transform: translateY(-85%);
+// `;
 
-`;
+const StyledRightButton = styled.div`
+right: 10px;
+width: 60px;
+height: 60px;
+border-radius: 50%;
+background-color: transparent;
+position: absolute;
+border: none;
+top: 40%;
+color:   rgba(144,164,174,0.8);
+transform: translateY(-85%);`;
+
+const StyledLeftButton = styled.div`
+left: -85px;
+width: 60px;
+height: 60px;
+border-radius: 50%;
+background-color: transparent;
+position: absolute;
+border: none;
+top: 40%;
+color:   rgba(144,164,174,0.8);
+transform: translateY(-85%);`;
 
 function CarouselComponent({ cards, name }) {
   const [buttonValue, setButtonValue] = useContext(ButtonClickedContext);
@@ -97,16 +120,18 @@ function CarouselComponent({ cards, name }) {
           </StyledCarouselTrack>
         </StyledCarouselInnerContainer>
         <div className="nav">
-          <button onClick={onClickLeft} ref={leftButton} className="prev">
+          <StyledLeftButton onClick={onClickLeft} ref={leftButton} className="prev">
             <span className="material-icons chev">
               chevron_left
             </span>
-          </button>
-          <button onClick={onClickRight} ref={rightButton} className="next">
+          </StyledLeftButton>
+
+          <StyledRightButton onClick={onClickRight} ref={rightButton} className="next">
+            {' '}
             <span className="material-icons chev">
               chevron_right
             </span>
-          </button>
+          </StyledRightButton>
         </div>
       </StyledCarouselContainer>
     </div>

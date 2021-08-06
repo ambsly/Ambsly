@@ -20,6 +20,7 @@ function LikeButton({ card, id }) {
   const [buttonValue, setButtonValue] = useContext(ButtonClickedContext);
 
   function saveFavorite() {
+    console.log('testing this');
     const newFav = favorites;
     const newObj = {};
     newObj[id] = card;
