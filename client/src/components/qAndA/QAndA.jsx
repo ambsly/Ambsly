@@ -44,7 +44,7 @@ const QAndA = () => {
   const [isMoreQ, setIsMoreQ] = useState(false);
 
   useEffect(() => {
-    // Get product
+    // Get product and set productId & productName
     console.log('productId', productId);
     axios
       .get('/products/25171')
@@ -52,6 +52,15 @@ const QAndA = () => {
         setProductId(data.id);
         setProductName(data.name);
       })
+      // .then(() => {
+      //   // Get questions list and set questions
+      //   axios
+      //     .get(`/qa/questions?product_id=${productId}&count=20`)
+      //     .then(({ data }) => {
+      //       setQuestions(data);
+      //       setFilteredQs(data.slice(0, 4));
+      //     });
+      // })
       .catch((err) => {
         console.error(err);
       });
