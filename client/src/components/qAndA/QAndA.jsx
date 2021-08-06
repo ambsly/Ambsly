@@ -47,7 +47,7 @@ const QAndA = () => {
     // Get product
     console.log('productId', productId);
     axios
-      .get(`/products/25171`)
+      .get('/products/25171')
       .then(({ data }) => {
         setProductId(data.id);
         setProductName(data.name);
@@ -61,9 +61,9 @@ const QAndA = () => {
     // Get questions list
     axios
       .get(`/qa/questions?product_id=${productId}&count=20`)
-      .then((res) => {
-        setQuestions(res.data);
-        setFilteredQs(res.data.slice(0, 4));
+      .then(({ data }) => {
+        setQuestions(data);
+        setFilteredQs(data.slice(0, 4));
       })
       .catch((err) => {
         console.error(err);
@@ -89,15 +89,15 @@ const QAndA = () => {
     // Filter questions whenever searchText or questions are changed
     // filterQuestions();
     // Prevent sending requests too quickly
-    setTimeout(filterQuestions, 300);
+    setTimeout(filterQuestions, 200);
   }, [searchText, questions]);
 
   const refreshQ = (count) => {
     axios
       .get(`/qa/questions?product_id=${productId}&count=${count}`)
-      .then((res) => {
+      .then(({ data }) => {
         // api returns already sorted by helpfulness?
-        setQuestions(res.data);
+        setQuestions(data);
       })
       .catch((err) => {
         console.error(err);
