@@ -47,7 +47,6 @@ const ReviewList = ({ reviews }) => {
   const [modalOpened, setModal] = useState(false);
   const { sortType, setSortType } = useContext(MetaContext);
   const { ratingFilter, setRatingFilter } = useContext(BigContext);
-  console.log('within reviewList', ratingFilter);
 
   let reviewList = reviews.results;
   // if there are filters in place, filter out reviews
@@ -80,7 +79,7 @@ const ReviewList = ({ reviews }) => {
           </select>
         </ReviewSorter>
         <List>
-          Nothin to see here
+          No Reviews of Current Rating
         </List>
         <ButtonWrapper>
           <Button>More Reviews</Button>

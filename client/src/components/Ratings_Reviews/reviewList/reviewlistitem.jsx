@@ -13,7 +13,7 @@ const Container = styled.div`
   margin-bottom: -1px;
   padding: 4px 16px 4px 16px;
   width: 700px;
-  height: 200px;
+  height: 250px;
 `;
 
 const FirstLineWrapper = styled.div`

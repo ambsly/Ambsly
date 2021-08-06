@@ -44,13 +44,17 @@ const StarsBreakdown = ({ ratings, totalRatings }) => {
   const handleClickFilter = (e) => {
     const filterNum = e.target.getAttribute('name');
     if (ratingFilter.includes(filterNum)) {
-      let arr = [...ratingFilter];
+      const arr = [...ratingFilter];
       const index = arr.indexOf(filterNum);
       arr.splice(index, 1);
       setRatingFilter(arr);
     } else {
       setRatingFilter((ratingFilter) => [...ratingFilter, filterNum]);
     }
+
+    // if a 3 star is clicked
+    // if label style is not bold, make it bold
+    // otherwise make it regular
   };
 
   const mouseEnterHandler = () => {
