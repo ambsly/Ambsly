@@ -104,6 +104,7 @@ typings/
 .tern-port
 
 config.js
+hackreactor.pem
 
 
 ./dist/bundle.js
