@@ -19,6 +19,7 @@ display: inline-block;
 font-size: 50px;
 color: white;
 font-family: Brush Script MT;
+cursor: pointer;
 `;
 
 const SearchContainer = styled.div`
@@ -71,10 +72,16 @@ const Header = () => {
     }
   }
 
+  const refreshPage = () => {
+    window.location.reload();
+  }
+
   return (
     <Container>
       <TitleSection>
-        <Title>
+        <Title
+          onClick={refreshPage}
+        >
           Ambsly
         </Title>
       </TitleSection>
