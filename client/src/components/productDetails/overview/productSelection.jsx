@@ -67,7 +67,7 @@ const ProductSelection = ({ currentStyle }) => {
   const handleBagClick = () => {
     if (inBag === 'Add to Bag +') {
       if (size === 'SELECT SIZE' || qtyInBag === 'QTY') {
-        alert('Please make sure to select a size and quantity');
+        alert('Please select a size and quantity');
       } else {
         setInBag('Added to Bag');
       }

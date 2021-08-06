@@ -21,6 +21,7 @@ transition: 0.4s linear;
 
 const Button = styled.button`
 z-index: 1001;
+position: absolute;
 background: rgba(255, 255, 255, 0.50);
 width: 30px;
 height: 30px;
@@ -30,11 +31,17 @@ color: rgba(50, 50, 50);
 font-size: 18px;
 text-align: center;
 cursor: pointer;
-position: absolute;
+transition: 0.4s;
+
+  &:hover {
+    background: rgba(144,164,174,0.8);
+    color: white;
+  }
 `;
 
 const ScrollBackground = styled.div`
 position: absolute;
+display: flex;
 height: 80px;
 width: 700px;
 top: 480px;
@@ -237,7 +244,7 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
           left: '5%',
         }}
       >
-        &#60;
+        &#8592;
       </Button>
       <Button
         onClick={handleCarouselClick}
@@ -248,7 +255,7 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
           left: '90%',
         }}
       >
-        &#62;
+        &#8594;
       </Button>
     </ImageContainer>
   );

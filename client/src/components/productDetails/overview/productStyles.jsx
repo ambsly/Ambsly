@@ -18,6 +18,10 @@ border-radius: 50%;
 object-fit: cover;
 transition: 0.6s;
 opacity: 0.3;
+
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 const ProductStyles = ({ styles, currentStyle, changeStyle }) => {
