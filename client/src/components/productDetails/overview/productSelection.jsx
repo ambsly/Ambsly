@@ -23,6 +23,7 @@ height: 40px;
 padding: 10px 5px;
 backgroundColor: transparent;
 border: 1px solid black;
+outline: none;
 `;
 
 const ProductSelection = ({ currentStyle }) => {
@@ -66,7 +67,7 @@ const ProductSelection = ({ currentStyle }) => {
   const handleBagClick = () => {
     if (inBag === 'Add to Bag +') {
       if (size === 'SELECT SIZE' || qtyInBag === 'QTY') {
-        alert('Please make sure to select a size and quantity');
+        alert('Please select a size and quantity');
       } else {
         setInBag('Added to Bag');
       }
@@ -105,7 +106,7 @@ const ProductSelection = ({ currentStyle }) => {
                   id={key}
                   key={key}
                 >
-                  {sku.size}
+                  Size: {sku.size}
                 </option>
               );
             }
@@ -136,7 +137,7 @@ const ProductSelection = ({ currentStyle }) => {
                 value={value}
                 key={key}
               >
-                {value}
+                Qty: {value}
               </option>
             );
           })}

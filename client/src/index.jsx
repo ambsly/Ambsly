@@ -22,7 +22,7 @@ function App() {
     axios.get('/products')
       .then((results) => {
         const { id } = results.data[2];
-        setProduct(results.data[4]);
+        setProduct(results.data[2]);
         setID(id);
       })
       .catch((err) => {
