@@ -6,6 +6,7 @@ import { Overview } from './overview/overview.jsx';
 import ReviewList from './reviewList/reviewlist.jsx';
 import MetaContext from './context/MetaContext.js';
 import BigContext from './context/BigContext.js';
+import { ProductsContext } from '../globalState.jsx';
 
 const OuterContainer = styled.div`
   margin: auto;
@@ -29,6 +30,8 @@ const RatingsAndReviews = () => {
   const [productMetaData, setProductMetaData] = useState(undefined);
   const [sortType, setSortType] = useState('helpful');
   const [ratingFilter, setRatingFilter] = useState([]);
+  const [products, setProducts] = useContext(ProductsContext);
+  console.log('products from R&R', products.currentItemId);
 
   // state of search type
   // pass down state and setter in context down to review list
@@ -40,7 +43,7 @@ const RatingsAndReviews = () => {
 
   useEffect(() => {
     axios.get('/reviews', {
-      params: { product_id: 25167, sort: sortType, count: 10 },
+      params: { product_id: products.currentItemId, sort: sortType, count: 10 },
     })
       .then((reviewsResults) => {
         setProductData(reviewsResults.data);
@@ -48,11 +51,11 @@ const RatingsAndReviews = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [sortType]);
+  }, [sortType, products]);
 
   useEffect(() => {
     axios.get('/reviews/meta', {
-      params: { product_id: 25167 },
+      params: { product_id: products.currentItemId },
     })
       .then((results) => {
         setProductMetaData(results.data);
@@ -60,7 +63,7 @@ const RatingsAndReviews = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [products]);
 
   if (productMetaData && productData) {
     return (
