@@ -85,10 +85,35 @@ const Button = styled.button`
   /* color: #8A9EA0; */
 `;
 
+const PhotoField = styled.input`
+  margin: 5px;
+`;
+
+const PhotosSection = styled.div`
+  display: block;
+`;
+
+const PhotoDiv = styled.div`
+  display: inline-block;
+  margin: 10px 10px 0 0;
+  width: 75px;
+  height: 75px;
+  overflow: hidden;
+  }
+`;
+
+const Img = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
 const ModalAnswerForm = ({
   open, onClose, question, productName,
 }) => {
   if (!open) return null;
+
+  const [isUploaded, setIsUploaded] = useState(false);
   const [formData, setFormData] = useState({
     questionId: question.question_id,
     body: '',
@@ -96,12 +121,59 @@ const ModalAnswerForm = ({
     email: '',
     photos: [],
   });
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.className]: e.target.value,
     });
   };
+
+  const handlePhotoURL = (e) => {
+    const newPhoto = e.target.value;
+    if (newPhoto.length !== 0) {
+      const newPhotos = formData.photos.concat([e.target.value]);
+      setFormData({
+        ...formData,
+        photos: newPhotos,
+      });
+    }
+  };
+
+  const PhotoFields = () => (
+    <>
+      <PhotoField type="text" placeholder="Paste photo URL here" className="photo" onChange={(e) => handlePhotoURL(e)} />
+      <br />
+      <PhotoField type="text" placeholder="Paste photo URL here" className="photo" onChange={(e) => handlePhotoURL(e)} />
+      <br />
+      <PhotoField type="text" placeholder="Paste photo URL here" className="photo" onChange={(e) => handlePhotoURL(e)} />
+      <br />
+      <PhotoField type="text" placeholder="Paste photo URL here" className="photo" onChange={(e) => handlePhotoURL(e)} />
+      <br />
+      <PhotoField type="text" placeholder="Paste photo URL here" className="photo" onChange={(e) => handlePhotoURL(e)} />
+      <br />
+    </>
+  );
+
+  const Thumbnails = () => (
+    <PhotosSection>
+      {formData.photos.map((photo, index) => (
+        <PhotoDiv key={photo}>
+          <Img alt={index + 1} src={photo} />
+        </PhotoDiv>
+      ))}
+    </PhotosSection>
+  );
+
+  const handleUpload = (e) => {
+    e.preventDefault();
+    if (formData.photos.length > 0) {
+      setIsUploaded(true);
+    } else {
+      alert('To upload photo(s), please enter the photo URL(s).');
+    }
+  };
+
   const handleSubmit = (e) => {
     // validate inputs
     // POST request
@@ -154,11 +226,10 @@ const ModalAnswerForm = ({
           <Label htmlFor="your-photos">
             Upload photos
             <br />
-            {/* add upload functionality */}
-            <UploadButton>Upload</UploadButton>
+            {isUploaded ? Thumbnails() : PhotoFields()}
+            <UploadButton onClick={(e) => handleUpload(e)}>Upload</UploadButton>
             <br />
           </Label>
-          {/* on submit, validate fields and give warning message */}
           <Button onClick={(e) => handleSubmit(e)}>
             Submit Answer
           </Button>
