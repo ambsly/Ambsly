@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Overview } from './overview/overview.jsx';
 import ReviewList from './reviewList/reviewlist.jsx';
 import MetaContext from './context/MetaContext.js';
+import BigContext from './context/BigContext.js';
 
 const OuterContainer = styled.div`
   margin: auto;
@@ -27,6 +28,7 @@ const RatingsAndReviews = () => {
   const [productData, setProductData] = useState(undefined);
   const [productMetaData, setProductMetaData] = useState(undefined);
   const [sortType, setSortType] = useState('helpful');
+  const [ratingFilter, setRatingFilter] = useState([]);
 
   // state of search type
   // pass down state and setter in context down to review list
@@ -65,10 +67,12 @@ const RatingsAndReviews = () => {
       <OuterContainer>
         <Header>Ratings and Reviews</Header>
         <Container>
-          <MetaContext.Provider value={{ sortType, setSortType }}>
+          <BigContext.Provider value={{ ratingFilter, setRatingFilter }}>
             <Overview metaData={productMetaData} />
-            <ReviewList reviews={productData} />
-          </MetaContext.Provider>
+            <MetaContext.Provider value={{ sortType, setSortType }}>
+              <ReviewList reviews={productData} />
+            </MetaContext.Provider>
+          </BigContext.Provider>
         </Container>
       </OuterContainer>
     );

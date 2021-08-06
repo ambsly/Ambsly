@@ -66,7 +66,6 @@ const formatDate = (dateString) => {
 };
 
 const ReviewListItem = ({ item }) => {
-  console.log('item', item);
   const [helpfulBtnContents, setHelpfulContents] = useState(`Yes  (${item.helpfulness})`);
   const [reportBtnContents, setReportContents] = useState('Report');
 
