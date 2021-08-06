@@ -2,23 +2,71 @@ import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Modal from './Modal.jsx';
 import ModalCarousel from './ModalCarousel';
+import LikeButton from './StyledComponents/LikeButton.jsx';
 import {
   GlobalContext, ButtonClickedContext, FavoritesContext, ProductsContext,
 } from '../globalState.jsx';
 
-const BUTTON_WRAPER_STYLES = {
-  position: 'relative',
-  zIndex: 1,
-};
+const StyledCardContainer = styled.div`
+width: 253px;
+height: 300px;
+flex-shrink: 0;
+padding-right: 15px;
+box-sizing: border-box;
+`;
+
+const StyledCard = styled.div`
+width: 100%;
+height: 100%;
+border: 1px solid black;
+box-sizing: border-box;
+display: flex;
+flex-direction: column;
+`;
+
+const StyledImageCardContainer = styled.div`
+object-fit: cover;
+position: relative;
+height: 175px;
+`;
+
+const StyledMouseHover = styled.div`
+position: absolute;
+top: 10%;
+left: 75px;
+width: 75px;
+height: 75px;
+`;
+
+const StyledCardImage = styled.img`
+object-fit: cover;
+width: 100%;
+height: 100%;`;
+
+const StyledProductDetails = styled.div`
+display: flex;
+flex-direction: column`;
+
+const StyledCategoryName = styled.span`
+font-size: 12px;
+font-style: italic;
+line-height: 20px;
+padding: 1px;
+margin: 2px;
+color: black;`;
+const StyledProductName = styled.span`
+font-size: 15px;
+padding: 1px;
+margin: 2px;
+color: black;`;
+const StyledProductPrice = styled.span`
+font-weight: bold;
+font-size: 16px;
+padding-top: 4px;
+margin: 2px;
+color: black;`;
 
 function RelatedItem({ cardInfo }) {
-
-  const [products, setProducts] = useContext(ProductsContext);
-
-
-
-  const [buttonValue, setButtonValue] = useContext(ButtonClickedContext);
-  const [favorites, setFavorites] = useContext(FavoritesContext);
   const card = cardInfo;
   const {
     // eslint-disable-next-line react/prop-types
@@ -33,17 +81,7 @@ function RelatedItem({ cardInfo }) {
   const [firstPhoto] = photos;
   // console.log(firstPhoto, 'what is this?');
   const [isOpen, setIsOpen] = useState(false);
-  // const [buttonClicked, setbuttonClicked] = useState(false);
 
-  function saveFavorite() {
-    const newFav = favorites;
-    const newObj = {};
-    newObj[id] = card;
-    newFav[id] = newObj;
-    localStorage.setItem('favoriteProducts', JSON.stringify(newFav));
-    setFavorites((prevState) => ({ ...prevState, ...newObj }));
-    setButtonValue(true);
-  }
   function changeProduct() {
     // setProducts((prevState) => ({ ...prevState, currentItemId: id }));
     // // console.table(products.currentItemId);
@@ -51,40 +89,36 @@ function RelatedItem({ cardInfo }) {
   }
 
   return (
-    <div className="card-container">
-      <div className="card" onClick={changeProduct}>
-        <div className="imagecard-container">
-          <button className="like-button" type="submit" onClick={saveFavorite}>
-            <span className="material-icons fav">
-              favorite_border
-            </span>
-          </button>
-          <div className="mouse-hover" onMouseEnter={() => setIsOpen(true)} />
+    <StyledCardContainer>
+      <StyledCard onClick={changeProduct}>
+        <StyledImageCardContainer>
+          <LikeButton id={id} card={card} />
+          <StyledMouseHover onMouseEnter={() => setIsOpen(true)} />
+          <StyledCardImage src={firstPhoto.thumbnail_url} alt="" />
 
-          <img src={firstPhoto.thumbnail_url} alt="" className="cardImage" />
-        </div>
-
-        <div className="productDetails">
-          <div className="categoryName">{category}</div>
-          <div className="productName">{name}</div>
-          <div className="productPrice">
+        </StyledImageCardContainer>
+        <StyledProductDetails>
+          <StyledCategoryName>{category}</StyledCategoryName>
+          <StyledProductName>{name}</StyledProductName>
+          <StyledProductPrice>
             $
-
             {default_price}
-            <div style={BUTTON_WRAPER_STYLES}>
+            <div>
               <button onClick={() => setIsOpen(true)}>OpenPicture</button>
               <button onClick={() => setIsOpen(true)}>Open Modal</button>
             </div>
-          </div>
-        </div>
+          </StyledProductPrice>
+
+        </StyledProductDetails>
         <div>
           <ModalCarousel id={id} photos={photos} open={isOpen} onClose={() => setIsOpen(false)} />
         </div>
-      </div>
+      </StyledCard>
       {/* <Modal open={isOpen} onClose={() => setIsOpen(false)} card={card}>
         Comparing
       </Modal> */}
-    </div>
+
+    </StyledCardContainer>
   );
 }
 

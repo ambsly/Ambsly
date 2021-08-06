@@ -1,11 +1,29 @@
 import React, { useState, useContext, useEffect } from 'react';
+import styled from 'styled-components';
 import { ProductsContext, CarouselImg } from '../globalState.jsx';
 
-const modalCardImageContainer = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-};
+const StyledModalCardContainer = styled.div`
+width:  100px;
+height: 100px;
+flex-shrink: 0;
+padding: 10px;
+box-sizing: border-box;
+`;
+
+const StyledModalCard = styled.div`
+width: 100%;
+height: 100%;
+box-sizing: border-box;
+display: flex;
+flex-direction: column;
+border: 1px saddlebrown;
+`;
+
+const StyleModalCardImageContainer = styled.div`
+  display: flex ;
+  justifyContent: center;
+  alignItems: center;
+`;
 
 let modalCardImg = {
   objectFit: 'cover',
@@ -39,13 +57,10 @@ function ModalCarouselCard({ picture, setIMG, id }) {
   }
 
   return (
-    <div className="modalcard-container">
-      <div className="modalcard">
-        <div
-          className="modalcardimg-container"
-          style={modalCardImageContainer}
-        >
-          <img
+    <StyledModalCardContainer>
+      <StyledModalCard>
+        <StyleModalCardImageContainer>
+           <img
             style={modalCardImg}
             src={thumbnail_url}
             alt=""
@@ -53,9 +68,9 @@ function ModalCarouselCard({ picture, setIMG, id }) {
             onClick={onClick}
             ref={img}
           />
-        </div>
-      </div>
-    </div>
+        </StyleModalCardImageContainer>
+      </StyledModalCard>
+    </StyledModalCardContainer>
   );
 }
 
