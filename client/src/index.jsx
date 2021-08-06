@@ -11,6 +11,7 @@ import Related from './components/relatedProducts/Related.jsx';
 import QAndA from './components/qAndA/QAndA';
 import ProductDetails from './components/productDetails/index.jsx';
 import GlobalStateProvider, { ProductsContext } from './components/globalState.jsx';
+import CarouselComponent from './components/relatedProducts/StyledComponents/CarouselComponent.jsx';
 
 export const idContext = React.createContext(0);
 
@@ -34,6 +35,7 @@ function App() {
     <div>
       <Header />
       <GlobalStateProvider>
+        {/* <CarouselComponent /> */}
         <idContext.Provider value={productID}>
           <ProductDetails productData={product} />
           <Related />

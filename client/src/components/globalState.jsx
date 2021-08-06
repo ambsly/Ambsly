@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const initialProductState = {
   currentItem: {},
-  currentItemId: 21570,
+  currentItemId: 25171,
   relatedProducts: [],
 };
 
@@ -17,11 +17,7 @@ export const ItemIdContext = React.createContext(0);
 export const relatedProductsContext = React.createContext([]);
 export const ItemContext = React.createContext({});
 export const FavoritesContext = React.createContext();
-export const ProductsContext = React.createContext({
-  currentItem: {},
-  currentItemId: 21570,
-  relatedProducts: [],
-});
+export const ProductsContext = React.createContext();
 export const ButtonClickedContext = React.createContext(false);
 
 const GlobalStateProvider = ({ children }) => {
@@ -45,7 +41,6 @@ const GlobalStateProvider = ({ children }) => {
             <CarouselImg.Provider value={[globalImg, setGobalImg]}>
               {children}
             </CarouselImg.Provider>
-
           </ProductsContext.Provider>
         </GlobalContext.Provider>
       </FavoritesContext.Provider>

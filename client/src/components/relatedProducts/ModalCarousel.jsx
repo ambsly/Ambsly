@@ -1,7 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
+import styled from 'styled-components';
 import ReactDom from 'react-dom';
 import { ProductsContext, CarouselImg } from '../globalState.jsx';
 import ModalCarouselCard from './ModalCarouselCard.jsx';
+import CarouselComponent from './StyledComponents/CarouselComponent.jsx';
 
 const MODAL_STYLES = {
   display: 'flex',
@@ -19,49 +21,25 @@ const Inner_MODAL_STYLES = {
   height: 400,
   position: 'relative',
   top: '80%',
+  border: '1px solid black',
 };
 
-const modalCarouselContainer = {
-  margin: '100 auto',
-  top: '75%',
-  width: 400,
-  height: 200,
-  minHeight: 100,
-  position: 'relative',
-};
-const modalCarouselTrack = {
-  display: 'flex',
-  height: 100,
-};
+const StyledModalCarouselContainer = styled.div`
+width: 400px;
+height: 100px;
+min-height:  100px;
+position: relative;
+background-color: white;
+`;
 
-const modalCarouselCardContainer = {
-  width: 100,
-  height: 100,
-  flexShrink: 0,
-  padding: 10,
-  boxSizing: 'border-box',
-};
-
-const modalcarouselInner = {
-  overflow: 'hidden',
-};
-
-const modalCarouselCard = {
-  width: '100%',
-  height: '100%',
-  border: '1px solid rgba(0, 0, 0, 0.05)',
-  boxSizing: 'border-box',
-  display: 'flex',
-  flexDirection: 'column',
-};
-
-const leftModalCarouselButton = {
-  left: -30,
-};
-
-const rightModalCarouselButton = {
-  right: -30,
-};
+const StyledMoodalCarouselInner = styled.div`
+overflow: hidden;
+`;
+const StyledModalCarouselTrack = styled.div`
+background-color: white;
+display: flex;
+height: 100px;
+`;
 
 const modalCarouselContainerImage = {
   display: 'block',
@@ -69,12 +47,23 @@ const modalCarouselContainerImage = {
   width: 400,
 };
 
-// const modalCarouselButtons = {
-//   transform: 'translateY(-150%)',
-//   top: '50%',
-//   position: 'absolute',
-// };
+const StyledRightButton = styled.div`
+left: 360px;
+position: absolute;
+border-radius: 50%;
+border: none;
+top: -145%;
+background-color: transparent;
+`;
 
+const StyledLeftButton = styled.div`
+left: -35px;
+position: absolute;
+border-radius: 50%;
+border: none;
+background-color: transparent;
+top: -145%;
+`;
 function ModalCarousel({
   open, children, onClose, photos, id,
 }) {
@@ -82,7 +71,9 @@ function ModalCarousel({
     return null;
   }
 
+  const rightButton = React.createRef();
   const track = React.createRef();
+  const leftButton = React.createRef();
   const photo = photos[0].thumbnail_url;
   // console.log(img);
   const [products, setProducts] = useContext(ProductsContext);
@@ -98,6 +89,20 @@ function ModalCarousel({
     }
   },
   []);
+
+  useEffect(() => {
+    if (width === 0 && leftButton.current !== null) {
+      leftButton.current.hidden = true;
+    } else {
+      leftButton.current.hidden = false;
+    }
+
+    if ((width === (photos.length * -100) + 400) || photos.length <= 4) {
+      rightButton.current.hidden = true;
+    } else {
+      rightButton.current.hidden = false;
+    }
+  }, [width]);
 
   function onClickLeft() {
     if (width !== 0) {
@@ -126,31 +131,29 @@ function ModalCarousel({
           alt=""
           src={globalImg.currentRelatedImg}
         />
-
-        <div className="modalcarousel-container">
-          <div className="modalcarousel-inner">
-            <div className="modalcarousel-track" ref={track}>
+        <StyledModalCarouselContainer>
+          <StyledMoodalCarouselInner>
+            <StyledModalCarouselTrack ref={track}>
               {cardPhotos}
-            </div>
+            </StyledModalCarouselTrack>
 
-          </div>
+          </StyledMoodalCarouselInner>
           <div className="modalCarouselButtons">
-            <button className="rightModalCarouselButton" onClick={onClickLeft}>
-              <span className="material-icons">
-                chevron_left
-              </span>
-            </button>
-            <button className="leftModalCarouselButton" onClick={onClickRight}>
-              <span className="material-icons">
+            <StyledRightButton onClick={onClickRight} ref={rightButton}>
+              <span className="material-icons modalButton">
                 chevron_right
               </span>
-
-            </button>
+            </StyledRightButton>
+            <StyledLeftButton onClick={onClickLeft} ref={leftButton}>
+              <span className="material-icons modalButton">
+                chevron_left
+              </span>
+            </StyledLeftButton>
           </div>
 
           {children}
-        </div>
 
+        </StyledModalCarouselContainer>
       </div>
     </div>,
     document.getElementById('app'),
