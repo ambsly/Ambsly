@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
 import { Overview } from './overview/overview.jsx';
 import ReviewList from './reviewList/reviewlist.jsx';
+import MetaContext from './context/MetaContext.js';
+import BigContext from './context/BigContext.js';
 
 const OuterContainer = styled.div`
   margin: auto;
@@ -22,20 +24,33 @@ const Header = styled.div`
 `;
 
 const RatingsAndReviews = () => {
+  // const [count, setCount] = useState(2);
   const [productData, setProductData] = useState(undefined);
   const [productMetaData, setProductMetaData] = useState(undefined);
+  const [sortType, setSortType] = useState('helpful');
+  const [ratingFilter, setRatingFilter] = useState([]);
+
+  // state of search type
+  // pass down state and setter in context down to review list
+  // have useEffect watch for changes in this state
+  // if it changes, trigger another get to /reviews
+  // prob have to break up useeffect
+
+  //
 
   useEffect(() => {
     axios.get('/reviews', {
-      params: { product_id: 25167 },
+      params: { product_id: 25167, sort: sortType, count: 10 },
     })
       .then((reviewsResults) => {
         setProductData(reviewsResults.data);
       })
       .catch((err) => {
-        console.log('somethin not working right w this hook', err);
+        console.log(err);
       });
+  }, [sortType]);
 
+  useEffect(() => {
     axios.get('/reviews/meta', {
       params: { product_id: 25167 },
     })
@@ -43,7 +58,7 @@ const RatingsAndReviews = () => {
         setProductMetaData(results.data);
       })
       .catch((err) => {
-        console.log('second get (metadata) isnt working', err);
+        console.log(err);
       });
   }, []);
 
@@ -52,8 +67,12 @@ const RatingsAndReviews = () => {
       <OuterContainer>
         <Header>Ratings and Reviews</Header>
         <Container>
-          <Overview metaData={productMetaData} />
-          <ReviewList reviews={productData} />
+          <BigContext.Provider value={{ ratingFilter, setRatingFilter }}>
+            <Overview metaData={productMetaData} />
+            <MetaContext.Provider value={{ sortType, setSortType }}>
+              <ReviewList reviews={productData} />
+            </MetaContext.Provider>
+          </BigContext.Provider>
         </Container>
       </OuterContainer>
     );
