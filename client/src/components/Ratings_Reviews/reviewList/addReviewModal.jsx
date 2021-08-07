@@ -139,8 +139,13 @@ const AddReviewModal = ({ open, onClose }) => {
   const charsArr = [];
   _.each(productMetaData.characteristics, (val, key) => {
     charsObj[val.id] = undefined;
-    charsArr.push(key);
+    charsArr.push({
+      name: key,
+      id: val.id,
+    });
   });
+  // console.log('charsarr', charsArr);
+  const [characteristics, setChars] = useState(charsObj);
   const [recommendedInput, setRecommendedInput] = useState(true);
   const [rating, setRating] = useState(0);
   const [sliderValue, setSliderValue] = useState(3);
@@ -153,8 +158,11 @@ const AddReviewModal = ({ open, onClose }) => {
     name: '',
     email: '',
     photos: [],
-    characteristics: charsObj,
+    characteristics: characteristics,
   });
+
+  // console.log('charsobj', charsObj);
+  // console.log('reviewIpnuts characteristics', reviewInputs.characteristics);
 
   const handleTextInputChange = (e) => {
     let { id, value } = e.target;
@@ -186,12 +194,41 @@ const AddReviewModal = ({ open, onClose }) => {
     console.log('input state', reviewInputs);
   };
 
+  // console.log('characteristics', characteristics);
   const handleSliderChange = (e) => {
-    setSliderValue(e.target.value);
-    setReviewInputs((prevState) => ({
-      ...prevState,
-      recommend: recommendedInput,
-    }));
+    setSliderValue(Number(e.target.value));
+    const keysArr = Object.keys(reviewInputs.characteristics);
+    const { id } = e.target;
+    for (let i = 0; i < keysArr.length; i++) {
+      if (keysArr[i] === id) {
+        // charsObj.id = sliderValue;
+        console.log('id', id);
+        // console.log('slider value', sliderValue);
+        // console.log('charsObj id', charsObj[id]);
+        // console.log('char obj', charsObj);
+        // let updatedKey = charsObj[id];
+        let updatedPair = { [id]: sliderValue };
+        // console.log('updated key', updatedKey);
+        console.log('updated pair', updatedPair);
+        setChars((prevState) => ({
+          ...prevState,
+          [id]: sliderValue,
+        }));
+        setReviewInputs((prev) => ({
+          ...prev,
+          characteristics,
+        }));
+        // reviewInputs.characteristics[keysArr[i]] = sliderValue;
+      }
+    }
+    // let filterReviews = keys.filter((item) => item === id);
+    // console.log('id', id);
+    // charsObj[id] = sliderValue;
+    // setReviewInputs((prevState) => ({
+    //   charsObj[id] = sliderValue;
+    // }));
+    console.log('state of characteristics', characteristics);
+    console.log('state of review input', reviewInputs);
   };
 
   const submitBtnText = 'Submit';
@@ -265,8 +302,8 @@ const AddReviewModal = ({ open, onClose }) => {
           <SliderList>
             {charsArr.map((item) => (
               <SliderItem>
-                <SliderLabel htmlFor={item}>{item}</SliderLabel>
-                <SliderInput type="range" id={item} min="1" max="5" defaultValue="3" onChange={handleSliderChange} />
+                <SliderLabel htmlFor={item.id}>{item.name}</SliderLabel>
+                <SliderInput type="range" id={item.id} min="1" max="5" defaultValue="3" onChange={handleSliderChange} />
               </SliderItem>
             ))}
           </SliderList>

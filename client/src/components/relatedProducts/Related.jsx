@@ -37,7 +37,7 @@ function Related() {
     />
   ));
 
-  console.log(RelatedItems, ' what is this?');
+  // console.log(RelatedItems, ' what is this?');
 
   return (
     <CarouselComponent cards={RelatedItems} name="RelatedProducts" />
