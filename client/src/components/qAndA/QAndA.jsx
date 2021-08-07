@@ -104,7 +104,7 @@ const QAndA = () => {
     setTimeout(filterQuestions, 200);
   }, [searchText, questions]);
 
-  const refreshQ = (count) => {
+  const refreshQuestions = (count) => {
     axios
       .get(`/qa/questions?product_id=${productId}&count=${count}`)
       .then(({ data }) => {
@@ -133,7 +133,7 @@ const QAndA = () => {
           <QuestionsList
             questions={filteredQs}
             searchText={searchText}
-            refreshQ={refreshQ}
+            refreshQuestions={refreshQuestions}
             productId={productId}
             productName={productName}
             isMoreQ={isMoreQ}
