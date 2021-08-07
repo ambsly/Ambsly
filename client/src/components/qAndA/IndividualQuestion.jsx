@@ -54,6 +54,7 @@ const IndividualQuestion = ({ question, productName, isOpenQ }) => {
   const [answers, setAnswers] = useState([]);
   const [currentAnswers, setCurrentAnswers] = useState([]);
   const [isMoreA, setIsMoreA] = useState(false);
+  const [errorState, setErrorState] = useState(false);
 
   const fetchAnswers = () => {
     axios
@@ -69,6 +70,7 @@ const IndividualQuestion = ({ question, productName, isOpenQ }) => {
       })
       .catch((err) => {
         console.error(err);
+        setErrorState(true);
       });
   };
 
@@ -133,30 +135,24 @@ const IndividualQuestion = ({ question, productName, isOpenQ }) => {
           isOpenQ={isOpenQ}
         />
       </QuestionBodyAndQuestionFooter>
+      {errorState ? <div style={{ margin: '20px' }}>An error has occurred</div> :
       <EntireAnswerSection>
         <AnswerSection>
           {answers.length > 0 && <A>A:&nbsp;</A>}
           {answers.length > 0 && (
-            <AnswerBodyAndAnswerFooter>
-              {currentAnswers.map((answer, index) => (
-                <IndividualAnswer
-                  key={index}
-                  answer={answer}
-                  refreshA={refreshA}
-                />
-              ))}
-            </AnswerBodyAndAnswerFooter>
+          <AnswerBodyAndAnswerFooter>
+            {currentAnswers.map((answer, index) => (
+              <IndividualAnswer
+                key={index}
+                answer={answer}
+                refreshA={refreshA}
+              />
+            ))}
+          </AnswerBodyAndAnswerFooter>
           )}
         </AnswerSection>
-        {/* {isMoreA && answers.length > 0 ? (
-          <BorderlessButton onClick={() => setIsMoreA(false)}>Collapse answers</BorderlessButton>
-        ) : (
-          <BorderlessButton onClick={() => setIsMoreA(true)}>
-            See more answers
-          </BorderlessButton>
-        )} */}
         {seeMoreOrLessA()}
-      </EntireAnswerSection>
+      </EntireAnswerSection>}
     </div>
   );
 };
