@@ -30,8 +30,9 @@ flex-direction: column;
 `;
 
 const StyledSpan = styled.span`
+font-size: 28px;
+font-weight: bold;
 position: absolute;
-font-size: 24px;
 margin: 10px;
 padding: 10px;
 top: -50px;`;
