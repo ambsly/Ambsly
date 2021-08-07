@@ -43,6 +43,7 @@ const QAndA = () => {
   const [productId, setProductId] = useState(product.currentItemId);
   const [productName, setProductName] = useState('');
   const [isMoreQ, setIsMoreQ] = useState(false);
+  const [errorState, setErrorState] = useState(false);
 
   useEffect(() => {
     // Get product and set productId & productName
@@ -63,6 +64,7 @@ const QAndA = () => {
       })
       .catch((err) => {
         console.error(err);
+        setErrorState(true);
       });
   }, []);
 
@@ -76,6 +78,7 @@ const QAndA = () => {
       })
       .catch((err) => {
         console.error(err);
+        setErrorState(true);
       });
   }, [product]);
 
@@ -124,15 +127,18 @@ const QAndA = () => {
           placeholder="Have a question? Search for answers..."
         />
       </Section>
-      <QuestionsList
-        questions={filteredQs}
-        searchText={searchText}
-        refreshQ={refreshQ}
-        productId={productId}
-        productName={productName}
-        isMoreQ={isMoreQ}
-        setIsMoreQ={setIsMoreQ}
-      />
+      {errorState ? <div style={{ margin: '20px' }}>An error has occurred</div>
+        : (
+          <QuestionsList
+            questions={filteredQs}
+            searchText={searchText}
+            refreshQ={refreshQ}
+            productId={productId}
+            productName={productName}
+            isMoreQ={isMoreQ}
+            setIsMoreQ={setIsMoreQ}
+          />
+        )}
     </QAndAModule>
   );
 };
