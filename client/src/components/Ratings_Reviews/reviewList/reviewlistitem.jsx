@@ -13,7 +13,7 @@ const Container = styled.div`
   margin-bottom: -1px;
   padding: 4px 16px 4px 16px;
   width: 700px;
-  height: 250px;
+  height: 280px;
 `;
 
 const FirstLineWrapper = styled.div`
@@ -28,6 +28,17 @@ const SecondLineWrapper = styled.div`
 `;
 
 const ThirdLineWrapper = styled.div`
+  /* display: flex;
+  justify-content: space-between; */
+`;
+
+const Recommended = styled.div`
+  font: small Georgia, serif;
+  /* font-size: small;
+  font-family: Georgia; */
+`;
+
+const FourthLineWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding-bottom: 16px;
@@ -103,32 +114,36 @@ const ReviewListItem = ({ item }) => {
 
   return (
     <Container>
-      <FirstLineWrapper>
-        <StarRatings
-          rating={item.rating}
-          starRatedColor="gold"
-          starDimension="15px"
-          starSpacing="0"
-          numberOfStars={5}
-          name="rating"
-        />
-        <div>
-          <i className="far fa-user" />
-          {' '}
-          {item.reviewer_name}
-        </div>
-      </FirstLineWrapper>
-      <SecondLineWrapper>
-        <ReviewSummary>{item.summary}</ReviewSummary>
-        <DateDisplay>{formatDate(item.date)}</DateDisplay>
-      </SecondLineWrapper>
-      <p>
-        {item.body}
-      </p>
-      {/* <div>
-        Recommended: {item.recommend.toString()}
-      </div> */}
+      <div>
+        <FirstLineWrapper>
+          <StarRatings
+            rating={item.rating}
+            starRatedColor="gold"
+            starDimension="15px"
+            starSpacing="0"
+            numberOfStars={5}
+            name="rating"
+          />
+          <div>
+            <i className="far fa-user" />
+            {' '}
+            {item.reviewer_name}
+          </div>
+        </FirstLineWrapper>
+        <SecondLineWrapper>
+          <ReviewSummary>{item.summary}</ReviewSummary>
+          <DateDisplay>{formatDate(item.date)}</DateDisplay>
+        </SecondLineWrapper>
+      </div>
       <ThirdLineWrapper>
+        <p>
+          {item.body}
+        </p>
+        <Recommended>
+          {item.recommend ? 'User Recommended ✓' : ''}
+        </Recommended>
+      </ThirdLineWrapper>
+      <FourthLineWrapper>
         <div>
           Was this review helpful?
           <HelpfulBtn onClick={markHelpful}>
@@ -138,7 +153,7 @@ const ReviewListItem = ({ item }) => {
         <ReportBtn onClick={report}>
           {reportBtnContents}
         </ReportBtn>
-      </ThirdLineWrapper>
+      </FourthLineWrapper>
     </Container>
   );
 };

@@ -18,12 +18,19 @@ const ReviewSorter = styled.div`
   margin-bottom: 12px;
 `;
 
+// set overflow props so that onclick it changes from hidden to auto
+// will need state that gets switched when 'more reviews' button gets clicked
 const List = styled.div`
   overflow: auto;
-  height: 550px;
+  height: 579px;
   border-style: solid;
   border-width: 1px 0 1px 0;
   border-color: rgb(238, 238, 238);
+`;
+
+const HeaderWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 const ButtonWrapper = styled.div`
@@ -35,13 +42,15 @@ const ButtonWrapper = styled.div`
 const Button = styled.button`
   cursor: pointer;
   height: 40px;
-  type: submit;
+  /* type: submit; */
   width: 130px;
 `;
 
-// put an onchange listener on select
-// if a new option is selected, set state of sort to that option
-//
+const SelectFilter = styled.select`
+  margin-left: 12px;
+  width: 80px;
+  height: auto;
+`;
 
 const ReviewList = ({ reviews }) => {
   const [modalOpened, setModal] = useState(false);
@@ -49,7 +58,6 @@ const ReviewList = ({ reviews }) => {
   const { ratingFilter, setRatingFilter } = useContext(BigContext);
 
   let reviewList = reviews.results;
-  // if there are filters in place, filter out reviews
   if (ratingFilter.length !== 0) {
     reviewList = reviews.results.filter((item) => ratingFilter.includes(item.rating.toString()));
     console.log('review list', reviewList);
@@ -66,41 +74,23 @@ const ReviewList = ({ reviews }) => {
   } else {
     document.documentElement.style.overflow = 'scroll';
   }
-  if (reviewList.length === 0) {
-    return (
-      <Container>
-        <ReviewSorter>
-          248 reviews, sorted by:
-          {'  '}
-          <select onChange={handleSort}>
-            <option>helpful</option>
-            <option>newest</option>
-            <option>relevant</option>
-          </select>
-        </ReviewSorter>
-        <List>
-          No Reviews of Current Rating
-        </List>
-        <ButtonWrapper>
-          <Button>More Reviews</Button>
-          <Button onClick={() => setModal(true)}>Add a Review   +</Button>
-        </ButtonWrapper>
-        <AddReviewModal open={modalOpened} onClose={() => setModal(false)} />
-      </Container>
-    );
-  }
   return (
     <Container>
-      <ReviewSorter>
-        248 reviews, sorted by:
-        {'  '}
-        <select onChange={handleSort}>
-          <option>helpful</option>
-          <option>newest</option>
-          <option>relevant</option>
-        </select>
-      </ReviewSorter>
+      <HeaderWrapper>
+        <ReviewSorter>
+          {reviews.results.length}
+          {' '}
+          reviews, sorted by:
+          <SelectFilter onChange={handleSort}>
+            <option>newest</option>
+            <option>helpful</option>
+            <option>relevant</option>
+          </SelectFilter>
+        </ReviewSorter>
+        {/* <Tags /> */}
+      </HeaderWrapper>
       <List>
+        {/* if reviewList.length is 0, render a 'no reviews' div. otherwise render the map */}
         {reviewList.map((item) => <ReviewListItem key={item.review_id} item={item} />)}
       </List>
       <ButtonWrapper>
