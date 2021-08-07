@@ -21,8 +21,10 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-  font-size: 24px;
-  margin-bottom: 14px;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-left: 20px;
 `;
 
 const RatingsAndReviews = () => {
