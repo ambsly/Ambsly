@@ -37,7 +37,7 @@ const AnswerFooter = ({ answer, refreshA }) => {
       })
       .catch((err) => console.error(err));
   };
-  const reportA = () => {
+  const reportAnswer = () => {
     axios.put('/qa/answers/:answer_id/report', {
       answer_id: answer.answer_id,
     })
@@ -59,7 +59,7 @@ const AnswerFooter = ({ answer, refreshA }) => {
       &nbsp;
       {`(${aHelpfulScore}) |`}
       &nbsp;
-      <Span onClick={() => reportA()}>Report</Span>
+      <Span onClick={() => reportAnswer()}>Report</Span>
     </FooterSection>
   );
 };
