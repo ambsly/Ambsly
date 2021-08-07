@@ -45,29 +45,28 @@ const QAndA = () => {
 
   useEffect(() => {
     // Get product and set productId & productName
-    console.log('productId', productId);
     axios
-      .get('/products/25171')
+      .get(`/products/${productId}`)
       .then(({ data }) => {
         setProductId(data.id);
         setProductName(data.name);
       })
-      // .then(() => {
-      //   // Get questions list and set questions
-      //   axios
-      //     .get(`/qa/questions?product_id=${productId}&count=20`)
-      //     .then(({ data }) => {
-      //       setQuestions(data);
-      //       setFilteredQs(data.slice(0, 4));
-      //     });
-      // })
+      .then(() => {
+        // Get questions list and set questions
+        axios
+          .get(`/qa/questions?product_id=${productId}&count=20`)
+          .then(({ data }) => {
+            setQuestions(data);
+            setFilteredQs(data.slice(0, 4));
+          });
+      })
       .catch((err) => {
         console.error(err);
       });
   }, []);
 
   useEffect(() => {
-    // Get questions list
+    // If product is changed, get questions list again
     axios
       .get(`/qa/questions?product_id=${productId}&count=20`)
       .then(({ data }) => {
@@ -77,7 +76,7 @@ const QAndA = () => {
       .catch((err) => {
         console.error(err);
       });
-  }, [productName]);
+  }, [product]);
 
   useEffect(() => setFilteredQs(questions), [isMoreQ]);
 
