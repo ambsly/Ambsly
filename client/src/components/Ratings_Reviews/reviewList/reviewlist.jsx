@@ -21,7 +21,6 @@ const ReviewSorter = styled.div`
 // set overflow props so that onclick it changes from hidden to auto
 // will need state that gets switched when 'more reviews' button gets clicked
 const List = styled.div`
-  overflow: auto;
   height: 579px;
   border-style: solid;
   border-width: 1px 0 1px 0;
@@ -35,7 +34,7 @@ const HeaderWrapper = styled.div`
 
 const ButtonWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin: 15px 0 40px 0;
 `;
 
@@ -54,6 +53,7 @@ const SelectFilter = styled.select`
 
 const ReviewList = ({ reviews }) => {
   const [modalOpened, setModal] = useState(false);
+  const [moreReviewsClicked, setMoreReviews] = useState(false);
   const { sortType, setSortType } = useContext(MetaContext);
   const { ratingFilter, setRatingFilter } = useContext(BigContext);
 
@@ -68,6 +68,15 @@ const ReviewList = ({ reviews }) => {
   const handleSort = (e) => {
     setSortType(e.target.value);
   };
+
+  const handleMoreReviewsClick = () => {
+    setMoreReviews(true);
+  };
+
+  let style = { overflow: 'hidden' };
+  if (moreReviewsClicked) {
+    style = { overflow: 'auto' };
+  }
 
   if (modalOpened) {
     document.documentElement.style.overflow = 'clip';
@@ -89,12 +98,12 @@ const ReviewList = ({ reviews }) => {
         </ReviewSorter>
         {/* <Tags /> */}
       </HeaderWrapper>
-      <List>
+      <List style={style}>
         {/* if reviewList.length is 0, render a 'no reviews' div. otherwise render the map */}
-        {reviewList.map((item) => <ReviewListItem key={item.review_id} item={item} />)}
+        {reviewList.length === 0 ? <div style={{ width: '50%', margin: '50px auto 0 auto', textAlign: 'center' }}>Sorry, no reviews here!</div> : reviewList.map((item) => <ReviewListItem key={item.review_id} item={item} />)}
       </List>
       <ButtonWrapper>
-        <Button>More Reviews</Button>
+        {moreReviewsClicked ? null : <Button onClick={handleMoreReviewsClick}>More Reviews</Button>}
         <Button onClick={() => setModal(true)}>Add a Review   +</Button>
       </ButtonWrapper>
       <AddReviewModal open={modalOpened} onClose={() => setModal(false)} />

@@ -53,6 +53,12 @@ const DateDisplay = styled.div`
   font-size: small;
 `;
 
+const UserSymbol = styled.span`
+  display: inline-block;
+  margin-right: 8px;
+  color: black;
+`;
+
 // onclick
 // increment or decrement item.helpful
 // change contents to say 'thank you for your response.'
@@ -125,7 +131,7 @@ const ReviewListItem = ({ item }) => {
             name="rating"
           />
           <div>
-            <i className="far fa-user" />
+            <UserSymbol>👤</UserSymbol>
             {' '}
             {item.reviewer_name}
           </div>

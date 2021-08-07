@@ -43,11 +43,11 @@ const ModalForm = styled.div`
   height: auto;
 `;
 
-const BottomWrapper = styled.div`
-  display: flex;
-  /* justify-content: space-between; */
-  /* margin-right: 100px; */
-`;
+// const BottomWrapper = styled.div`
+//   display: flex;
+//   /* justify-content: space-between; */
+//   /* margin-right: 100px; */
+// `;
 
 const Heading = styled.div`
   display: flex;
@@ -88,7 +88,7 @@ const Input = styled.input`
 `;
 
 const SliderList = styled.div`
-  margin: 15px 0;
+  margin: 20px 0;
 `;
 
 const SliderItem = styled.div`
@@ -104,8 +104,6 @@ const SliderInput = styled.input`
 
 const SliderLabel = styled.label`
   display: block;
-  /* width: 50%;
-  margin: 0 auto; */
 `;
 
 const RadioInput = styled.input`
@@ -126,11 +124,6 @@ const CloseBtn = styled.button`
   height: auto;
   align-self: flex-end;
 `;
-
-// handle submit
-// state will be an obj with username: '', other placeholders
-// then on each field input, state will update on Change to populate empty strings
-// that state obj will be packaged up and sent in an axios.post
 
 const AddReviewModal = ({ open, onClose }) => {
   const { productMetaData, reviewSubmit, setReviewSubmit } = useContext(BigContext);
@@ -158,11 +151,8 @@ const AddReviewModal = ({ open, onClose }) => {
     name: '',
     email: '',
     photos: [],
-    characteristics: characteristics,
+    characteristics,
   });
-
-  // console.log('charsobj', charsObj);
-  // console.log('reviewIpnuts characteristics', reviewInputs.characteristics);
 
   const handleTextInputChange = (e) => {
     let { id, value } = e.target;
@@ -194,54 +184,42 @@ const AddReviewModal = ({ open, onClose }) => {
     console.log('input state', reviewInputs);
   };
 
-  // console.log('characteristics', characteristics);
   const handleSliderChange = (e) => {
     setSliderValue(Number(e.target.value));
-    const keysArr = Object.keys(reviewInputs.characteristics);
     const { id } = e.target;
-    for (let i = 0; i < keysArr.length; i++) {
-      if (keysArr[i] === id) {
-        // charsObj.id = sliderValue;
-        console.log('id', id);
-        // console.log('slider value', sliderValue);
-        // console.log('charsObj id', charsObj[id]);
-        // console.log('char obj', charsObj);
-        // let updatedKey = charsObj[id];
-        let updatedPair = { [id]: sliderValue };
-        // console.log('updated key', updatedKey);
-        console.log('updated pair', updatedPair);
-        setChars((prevState) => ({
-          ...prevState,
-          [id]: sliderValue,
-        }));
-        setReviewInputs((prev) => ({
-          ...prev,
-          characteristics,
-        }));
-        // reviewInputs.characteristics[keysArr[i]] = sliderValue;
-      }
-    }
-    // let filterReviews = keys.filter((item) => item === id);
-    // console.log('id', id);
-    // charsObj[id] = sliderValue;
-    // setReviewInputs((prevState) => ({
-    //   charsObj[id] = sliderValue;
-    // }));
-    console.log('state of characteristics', characteristics);
-    console.log('state of review input', reviewInputs);
+    const value = Number(e.target.value);
+    console.log('value of slider', value);
+    setChars((prevState) => ({
+      ...prevState,
+      [id]: value,
+    }));
+    console.log('chars', characteristics);
+    setTimeout(() => {
+      setReviewInputs((prev) => ({
+        ...prev,
+        characteristics,
+      }));
+      console.log(reviewInputs);
+    }, 1000);
+    // const keysArr = Object.keys(reviewInputs.characteristics);
+    // for (let i = 0; i < keysArr.length; i++) {
+    //   if (keysArr[i] === id) {
+    //     // let updatedPair = { [id]: sliderValue };
+    //     setChars((prevState) => ({
+    //       ...prevState,
+    //       [id]: sliderValue,
+    //     }));
+    //     setReviewInputs((prev) => ({
+    //       ...prev,
+    //       characteristics,
+    //     }));
+    //   }
+    // }
   };
 
   const submitBtnText = 'Submit';
 
   const handleSubmit = (e) => {
-    // if all fields filled out properly, then submit (& close)
-    // tomorrow: fix server side so it res.sends success only on 200 or 201 whatever
-    // for other status codes send as error so i can handle in catch block
-
-    // what to work on: change review button text once submitted
-    // star rating
-    // use context to share characteristic id's from metadata
-    // dynamically render product name based on use context from product GET
     e.preventDefault();
     axios.post('/reviews', reviewInputs)
       .then(({ data }) => {
@@ -298,7 +276,6 @@ const AddReviewModal = ({ open, onClose }) => {
           <label htmlFor="no">No</label>
           <RadioInput type="radio" id="no" name="recommend" onClick={handleRecommendInputChange} />
 
-          {/* <BottomWrapper> */}
           <SliderList>
             {charsArr.map((item) => (
               <SliderItem>
@@ -307,11 +284,10 @@ const AddReviewModal = ({ open, onClose }) => {
               </SliderItem>
             ))}
           </SliderList>
-          <div>
-            <Label htmlFor="name">Your Name:</Label>
-            <Input type="text" id="name" onChange={handleTextInputChange} required />
-            <div style={{ fontSize: 'small' }}>For privacy reasons, do not use your full name or email address.</div>
-          </div>
+
+          <Label htmlFor="name">Your Name:</Label>
+          <Input type="text" id="name" onChange={handleTextInputChange} required />
+          <div style={{ fontSize: 'small' }}>For privacy reasons, do not use your full name or email address.</div>
 
           <Label htmlFor="email">Email:</Label>
           <Input type="email" id="email" onChange={handleTextInputChange} required />
