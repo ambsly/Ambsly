@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import styled from 'styled-components';
 import ReactDom from 'react-dom';
 import { ProductsContext } from '../globalState.jsx';
 
@@ -13,11 +14,36 @@ const MODAL_STYLES = {
   justifyContent: 'center',
 };
 
-const Inner_MODAL_STYLES = {
-  width: 500,
-  height: 500,
-  backgroundColor: 'aquamarine',
-};
+const ModalTD = styled.td`
+padding-right: 10px;
+`;
+
+const StyledTable = styled.table`
+`;
+
+const StyledModalContainer = styled.div`
+width: 100%;
+height: 100%;
+display: flex;
+align-content: space-between;
+flex-direction: column;
+`;
+
+const StyledSpan = styled.span`
+position: absolute;
+font-size: 24px;
+margin: 10px;
+padding: 10px;
+top: -50px;`;
+
+const StyledInnerModal = styled.div`
+position: relative;
+top: 92%;
+display: flex;
+width: 1000px;
+height: 80px;
+border: 1px solid #000;
+`;
 function Modal({
   open, children, onClose, card,
 }) {
@@ -25,7 +51,7 @@ function Modal({
   // console.log(products.relatedProducts, 'looking at this');
   // console.table(products.currentItem.features);
 
-  const compareArray = [];
+  let compareArray = [];
   const cardFeatures = [];
   const currentFeatures = [];
   for (let i = 0; i < card.features.length; i += 1) {
@@ -36,6 +62,9 @@ function Modal({
     compareArray.push(products.currentItem.features[i].feature);
     currentFeatures.push(products.currentItem.features[i].feature);
   }
+
+  compareArray = new Set(compareArray);
+  compareArray = [...compareArray];
 
   for (let i = 0; i < compareArray.length; i += 1) {
     let cardFeature = 'false';
@@ -49,41 +78,86 @@ function Modal({
     compareArray[i] = [currentFeature, compareArray[i], cardFeature];
   }
 
-  // console.log(cardFeatures);
-  // console.log(currentFeatures);
+  const Item1 = [];
+  const Features = [];
+  const Item2 = [];
 
-  const modalCompares = compareArray.map((array) => (
-    <tr>
-      <td>{[array[0]]}</td>
-      <td>{[array[1]]}</td>
-      <td>{[array[2]]}</td>
-      <td><i className="fa fa-remove" /></td>
-      <td><i className="fa fa-check" /></td>
-    </tr>
-  ));
+  for (let i = 0; i < compareArray.length; i += 1) {
+    if (compareArray[i][0] === 'true') {
+      Item1.push(
+        <td>
+          <span className="material-icons check">
+            check
+          </span>
+        </td>,
+      );
+    } else {
+      Item1.push(
+        <td>
+          <span className="material-icons clear">
+            clear
+          </span>
+        </td>,
+      );
+    }
+    if (compareArray[i][2] === 'true') {
+      Item2.push(
+        <td>
+          <span className="material-icons check">
+            check
+          </span>
+        </td>,
+      );
+    } else {
+      Item2.push(
+        <td>
+          <span className="material-icons clear">
+            clear
+          </span>
+        </td>,
+      );
+    }
+
+    Features.push(
+      <td>
+        {compareArray[i][1]}
+      </td>,
+    );
+  }
 
   if (!open) {
     return null;
   }
   return ReactDom.createPortal(
     <div style={MODAL_STYLES}>
-      <div style={Inner_MODAL_STYLES}>
-        Comparing
-        <table>
-          <tbody>
+
+      <StyledInnerModal>
+        <StyledSpan>
+          Comparing Products
+        </StyledSpan>
+
+        <StyledModalContainer>
+
+          <table>
             <tr>
-              <th>Item1</th>
-              <th>Features</th>
-              <th>Item2</th>
-              <td><i className="fa fa-remove" /></td>
-              <td><i className="fa fa-check" /></td>
+              <th>{products.currentItem.name}</th>
+              {Item1}
             </tr>
-            {modalCompares}
-          </tbody>
-        </table>
-        <button onClick={onClose}>Close Modal</button>
-        {children}
-      </div>
+            <tr>
+              <th>Features</th>
+              {Features}
+            </tr>
+            <tr>
+              <th>{card.name}</th>
+              {Item2}
+            </tr>
+          </table>
+
+          {children}
+        </StyledModalContainer>
+
+      </StyledInnerModal>
+
     </div>,
     document.getElementById('app'),
   );

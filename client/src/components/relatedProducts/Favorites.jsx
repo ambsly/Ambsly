@@ -41,7 +41,7 @@ function Favorites() {
   ));
 
   return (
-    <CarouselComponent cards={FavoriteCards} name="FavoriteProducts" />
+    <CarouselComponent cards={FavoriteCards} name="Favorite Products" />
   );
 }
 

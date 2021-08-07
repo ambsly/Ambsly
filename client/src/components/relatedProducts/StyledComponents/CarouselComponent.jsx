@@ -6,12 +6,12 @@ const StyledCarouselContainer = styled.div`
 width: 1000px;
 margin: 100px auto;
 min-height: 200px;
-top: 100px;
 position: relative;
 border: 1px grey;
  `;
 
 const StyledCarouselInnerContainer = styled.div`
+margin-top: 20px;
 overflow: hidden;
 transition: 0.35s;
 `;
@@ -22,8 +22,9 @@ transition: transform 0.35s;
 height: 340px;`;
 
 const StyledRelatedTitle = styled.span`
-font-size: 32px;
-font-weight: bold;
+font-size: 24px;
+margin: 10px;
+padding: 10px;
  `;
 
 // const StyledNavButtons = styled.div`

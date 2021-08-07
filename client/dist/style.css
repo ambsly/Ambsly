@@ -20,6 +20,13 @@ span.material-icons.modalButton {
   color: rgba(144,164,174, 1);
 }
 
+span.material-icons.check {
+  color: green;
+}
+
+span.material-icons.clear {
+  color: red;
+}
 
 
 .modalCarouselButtons {

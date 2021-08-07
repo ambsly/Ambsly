@@ -16,6 +16,7 @@ box-sizing: border-box;
 `;
 
 const StyledCard = styled.div`
+position: relative;
 width: 100%;
 height: 100%;
 border: 1px solid black;
@@ -32,7 +33,7 @@ height: 175px;
 
 const StyledMouseHover = styled.div`
 position: absolute;
-top: 10%;
+top: 25%;
 left: 75px;
 width: 75px;
 height: 75px;
@@ -66,7 +67,15 @@ padding-top: 4px;
 margin: 2px;
 color: black;`;
 
+const StyledComparedButton = styled.button`
+position: absolute;
+top: 93%;
+right: 34%;
+border-color: #c3c3c3;
+text-align: center;`;
+
 function RelatedItem({ cardInfo }) {
+  const [products, setProducts] = useContext(ProductsContext);
   const card = cardInfo;
   const {
     // eslint-disable-next-line react/prop-types
@@ -81,11 +90,11 @@ function RelatedItem({ cardInfo }) {
   const [firstPhoto] = photos;
   // console.log(firstPhoto, 'what is this?');
   const [isOpen, setIsOpen] = useState(false);
+  const [isCarouselOpen, setCarouselOpen] = useState(false);
 
   function changeProduct() {
-    // setProducts((prevState) => ({ ...prevState, currentItemId: id }));
-    // // console.table(products.currentItemId);
-    // // console.log(id, 'the id');
+    setProducts((prevState) => ({ ...prevState, currentItemId: id }));
+    console.log(id, 'the id');
   }
 
   return (
@@ -93,7 +102,7 @@ function RelatedItem({ cardInfo }) {
       <StyledCard onClick={changeProduct}>
         <StyledImageCardContainer>
           <LikeButton id={id} card={card} />
-          <StyledMouseHover onMouseEnter={() => setIsOpen(true)} />
+          <StyledMouseHover onMouseEnter={() => setCarouselOpen(true)} />
           <StyledCardImage src={firstPhoto.thumbnail_url} alt="" />
 
         </StyledImageCardContainer>
@@ -104,19 +113,26 @@ function RelatedItem({ cardInfo }) {
             $
             {default_price}
             <div>
-              <button onClick={() => setIsOpen(true)}>OpenPicture</button>
-              <button onClick={() => setIsOpen(true)}>Open Modal</button>
+              <StyledComparedButton
+                onMouseEnter={() => setIsOpen(true)}
+                onMouseLeave={() => setIsOpen(false)}
+              >
+                Compare
+              </StyledComparedButton>
             </div>
           </StyledProductPrice>
 
         </StyledProductDetails>
         <div>
-          <ModalCarousel id={id} photos={photos} open={isOpen} onClose={() => setIsOpen(false)} />
+          <ModalCarousel
+            id={id}
+            photos={photos}
+            open={isCarouselOpen}
+            onClose={() => setCarouselOpen(false)}
+          />
         </div>
       </StyledCard>
-      {/* <Modal open={isOpen} onClose={() => setIsOpen(false)} card={card}>
-        Comparing
-      </Modal> */}
+      <Modal open={isOpen} onClose={() => setIsOpen(false)} card={card} />
 
     </StyledCardContainer>
   );
