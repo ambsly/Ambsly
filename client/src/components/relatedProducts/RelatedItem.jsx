@@ -40,11 +40,13 @@ height: 75px;
 `;
 
 const StyledCardImage = styled.img`
+cursor: pointer;
 object-fit: cover;
 width: 100%;
 height: 100%;`;
 
 const StyledProductDetails = styled.div`
+cursor: pointer;
 display: flex;
 flex-direction: column`;
 
@@ -93,20 +95,22 @@ function RelatedItem({ cardInfo }) {
   const [isCarouselOpen, setCarouselOpen] = useState(false);
 
   function changeProduct() {
+    console.log(products.currentItemId, 'the id before the change');
+    console.log(id, 'the id being saved ');
     setProducts((prevState) => ({ ...prevState, currentItemId: id }));
-    console.log(id, 'the id');
+
+    console.log(products.currentItemId), ' the id after';
   }
 
   return (
     <StyledCardContainer>
-      <StyledCard onClick={changeProduct}>
-        <StyledImageCardContainer>
+      <StyledCard>
+        <StyledImageCardContainer onClick={() => setCarouselOpen(true)}>
           <LikeButton id={id} card={card} />
-          <StyledMouseHover onMouseEnter={() => setCarouselOpen(true)} />
           <StyledCardImage src={firstPhoto.thumbnail_url} alt="" />
 
         </StyledImageCardContainer>
-        <StyledProductDetails>
+        <StyledProductDetails onClick={changeProduct}>
           <StyledCategoryName>{category}</StyledCategoryName>
           <StyledProductName>{name}</StyledProductName>
           <StyledProductPrice>

@@ -8,25 +8,30 @@ body {
 
 
 span.material-icons.chev{
+  cursor: pointer;
   font-size: 150px;
   color: rgba(144,164,174, 1);
 }
 
 span.material-icons.fav {
+  cursor: pointer;
   font-size: 50px;
   position: absolute;
   color: rgba(144,164,174, 1);
 }
 span.material-icons.modalButton {
+  cursor: pointer;
   font-size: 75px;
   color: rgba(144,164,174, 1);
 }
 
 span.material-icons.check {
+  cursor: pointer;
   color: green;
 }
 
 span.material-icons.clear {
+  cursor: pointer;
   color: red;
 }
 

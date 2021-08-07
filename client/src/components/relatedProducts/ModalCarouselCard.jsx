@@ -20,9 +20,11 @@ border: 1px saddlebrown;
 `;
 
 const StyleModalCardImageContainer = styled.div`
-  display: flex ;
-  justifyContent: center;
-  alignItems: center;
+cursor: pointer;
+display: flex ;
+justifyContent: center;
+alignItems: center;
+object-fit: cover;
 `;
 
 let modalCardImg = {

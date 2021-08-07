@@ -9,9 +9,8 @@ import { ProductsContext, GlobalContext } from '../globalState';
 function Related() {
   const [products, setProducts] = useContext(GlobalContext);
   let RelatedItems = [];
-
   useEffect(() => {
-    axios.get('/products/25170')
+    axios.get(`/products/${products.currentItemId}`)
       .then((result) => {
         setProducts((prevState) => ({ ...prevState, currentItem: result.data }));
       })
@@ -20,17 +19,30 @@ function Related() {
         console.log('Error retrieving product data: ', err);
       });
 
-    axios.get('/products/25170/related')
+    axios.get(`/products/${products.currentItemId}/related`)
       .then((results) => {
-        setProducts((prevState) => ({ ...prevState, relatedProducts: results.data }));
+        let setArray = new Set(results.data);
+        setArray = [...setArray];
+        setProducts((prevState) => ({ ...prevState, relatedProducts: setArray }));
       })
       .catch((err) => {
       // eslint-disable-next-line no-console
         console.log('Error retrieving product data: ', err);
       });
-  }, []);
+  }, [products.currentItemId]);
+  const newObj = {};
+  for (let i = 0; i < products.relatedProducts.length; i += 1) {
+    newObj[products.relatedProducts[i].id] = products.relatedProducts[i];
+  }
+  const newProductArray = [];
 
-  RelatedItems = products.relatedProducts.map((item) => (
+  Object.keys(newObj).forEach((product) => (
+    newProductArray.push(newObj[product])
+  ));
+
+
+
+  RelatedItems = newProductArray.map((item) => (
     <RelatedItem
       key={item.id}
       cardInfo={item}
