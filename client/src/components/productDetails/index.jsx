@@ -5,6 +5,7 @@ import ProductDisplay from './display/productDisplay.jsx';
 import ProductOverview from './overview/productOverview.jsx';
 import ProductDescription from './description/productDescription.jsx';
 import ShareProduct from './shareProduct.jsx';
+import { ProductsContext } from '../globalState.jsx';
 
 const TopContainer = styled.div`
 display: flex;
@@ -19,21 +20,16 @@ margin: auto;
 width: 1000px;
 `;
 
-const ProductDetails = ({ productData }) => {
-  if (!productData) {
-    return (
-      <></>
-    );
-  }
-
+const ProductDetails = () => {
+  const [products] = useContext(ProductsContext);
+  const [productData, setProductData] = useState({});
   const [styles, setStyles] = useState([]);
   const [currentStyle, setCurrentStyle] = useState();
   const [mainImageKey, setMainImageKey] = useState(0);
-  const { id } = productData;
 
   useEffect(() => {
     axios.get('/display', {
-      params: { productId: id },
+      params: { productId: products.currentItemId },
     })
       .then((results) => {
         const data = results.data.results;
@@ -46,6 +42,14 @@ const ProductDetails = ({ productData }) => {
       })
       .catch((error) => {
         console.log('Could not retrieve styles: ', error);
+      });
+
+    axios.get(`/products/${products.currentItemId}`)
+      .then((results) => {
+        setProductData(results.data);
+      })
+      .catch((error) => {
+        console.log('Could not retrieve product information: ', error);
       });
   }, []);
 

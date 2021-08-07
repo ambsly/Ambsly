@@ -2,6 +2,8 @@
 body {
   background-color: rgb(255, 255, 255);
   font-family: Arial;
+  margin: 0px;
+  padding: 0px;
 }
 
 
@@ -121,6 +123,6 @@ span.material-icons.fav:hover::before {
   color: #f80;
 } */
 
-html {
+/* html {
   padding-left: calc(100vw - 100%);
-}
+} */

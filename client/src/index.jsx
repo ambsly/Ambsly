@@ -18,18 +18,18 @@ export const idContext = React.createContext(0);
 function App() {
   const [productID, setID] = useState(0);
   const [product, setProduct] = useState();
-  useEffect(() => {
-    axios.get('/products')
-      .then((results) => {
-        const { id } = results.data[2];
-        setProduct(results.data[4]);
-        setID(id);
-      })
-      .catch((err) => {
-      // eslint-disable-next-line no-console
-        console.log('Error retrieving product data: ', err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios.get('/products')
+  //     .then((results) => {
+  //       const { id } = results.data[3];
+  //       setProduct(results.data[3]);
+  //       setID(id);
+  //     })
+  //     .catch((err) => {
+  //     // eslint-disable-next-line no-console
+  //       console.log('Error retrieving product data: ', err);
+  //     });
+  // }, []);
 
   return (
     <div>
@@ -37,7 +37,7 @@ function App() {
       <GlobalStateProvider>
         {/* <CarouselComponent /> */}
         <idContext.Provider value={productID}>
-          <ProductDetails productData={product} />
+          <ProductDetails />
           <Related />
           <Favorites />
           <QAndA />
