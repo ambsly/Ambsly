@@ -30,7 +30,7 @@ const Button = styled.button`
 
 const QuestionsList = ({
   questions,
-  refreshQ,
+  refreshQuestions,
   productId,
   productName,
   setIsMoreQ,
@@ -56,7 +56,7 @@ const QuestionsList = ({
         ))}
       </QuestionSection>
       <Button onClick={() => {
-        refreshQ(20);
+        refreshQuestions(20);
         setIsMoreQ(true);
       }}
       >
@@ -68,9 +68,9 @@ const QuestionsList = ({
         onClose={() => {
           setIsOpenQ(false);
           if (isMoreQ) {
-            refreshQ(20);
+            refreshQuestions(20);
           } else {
-            refreshQ(4);
+            refreshQuestions(4);
           }
         }}
         productId={productId}

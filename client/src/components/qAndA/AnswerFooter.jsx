@@ -20,7 +20,7 @@ const Span = styled.span`
   cursor: pointer;
 `;
 
-const AnswerFooter = ({ answer, refreshA }) => {
+const AnswerFooter = ({ answer, refreshAnswers }) => {
   const [aHelpfulScore, setAHelpfulScore] = useState(answer.helpfulness);
   const formatDate = (string) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -37,13 +37,13 @@ const AnswerFooter = ({ answer, refreshA }) => {
       })
       .catch((err) => console.error(err));
   };
-  const reportA = () => {
+  const reportAnswer = () => {
     axios.put('/qa/answers/:answer_id/report', {
       answer_id: answer.answer_id,
     })
       .then((response) => {
         if (response.status === 204) {
-          refreshA(2);
+          refreshAnswers(2);
         }
       })
       .catch((err) => console.error(err));
@@ -59,7 +59,7 @@ const AnswerFooter = ({ answer, refreshA }) => {
       &nbsp;
       {`(${aHelpfulScore}) |`}
       &nbsp;
-      <Span onClick={() => reportA()}>Report</Span>
+      <Span onClick={() => reportAnswer()}>Report</Span>
     </FooterSection>
   );
 };

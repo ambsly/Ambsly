@@ -22,7 +22,7 @@ const Span = styled.span`
 `;
 
 const QuestionFooter = ({
-  question, refreshA, productName, isOpenQ,
+  question, refreshAnswers, productName, isOpenQ,
 }) => {
   const [isOpenA, setIsOpenA] = useState(false);
   const [qHelpfulScore, setQHelpfulScore] = useState(question.question_helpfulness);
@@ -55,10 +55,10 @@ const QuestionFooter = ({
         open={isOpenA}
         onClose={() => {
           setIsOpenA(false);
-          refreshA(2);
+          refreshAnswers(2);
         }}
         question={question}
-        refreshA={refreshA}
+        refreshAnswers={refreshAnswers}
         productName={productName}
       />
     </FooterSection>

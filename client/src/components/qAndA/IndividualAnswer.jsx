@@ -33,7 +33,7 @@ const Img = styled.img`
   object-fit: cover;
 `;
 
-const IndividualAnswer = ({ answer, refreshA }) => (
+const IndividualAnswer = ({ answer, refreshAnswers }) => (
   <AnswerSection>
     {`${answer.body}`}
     <PhotosSection>
@@ -46,7 +46,7 @@ const IndividualAnswer = ({ answer, refreshA }) => (
           </PhotoDiv>
         ))}
     </PhotosSection>
-    <AnswerFooter answer={answer} refreshA={refreshA} />
+    <AnswerFooter answer={answer} refreshAnswers={refreshAnswers} />
   </AnswerSection>
 );
 

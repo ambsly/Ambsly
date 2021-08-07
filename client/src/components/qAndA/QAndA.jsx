@@ -11,7 +11,8 @@ const QAndAModule = styled.div`
 `;
 
 const Title = styled.span`
-  font-size: 24px;
+  font-size: 28px;
+  font-weight: bold;
   margin: 10px;
   padding: 10px;
   /* color: #FCFAF0; */
@@ -42,32 +43,33 @@ const QAndA = () => {
   const [productId, setProductId] = useState(product.currentItemId);
   const [productName, setProductName] = useState('');
   const [isMoreQ, setIsMoreQ] = useState(false);
+  const [errorState, setErrorState] = useState(false);
 
   useEffect(() => {
     // Get product and set productId & productName
-    console.log('productId', productId);
     axios
-      .get('/products/25171')
+      .get(`/products/${productId}`)
       .then(({ data }) => {
         setProductId(data.id);
         setProductName(data.name);
       })
-      // .then(() => {
-      //   // Get questions list and set questions
-      //   axios
-      //     .get(`/qa/questions?product_id=${productId}&count=20`)
-      //     .then(({ data }) => {
-      //       setQuestions(data);
-      //       setFilteredQs(data.slice(0, 4));
-      //     });
-      // })
+      .then(() => {
+        // Get questions list and set questions
+        axios
+          .get(`/qa/questions?product_id=${productId}&count=20`)
+          .then(({ data }) => {
+            setQuestions(data);
+            setFilteredQs(data.slice(0, 4));
+          });
+      })
       .catch((err) => {
         console.error(err);
+        setErrorState(true);
       });
   }, []);
 
   useEffect(() => {
-    // Get questions list
+    // If product is changed, get questions list again
     axios
       .get(`/qa/questions?product_id=${productId}&count=20`)
       .then(({ data }) => {
@@ -76,8 +78,9 @@ const QAndA = () => {
       })
       .catch((err) => {
         console.error(err);
+        setErrorState(true);
       });
-  }, [productName]);
+  }, [product]);
 
   useEffect(() => setFilteredQs(questions), [isMoreQ]);
 
@@ -101,7 +104,7 @@ const QAndA = () => {
     setTimeout(filterQuestions, 200);
   }, [searchText, questions]);
 
-  const refreshQ = (count) => {
+  const refreshQuestions = (count) => {
     axios
       .get(`/qa/questions?product_id=${productId}&count=${count}`)
       .then(({ data }) => {
@@ -110,6 +113,7 @@ const QAndA = () => {
       })
       .catch((err) => {
         console.error(err);
+        setErrorState(true);
       });
   };
 
@@ -124,15 +128,18 @@ const QAndA = () => {
           placeholder="Have a question? Search for answers..."
         />
       </Section>
-      <QuestionsList
-        questions={filteredQs}
-        searchText={searchText}
-        refreshQ={refreshQ}
-        productId={productId}
-        productName={productName}
-        isMoreQ={isMoreQ}
-        setIsMoreQ={setIsMoreQ}
-      />
+      {errorState ? <div style={{ margin: '20px' }}>An error has occurred</div>
+        : (
+          <QuestionsList
+            questions={filteredQs}
+            searchText={searchText}
+            refreshQuestions={refreshQuestions}
+            productId={productId}
+            productName={productName}
+            isMoreQ={isMoreQ}
+            setIsMoreQ={setIsMoreQ}
+          />
+        )}
     </QAndAModule>
   );
 };

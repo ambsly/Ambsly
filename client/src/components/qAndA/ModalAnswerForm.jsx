@@ -177,7 +177,7 @@ const ModalAnswerForm = ({
   const handleSubmit = (e) => {
     // validate inputs
     // POST request
-    // onClose --> refreshA
+    // onClose --> refreshAnswers
     e.preventDefault();
     const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.([a-zA-Z0-9-]+)*$/;
     if (formData.body.length === 0 || formData.name.length === 0 || formData.email.length === 0) {
