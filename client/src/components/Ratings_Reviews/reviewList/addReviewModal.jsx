@@ -45,7 +45,8 @@ const ModalForm = styled.div`
 
 const BottomWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  /* margin-right: 100px; */
 `;
 
 const Heading = styled.div`
@@ -86,6 +87,27 @@ const Input = styled.input`
   margin: 8px 0 8px 0;
 `;
 
+const SliderList = styled.div`
+  margin: 15px 0;
+`;
+
+const SliderItem = styled.div`
+  display: inline-block;
+  margin-right: 35px;
+`;
+
+const SliderInput = styled.input`
+  height: 2px;
+  width: 100%;
+  margin-bottom: 10px;
+`;
+
+const SliderLabel = styled.label`
+  display: block;
+  /* width: 50%;
+  margin: 0 auto; */
+`;
+
 const RadioInput = styled.input`
   margin: 8px 25px 0px 6px;
 `;
@@ -94,7 +116,7 @@ const ReviewBody = styled.textarea`
   overflow: auto;
   padding: 5px 5px 5px 10px;
   margin: 8px 0 8px 0;
-  height: 120px;
+  height: 80px;
   width: 660px;
   min-width: 70%;
 `;
@@ -113,15 +135,12 @@ const CloseBtn = styled.button`
 const AddReviewModal = ({ open, onClose }) => {
   const { productMetaData, reviewSubmit, setReviewSubmit } = useContext(BigContext);
   const [products, setProducts] = useContext(ProductsContext);
-  // console.log('uhh whats this', productMetaData);
-  let charsObj = {};
+  const charsObj = {};
+  const charsArr = [];
   _.each(productMetaData.characteristics, (val, key) => {
     charsObj[val.id] = undefined;
+    charsArr.push(key);
   });
-  // _.each(characteristics, (val, key) => {
-  //   charsArr.push({ key, val: val.value, id: val.id });
-  // });
-  // console.log('charsobj', charsObj);
   const [recommendedInput, setRecommendedInput] = useState(true);
   const [rating, setRating] = useState(0);
   const [reviewInputs, setReviewInputs] = useState({
@@ -150,7 +169,7 @@ const AddReviewModal = ({ open, onClose }) => {
   };
 
   const handleRecommendInputChange = (e) => {
-    setRecommendedInput(e.target.id === 'yes' ? true : false);
+    setRecommendedInput(e.target.id === 'yes');
     setReviewInputs((prevState) => ({
       ...prevState,
       recommend: recommendedInput,
@@ -166,7 +185,7 @@ const AddReviewModal = ({ open, onClose }) => {
     console.log('input state', reviewInputs);
   };
 
-  let submitBtnText = 'Submit';
+  const submitBtnText = 'Submit';
 
   const handleSubmit = (e) => {
     // if all fields filled out properly, then submit (& close)
@@ -233,21 +252,24 @@ const AddReviewModal = ({ open, onClose }) => {
           <label htmlFor="no">No</label>
           <RadioInput type="radio" id="no" name="recommend" onClick={handleRecommendInputChange} />
 
-          <BottomWrapper>
-            <div>
-              <Label htmlFor="name">Your Name:</Label>
-              <Input type="text" id="name" onChange={handleTextInputChange} required />
-              <div style={{ fontSize: 'small' }}>For privacy reasons, do not use your full name or email address.</div>
-            </div>
-            <div>
-              <label htmlFor="size">Size</label>
-              <input type="range" id="size" min="0" max="5" />
-            </div>
-          </BottomWrapper>
+          {/* <BottomWrapper> */}
+          <SliderList>
+            {charsArr.map((item) => (
+              <SliderItem>
+                <SliderLabel htmlFor="size">{item}</SliderLabel>
+                <SliderInput type="range" id="size" min="1" max="5" />
+              </SliderItem>
+            ))}
+          </SliderList>
+          <div>
+            <Label htmlFor="name">Your Name:</Label>
+            <Input type="text" id="name" onChange={handleTextInputChange} required />
+            <div style={{ fontSize: 'small' }}>For privacy reasons, do not use your full name or email address.</div>
+          </div>
 
-            <Label htmlFor="email">Email:</Label>
-            <Input type="email" id="email" onChange={handleTextInputChange} required />
-            <div style={{ fontSize: 'small' }}>For authentication reasons, you will not be emailed.</div>
+          <Label htmlFor="email">Email:</Label>
+          <Input type="email" id="email" onChange={handleTextInputChange} required />
+          <div style={{ fontSize: 'small' }}>For authentication reasons, you will not be emailed.</div>
 
           <Label className="button" />
           <button onClick={handleSubmit} type="submit">{submitBtnText}</button>
