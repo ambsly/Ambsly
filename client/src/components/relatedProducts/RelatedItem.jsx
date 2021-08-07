@@ -1,8 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
+import StarRatings from 'react-star-ratings';
 import Modal from './Modal.jsx';
 import ModalCarousel from './ModalCarousel';
 import LikeButton from './StyledComponents/LikeButton.jsx';
+import { rate } from '../Ratings_Reviews/overview/overview.jsx';
 import {
   GlobalContext, ButtonClickedContext, FavoritesContext, ProductsContext,
 } from '../globalState.jsx';
@@ -32,6 +34,7 @@ height: 175px;
 `;
 
 const StyledMouseHover = styled.div`
+cursor: pointer;
 position: absolute;
 top: 25%;
 left: 75px;
@@ -40,7 +43,6 @@ height: 75px;
 `;
 
 const StyledCardImage = styled.img`
-cursor: pointer;
 object-fit: cover;
 width: 100%;
 height: 100%;`;
@@ -51,32 +53,44 @@ display: flex;
 flex-direction: column`;
 
 const StyledCategoryName = styled.span`
-font-size: 12px;
+font-size: 14px;
 font-style: italic;
 line-height: 20px;
 padding: 1px;
 margin: 2px;
-color: black;`;
+color: #90a4ae;`;
 const StyledProductName = styled.span`
+font-weight: bold;
 font-size: 15px;
 padding: 1px;
 margin: 2px;
 color: black;`;
 const StyledProductPrice = styled.span`
-font-weight: bold;
 font-size: 16px;
 padding-top: 4px;
 margin: 2px;
-color: black;`;
+color: #007185;`;
 
 const StyledComparedButton = styled.button`
+cursor: pointer;
 position: absolute;
-top: 93%;
-right: 34%;
+top: 90%;
+border: none;
+right: 0%;
 border-color: #c3c3c3;
 text-align: center;`;
 
+const StyledStarDiv = styled.div`
+position: relative;
+`;
+
+const StyledStarRatingDiv = styled.div`
+position: absolute;
+top: 32px;
+`;
+
 function RelatedItem({ cardInfo }) {
+  const rating = rate();
   const [products, setProducts] = useContext(ProductsContext);
   const card = cardInfo;
   const {
@@ -93,6 +107,14 @@ function RelatedItem({ cardInfo }) {
   // console.log(firstPhoto, 'what is this?');
   const [isOpen, setIsOpen] = useState(false);
   const [isCarouselOpen, setCarouselOpen] = useState(false);
+  let renderPhoto = '';
+  console.log(firstPhoto, 'seeing for nulls');
+
+  if (firstPhoto.thumbnail_url === null) {
+    renderPhoto = '../../PNG/unavailable-image-300x225.jpg';
+  } else {
+    renderPhoto = firstPhoto.thumbnail_url;
+  }
 
   function changeProduct() {
     console.log(products.currentItemId, 'the id before the change');
@@ -105,9 +127,10 @@ function RelatedItem({ cardInfo }) {
   return (
     <StyledCardContainer>
       <StyledCard>
-        <StyledImageCardContainer onClick={() => setCarouselOpen(true)}>
+        <StyledImageCardContainer>
           <LikeButton id={id} card={card} />
-          <StyledCardImage src={firstPhoto.thumbnail_url} alt="" />
+          <StyledMouseHover onClick={() => setCarouselOpen(true)} />
+          <StyledCardImage src={renderPhoto} alt="" />
 
         </StyledImageCardContainer>
         <StyledProductDetails onClick={changeProduct}>
@@ -117,12 +140,26 @@ function RelatedItem({ cardInfo }) {
             $
             {default_price}
             <div>
-              <StyledComparedButton
-                onMouseEnter={() => setIsOpen(true)}
-                onMouseLeave={() => setIsOpen(false)}
-              >
-                Compare
+
+              <StyledStarDiv>
+                <StyledStarRatingDiv>
+                  <StarRatings
+                    rating={rating[0]}
+                    starRatedColor="gold"
+                    starDimension="15px"
+                    starSpacing="0"
+                    numberOfStars={5}
+                    name="rating"
+                  />
+                </StyledStarRatingDiv>
+              </StyledStarDiv>
+
+              <StyledComparedButton>
+                <span className="material-icons assesment" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
+                  assessment
+                </span>
               </StyledComparedButton>
+
             </div>
           </StyledProductPrice>
 

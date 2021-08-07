@@ -1,5 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
+import StarRatings from 'react-star-ratings';
+import { rate } from '../Ratings_Reviews/overview/overview.jsx';
 import { FavoritesContext, ButtonClickedContext } from '../globalState.jsx';
 
 const StyledCardContainer = styled.div`
@@ -35,25 +37,35 @@ display: flex;
 flex-direction: column`;
 
 const StyledCategoryName = styled.span`
-font-size: 12px;
+font-size: 14px;
 font-style: italic;
 line-height: 20px;
 padding: 1px;
 margin: 2px;
-color: black;`;
+color: #90a4ae;`;
 const StyledProductName = styled.span`
+font-weight: bold;
 font-size: 15px;
 padding: 1px;
 margin: 2px;
 color: black;`;
 const StyledProductPrice = styled.span`
-font-weight: bold;
 font-size: 16px;
 padding-top: 4px;
 margin: 2px;
-color: black;`;
+color: #007185;`;
+
+const StyledStarDiv = styled.div`
+position: relative;
+`;
+
+const StyledStarRatingDiv = styled.div`
+position: absolute;
+top: 32px;
+`;
 
 function FavoriteCard({ cardInfo }) {
+  const rating = rate();
   const [buttonValue, setButtonValue] = useContext(ButtonClickedContext);
   const [favorites, setFavorites] = useContext(FavoritesContext);
   const {
@@ -90,8 +102,22 @@ function FavoriteCard({ cardInfo }) {
           <StyledCategoryName>{category}</StyledCategoryName>
           <StyledProductName>{name}</StyledProductName>
           <StyledProductPrice>
+
             $
             {default_price}
+
+            <StyledStarDiv>
+              <StyledStarRatingDiv>
+                <StarRatings
+                  rating={rating[0]}
+                  starRatedColor="gold"
+                  starDimension="15px"
+                  starSpacing="0"
+                  numberOfStars={5}
+                  name="rating"
+                />
+              </StyledStarRatingDiv>
+            </StyledStarDiv>
           </StyledProductPrice>
         </StyledProductDetails>
       </StyledCard>

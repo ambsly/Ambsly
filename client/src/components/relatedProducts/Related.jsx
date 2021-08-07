@@ -40,8 +40,6 @@ function Related() {
     newProductArray.push(newObj[product])
   ));
 
-
-
   RelatedItems = newProductArray.map((item) => (
     <RelatedItem
       key={item.id}

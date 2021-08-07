@@ -38,7 +38,7 @@ top: -50px;`;
 
 const StyledInnerModal = styled.div`
 position: relative;
-top: 100%;
+top: 110%;
 display: flex;
 width: 1000px;
 height: 80px;
