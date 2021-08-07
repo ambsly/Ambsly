@@ -113,6 +113,7 @@ const QAndA = () => {
       })
       .catch((err) => {
         console.error(err);
+        setErrorState(true);
       });
   };
 
