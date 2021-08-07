@@ -44,7 +44,7 @@ const RatingsAndReviews = () => {
 
   useEffect(() => {
     axios.get('/reviews', {
-      params: { product_id: 25167, sort: sortType, count: 100 },
+      params: { product_id: products.currentItemId, sort: sortType, count: 100 },
     })
       .then((reviewsResults) => {
         setProductData(reviewsResults.data);
@@ -56,7 +56,7 @@ const RatingsAndReviews = () => {
 
   useEffect(() => {
     axios.get('/reviews/meta', {
-      params: { product_id: 25167 },
+      params: { product_id: products.currentItemId },
     })
       .then((results) => {
         setProductMetaData(results.data);

@@ -8,17 +8,11 @@ import CharacteristicsBreakdown from './characteristics.jsx';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  /* font-size: large; */
   margin-left: 15px;
-  /* border: 0.5px solid;
-  border-radius: 3px; */
 `;
 
 const RatingWrapper = styled.div`
   display: flex;
-  /* margin-bottom: 25px; */
-  /* border-bottom: 1px solid;
-  border-color: rgb(238, 238, 238); */
 `;
 
 const Rating = styled.div`

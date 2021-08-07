@@ -143,6 +143,7 @@ const AddReviewModal = ({ open, onClose }) => {
   });
   const [recommendedInput, setRecommendedInput] = useState(true);
   const [rating, setRating] = useState(0);
+  const [sliderValue, setSliderValue] = useState(3);
   const [reviewInputs, setReviewInputs] = useState({
     product_id: products.currentItemId,
     rating: null,
@@ -183,6 +184,14 @@ const AddReviewModal = ({ open, onClose }) => {
       rating: newRating,
     }));
     console.log('input state', reviewInputs);
+  };
+
+  const handleSliderChange = (e) => {
+    setSliderValue(e.target.value);
+    setReviewInputs((prevState) => ({
+      ...prevState,
+      recommend: recommendedInput,
+    }));
   };
 
   const submitBtnText = 'Submit';
@@ -256,8 +265,8 @@ const AddReviewModal = ({ open, onClose }) => {
           <SliderList>
             {charsArr.map((item) => (
               <SliderItem>
-                <SliderLabel htmlFor="size">{item}</SliderLabel>
-                <SliderInput type="range" id="size" min="1" max="5" />
+                <SliderLabel htmlFor={item}>{item}</SliderLabel>
+                <SliderInput type="range" id={item} min="1" max="5" defaultValue="3" onChange={handleSliderChange} />
               </SliderItem>
             ))}
           </SliderList>
