@@ -11,6 +11,7 @@ import { ProductsContext } from '../globalState.jsx';
 const OuterContainer = styled.div`
   margin: auto;
   width: 1000px;
+  font-family: AtlasGrotesk-Light, sans-serif;
 `;
 
 const Container = styled.div`
@@ -28,10 +29,10 @@ const RatingsAndReviews = () => {
   // const [count, setCount] = useState(2);
   const [productData, setProductData] = useState(undefined);
   const [productMetaData, setProductMetaData] = useState(undefined);
-  const [sortType, setSortType] = useState('helpful');
+  const [sortType, setSortType] = useState('newest');
   const [ratingFilter, setRatingFilter] = useState([]);
+  const [reviewSubmit, setReviewSubmit] = useState(false);
   const [products, setProducts] = useContext(ProductsContext);
-  console.log('products from R&R', products.currentItemId);
 
   // state of search type
   // pass down state and setter in context down to review list
@@ -39,11 +40,11 @@ const RatingsAndReviews = () => {
   // if it changes, trigger another get to /reviews
   // prob have to break up useeffect
 
-  //
+  // products.currentItemId
 
   useEffect(() => {
     axios.get('/reviews', {
-      params: { product_id: products.currentItemId, sort: sortType, count: 10 },
+      params: { product_id: products.currentItemId, sort: sortType, count: 100 },
     })
       .then((reviewsResults) => {
         setProductData(reviewsResults.data);
@@ -70,7 +71,7 @@ const RatingsAndReviews = () => {
       <OuterContainer>
         <Header>Ratings and Reviews</Header>
         <Container>
-          <BigContext.Provider value={{ ratingFilter, setRatingFilter }}>
+          <BigContext.Provider value={{ productData, productMetaData, ratingFilter, setRatingFilter, reviewSubmit, setReviewSubmit }}>
             <Overview metaData={productMetaData} />
             <MetaContext.Provider value={{ sortType, setSortType }}>
               <ReviewList reviews={productData} />

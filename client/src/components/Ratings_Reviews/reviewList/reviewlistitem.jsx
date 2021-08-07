@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import StarRatings from 'react-star-ratings';
+import { User } from '@styled-icons/boxicons-regular/User';
 
 const Container = styled.div`
   display: flex;
@@ -13,13 +14,13 @@ const Container = styled.div`
   margin-bottom: -1px;
   padding: 4px 16px 4px 16px;
   width: 700px;
-  height: 250px;
+  height: 280px;
 `;
 
 const FirstLineWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  padding-top: 12px;
+  padding: 12px 0 4px 0;
 `;
 
 const SecondLineWrapper = styled.div`
@@ -28,9 +29,24 @@ const SecondLineWrapper = styled.div`
 `;
 
 const ThirdLineWrapper = styled.div`
+  /* display: flex;
+  justify-content: space-between; */
+`;
+
+const Recommended = styled.div`
+  font: small Georgia, serif;
+  /* font-size: small;
+  font-family: Georgia; */
+`;
+
+const FourthLineWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding-bottom: 16px;
+`;
+
+const UserWrapper = styled.div`
+  color: #195d92;
 `;
 
 const ReviewSummary = styled.div`
@@ -48,16 +64,21 @@ const DateDisplay = styled.div`
 let HelpfulBtn = styled.button`
   background-color: transparent;
   border-style: none;
-  color: blue;
+  color: #195d92;
   cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 let ReportBtn = styled.button`
-  color: blue;
+  color: #195d92;
   background-color: transparent;
   border-style: none;
   cursor: pointer;
-  /* margin-left: 28px; */
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const formatDate = (dateString) => {
@@ -103,32 +124,36 @@ const ReviewListItem = ({ item }) => {
 
   return (
     <Container>
-      <FirstLineWrapper>
-        <StarRatings
-          rating={item.rating}
-          starRatedColor="gold"
-          starDimension="15px"
-          starSpacing="0"
-          numberOfStars={5}
-          name="rating"
-        />
-        <div>
-          <i className="far fa-user" />
-          {' '}
-          {item.reviewer_name}
-        </div>
-      </FirstLineWrapper>
-      <SecondLineWrapper>
-        <ReviewSummary>{item.summary}</ReviewSummary>
-        <DateDisplay>{formatDate(item.date)}</DateDisplay>
-      </SecondLineWrapper>
-      <p>
-        {item.body}
-      </p>
-      {/* <div>
-        Recommended: {item.recommend.toString()}
-      </div> */}
+      <div>
+        <FirstLineWrapper>
+          <StarRatings
+            rating={item.rating}
+            starRatedColor="gold"
+            starDimension="15px"
+            starSpacing="0"
+            numberOfStars={5}
+            name="rating"
+          />
+          <UserWrapper>
+            <User size="20" style={{marginBottom: '8px', marginRight: '5px'}}/>
+            {' '}
+            {item.reviewer_name}
+          </UserWrapper>
+        </FirstLineWrapper>
+        <SecondLineWrapper>
+          <ReviewSummary>{item.summary}</ReviewSummary>
+          <DateDisplay>{formatDate(item.date)}</DateDisplay>
+        </SecondLineWrapper>
+      </div>
       <ThirdLineWrapper>
+        <p>
+          {item.body}
+        </p>
+        <Recommended>
+          {item.recommend ? 'User Recommended ✓' : ''}
+        </Recommended>
+      </ThirdLineWrapper>
+      <FourthLineWrapper>
         <div>
           Was this review helpful?
           <HelpfulBtn onClick={markHelpful}>
@@ -138,7 +163,7 @@ const ReviewListItem = ({ item }) => {
         <ReportBtn onClick={report}>
           {reportBtnContents}
         </ReportBtn>
-      </ThirdLineWrapper>
+      </FourthLineWrapper>
     </Container>
   );
 };

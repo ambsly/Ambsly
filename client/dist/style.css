@@ -52,6 +52,11 @@ span.material-icons.clear {
   border: none;
 }
 
+.starbar:hover {
+  /* color: rgba(144, 164, 174, 0.8); */
+  font-weight: bold;
+}
+
 
 
 
