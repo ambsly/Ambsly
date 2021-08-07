@@ -22,7 +22,8 @@ transition: transform 0.35s;
 height: 340px;`;
 
 const StyledRelatedTitle = styled.span`
-font-size: 24px;
+font-size: 28px;
+font-weight: bold;
 margin: 10px;
 padding: 10px;
  `;
