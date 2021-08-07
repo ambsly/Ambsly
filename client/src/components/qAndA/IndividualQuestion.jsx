@@ -97,11 +97,11 @@ const IndividualQuestion = ({ question, productName, isOpenQ }) => {
     filterAnswers(answers);
   }, [answers]);
 
-  const refreshA = () => {
+  const refreshAnswers = () => {
     fetchAnswers();
   };
 
-  useEffect(refreshA, [question]);
+  useEffect(refreshAnswers, [question]);
 
   useEffect(() => filterAnswers(answers), [isMoreA]);
 
@@ -130,7 +130,7 @@ const IndividualQuestion = ({ question, productName, isOpenQ }) => {
         </QuestionBody>
         <QuestionFooter
           question={question}
-          refreshA={refreshA}
+          refreshAnswers={refreshAnswers}
           productName={productName}
           isOpenQ={isOpenQ}
         />
@@ -145,7 +145,7 @@ const IndividualQuestion = ({ question, productName, isOpenQ }) => {
               <IndividualAnswer
                 key={index}
                 answer={answer}
-                refreshA={refreshA}
+                refreshAnswers={refreshAnswers}
               />
             ))}
           </AnswerBodyAndAnswerFooter>

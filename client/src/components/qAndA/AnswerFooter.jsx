@@ -20,7 +20,7 @@ const Span = styled.span`
   cursor: pointer;
 `;
 
-const AnswerFooter = ({ answer, refreshA }) => {
+const AnswerFooter = ({ answer, refreshAnswers }) => {
   const [aHelpfulScore, setAHelpfulScore] = useState(answer.helpfulness);
   const formatDate = (string) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -43,7 +43,7 @@ const AnswerFooter = ({ answer, refreshA }) => {
     })
       .then((response) => {
         if (response.status === 204) {
-          refreshA(2);
+          refreshAnswers(2);
         }
       })
       .catch((err) => console.error(err));
