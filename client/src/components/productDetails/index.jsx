@@ -51,7 +51,7 @@ const ProductDetails = () => {
       .catch((error) => {
         console.log('Could not retrieve product information: ', error);
       });
-  }, []);
+  }, [products]);
 
   const changeStyle = (newStyle) => {
     setCurrentStyle(newStyle);
