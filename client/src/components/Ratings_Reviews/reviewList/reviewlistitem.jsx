@@ -46,7 +46,7 @@ const FourthLineWrapper = styled.div`
 `;
 
 const UserWrapper = styled.div`
-  color: blue;
+  color: #195d92;
 `;
 
 const ReviewSummary = styled.div`
@@ -64,16 +64,21 @@ const DateDisplay = styled.div`
 let HelpfulBtn = styled.button`
   background-color: transparent;
   border-style: none;
-  color: blue;
+  color: #195d92;
   cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 let ReportBtn = styled.button`
-  color: blue;
+  color: #195d92;
   background-color: transparent;
   border-style: none;
   cursor: pointer;
-  /* margin-left: 28px; */
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const formatDate = (dateString) => {

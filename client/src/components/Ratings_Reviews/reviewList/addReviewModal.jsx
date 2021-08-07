@@ -185,15 +185,17 @@ const AddReviewModal = ({ open, onClose }) => {
   };
 
   const handleSliderChange = (e) => {
-    setSliderValue(Number(e.target.value));
+    // setSliderValue(Number(e.target.value));
     const { id } = e.target;
     const value = Number(e.target.value);
     console.log('value of slider', value);
+
     setChars((prevState) => ({
       ...prevState,
       [id]: value,
     }));
     console.log('chars', characteristics);
+
     setTimeout(() => {
       setReviewInputs((prev) => ({
         ...prev,

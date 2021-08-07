@@ -19,11 +19,11 @@ const Bar = styled.progress`
   appearance: none;
   width: 100%;
   position: relative;
-  height: 6px;
+  height: 4px;
   &::before {
-    background: #74e474;
+    background: #195d92;
     content: "";
-    height: 10px;
+    height: 6px;
     position: absolute;
     left: ${(props) => props.barPosition}%;
     top: 50%;
@@ -34,7 +34,7 @@ const Bar = styled.progress`
     background: rgb(238, 238, 238);
   }
   &::-webkit-progress-value {
-  background-color: #74e474;
+  background-color: #195d92;
 }
 `;
 

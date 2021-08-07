@@ -21,13 +21,13 @@ const Bar = styled.progress`
   width: 60%;
   align-self: center;
   /* position: relative; */
-  height: 6px;
+  height: 5px;
   &::-webkit-progress-bar {
     background: rgb(238, 238, 238);
   }
   &::-webkit-progress-value {
-  background-color: #74e474;
-}
+  background-color: #195d92;
+  }
 `;
 
 // click handler on each star
@@ -70,23 +70,23 @@ const StarsBreakdown = ({ ratings, totalRatings }) => {
 
   return (
     <StarList>
-      <Wrapper name="5" style={hoverStyle} onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} onClick={handleClickFilter}>
+      <Wrapper className="starbar" name="5" style={hoverStyle} onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} onClick={handleClickFilter}>
         <label htmlFor="5star" name="5">5 star</label>
         <Bar name="5" min="0" max={totalRatings.toString()} value={ratings[5]} />
       </Wrapper>
-      <Wrapper name="4" style={hoverStyle} onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} onClick={handleClickFilter}>
+      <Wrapper className="starbar" name="4" style={hoverStyle} onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} onClick={handleClickFilter}>
         <label htmlFor="4starbar" name="4">4 star</label >
         <Bar name="4" className="4starbar" min="0" max={totalRatings.toString()} value={ratings[4]} />
       </Wrapper>
-      <Wrapper name="3" style={hoverStyle} onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} onClick={handleClickFilter}>
+      <Wrapper className="starbar" name="3" style={hoverStyle} onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} onClick={handleClickFilter}>
         <label name="3" htmlFor="3starbar">3 star</label>
         <Bar name="3" className="3starbar" min="0" max={totalRatings.toString()} value={ratings[3]} />
       </Wrapper>
-      <Wrapper name="2" style={hoverStyle} onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} onClick={handleClickFilter}>
+      <Wrapper className="starbar" name="2" style={hoverStyle} onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} onClick={handleClickFilter}>
         <label name="2" htmlFor="2starbar">2 star</label>
         <Bar name="2" className="2starbar" min="0" max={totalRatings.toString()} value={ratings[2]} />
       </Wrapper>
-      <Wrapper name="1" style={hoverStyle} onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} onClick={handleClickFilter}>
+      <Wrapper className="starbar" name="1" style={hoverStyle} onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} onClick={handleClickFilter}>
         <label name="1" htmlFor="1starbar">1 star</label>
         <Bar name="1" className="1starbar" min="0" max={totalRatings.toString()} value={ratings[1]} />
       </Wrapper>

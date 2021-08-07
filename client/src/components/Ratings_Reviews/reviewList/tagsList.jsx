@@ -7,15 +7,12 @@ const ListWrapper = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   max-width: 435px;
-  margin-bottom: 15px;
 `;
 
-const TagsList = ({ filterList }) => {
-  return (
-    <ListWrapper>
-      {filterList.map((item) => <TagItem item={item} />)}
-    </ListWrapper>
-  );
-};
+const TagsList = ({ filterList }) => (
+  <ListWrapper>
+    {filterList.map((item) => <TagItem item={item} />)}
+  </ListWrapper>
+);
 
 export default TagsList;

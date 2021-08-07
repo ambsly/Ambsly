@@ -42,8 +42,38 @@ const ButtonWrapper = styled.div`
 const Button = styled.button`
   cursor: pointer;
   height: 40px;
-  /* type: submit; */
-  width: 130px;
+  width: 140px;
+
+  background: #fff;
+  border-color: #b2cfeb;
+  color: #0c2d47;
+  background-color: transparent !important;
+  border-bottom-width: 2px;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  line-height: 2.6;
+  min-width: 0;
+  padding-left: 0;
+  padding-right: 0;
+  text-transform: uppercase;
+
+  &:hover {
+    appearance: none;
+    background: rgba(144, 164, 174, 0.8);
+    border: 1px solid rgba(144, 164, 174, 0.8);
+    border-radius: 0;
+    cursor: pointer;
+    height: 45px;
+    width: 140px;
+    letter-spacing: .25px;
+    margin: 0;
+    outline: 0;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: .3s;
+  }
 `;
 
 const SelectFilter = styled.select`
