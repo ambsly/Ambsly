@@ -51,10 +51,6 @@ const StarsBreakdown = ({ ratings, totalRatings }) => {
     } else {
       setRatingFilter((ratingFilter) => [...ratingFilter, filterNum]);
     }
-
-    // if a 3 star is clicked
-    // if label style is not bold, make it bold
-    // otherwise make it regular
   };
 
   const mouseEnterHandler = () => {

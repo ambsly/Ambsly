@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import StarRatings from 'react-star-ratings';
+import { User } from '@styled-icons/boxicons-regular/User';
 
 const Container = styled.div`
   display: flex;
@@ -19,7 +20,7 @@ const Container = styled.div`
 const FirstLineWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  padding-top: 12px;
+  padding: 12px 0 4px 0;
 `;
 
 const SecondLineWrapper = styled.div`
@@ -44,6 +45,10 @@ const FourthLineWrapper = styled.div`
   padding-bottom: 16px;
 `;
 
+const UserWrapper = styled.div`
+  color: blue;
+`;
+
 const ReviewSummary = styled.div`
   font-size: 20;
   font-weight: bold;
@@ -51,12 +56,6 @@ const ReviewSummary = styled.div`
 
 const DateDisplay = styled.div`
   font-size: small;
-`;
-
-const UserSymbol = styled.span`
-  display: inline-block;
-  margin-right: 8px;
-  color: black;
 `;
 
 // onclick
@@ -130,11 +129,11 @@ const ReviewListItem = ({ item }) => {
             numberOfStars={5}
             name="rating"
           />
-          <div>
-            <UserSymbol>👤</UserSymbol>
+          <UserWrapper>
+            <User size="20" style={{marginBottom: '8px', marginRight: '5px'}}/>
             {' '}
             {item.reviewer_name}
-          </div>
+          </UserWrapper>
         </FirstLineWrapper>
         <SecondLineWrapper>
           <ReviewSummary>{item.summary}</ReviewSummary>

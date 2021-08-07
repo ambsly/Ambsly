@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import ReviewListItem from './reviewlistitem.jsx';
 import AddReviewModal from './addReviewModal.jsx';
+import TagsList from './tagsList.jsx';
 import MetaContext from '../context/MetaContext.js';
 import BigContext from '../context/BigContext.js';
 
@@ -34,8 +35,8 @@ const HeaderWrapper = styled.div`
 
 const ButtonWrapper = styled.div`
   display: flex;
-  justify-content: space-evenly;
-  margin: 15px 0 40px 0;
+  justify-content: space-around;
+  margin: 20px 0 60px 0;
 `;
 
 const Button = styled.button`
@@ -60,7 +61,6 @@ const ReviewList = ({ reviews }) => {
   let reviewList = reviews.results;
   if (ratingFilter.length !== 0) {
     reviewList = reviews.results.filter((item) => ratingFilter.includes(item.rating.toString()));
-    console.log('review list', reviewList);
   } else {
     reviewList = reviews.results;
   }
@@ -96,15 +96,14 @@ const ReviewList = ({ reviews }) => {
             <option>relevant</option>
           </SelectFilter>
         </ReviewSorter>
-        {/* <Tags /> */}
+        <TagsList filterList={ratingFilter} />
       </HeaderWrapper>
       <List style={style}>
-        {/* if reviewList.length is 0, render a 'no reviews' div. otherwise render the map */}
         {reviewList.length === 0 ? <div style={{ width: '50%', margin: '50px auto 0 auto', textAlign: 'center' }}>Sorry, no reviews here!</div> : reviewList.map((item) => <ReviewListItem key={item.review_id} item={item} />)}
       </List>
       <ButtonWrapper>
         {moreReviewsClicked ? null : <Button onClick={handleMoreReviewsClick}>More Reviews</Button>}
-        <Button onClick={() => setModal(true)}>Add a Review   +</Button>
+        <Button onClick={() => setModal(true)}>Write a Review   +</Button>
       </ButtonWrapper>
       <AddReviewModal open={modalOpened} onClose={() => setModal(false)} />
     </Container>
