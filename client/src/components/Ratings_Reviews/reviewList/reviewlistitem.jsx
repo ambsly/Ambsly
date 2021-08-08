@@ -58,9 +58,6 @@ const DateDisplay = styled.div`
   font-size: small;
 `;
 
-// onclick
-// increment or decrement item.helpful
-// change contents to say 'thank you for your response.'
 let HelpfulBtn = styled.button`
   background-color: transparent;
   border-style: none;

@@ -11,7 +11,8 @@ import { ProductsContext } from '../globalState.jsx';
 const OuterContainer = styled.div`
   margin: auto;
   width: 1000px;
-  font-family: AtlasGrotesk-Light, sans-serif;
+  color: #0f0f0fdc;
+  font-family: Arial;
 `;
 
 const Container = styled.div`
@@ -28,21 +29,12 @@ const Header = styled.div`
 `;
 
 const RatingsAndReviews = () => {
-  // const [count, setCount] = useState(2);
   const [productData, setProductData] = useState(undefined);
   const [productMetaData, setProductMetaData] = useState(undefined);
   const [sortType, setSortType] = useState('newest');
   const [ratingFilter, setRatingFilter] = useState([]);
   const [reviewSubmit, setReviewSubmit] = useState(false);
   const [products, setProducts] = useContext(ProductsContext);
-
-  // state of search type
-  // pass down state and setter in context down to review list
-  // have useEffect watch for changes in this state
-  // if it changes, trigger another get to /reviews
-  // prob have to break up useeffect
-
-  // products.currentItemId
 
   useEffect(() => {
     axios.get('/reviews', {
@@ -54,7 +46,7 @@ const RatingsAndReviews = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [sortType, products]);
+  }, [sortType, products, reviewSubmit]);
 
   useEffect(() => {
     axios.get('/reviews/meta', {

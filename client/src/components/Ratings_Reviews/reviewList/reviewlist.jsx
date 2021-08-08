@@ -31,6 +31,7 @@ const List = styled.div`
 const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 20px;
 `;
 
 const ButtonWrapper = styled.div`
@@ -53,9 +54,6 @@ const Button = styled.button`
   border-right: 0;
   border-top: 0;
   line-height: 2.6;
-  min-width: 0;
-  padding-left: 0;
-  padding-right: 0;
   text-transform: uppercase;
 
   &:hover {
@@ -67,8 +65,6 @@ const Button = styled.button`
     height: 45px;
     width: 140px;
     letter-spacing: .25px;
-    margin: 0;
-    outline: 0;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;

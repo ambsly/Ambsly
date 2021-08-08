@@ -6,6 +6,15 @@ const Button = styled.button`
   margin-top: 8px;
   margin-left: 5px;
   cursor: pointer;
+
+  border: 1px solid rgba(144, 164, 174, 0.8);
+  border-radius: 3px;
+  background-color: transparent;
+  line-height: 22px;
+  &:hover {
+    transition: 0.4s;
+    border: 1px solid #0c2d47;
+  }
 `;
 
 const TagItem = ({ item }) => {

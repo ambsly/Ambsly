@@ -60,11 +60,11 @@ const Title = styled.div`
   margin-bottom: 5px;
 `;
 
-const Subtitle = styled.div`
-  display: block;
-  font-size: 14px;
-  margin-bottom: 8px;
-`;
+// const Subtitle = styled.div`
+//   display: block;
+//   font-size: 14px;
+//   margin-bottom: 8px;
+// `;
 
 const Label = styled.label`
   display: block;
@@ -78,6 +78,7 @@ const ReviewTitleInput = styled.input`
   margin: 8px 0 8px 0;
   width: 400px;
   font-size: 18px;
+  border: 1px solid rgba(144, 164, 174, 0.8);
 `;
 
 const Input = styled.input`
@@ -85,6 +86,7 @@ const Input = styled.input`
   text-align: left;
   padding: 5px 5px 5px 10px;
   margin: 8px 0 8px 0;
+  border: 1px solid rgba(144, 164, 174, 0.8);
 `;
 
 const SliderList = styled.div`
@@ -117,12 +119,51 @@ const ReviewBody = styled.textarea`
   height: 80px;
   width: 660px;
   min-width: 70%;
+  border: 1px solid rgba(144, 164, 174, 0.8);
 `;
 
 const CloseBtn = styled.button`
   width: 25px;
+  padding: 2px;
   height: auto;
   align-self: flex-end;
+  cursor: pointer;
+
+  background: #fff;
+  border: 1px solid rgba(144, 164, 174, 0.8);
+  &:hover {
+    transition: 0.4s;
+    border: 1px solid #0c2d47;
+    border-radius: 2px;
+  }
+`;
+
+const SubmitButton = styled.button`
+  cursor: pointer;
+  height: 40px;
+  width: 120px;
+
+  background: #fff;
+  border-color: #b2cfeb;
+  color: #0c2d47;
+  background-color: transparent !important;
+  border-bottom-width: 2px;
+  line-height: 2.6;
+  text-transform: uppercase;
+
+  &:hover {
+    appearance: none;
+    background: rgba(144, 164, 174, 0.8);
+    border: 1px solid rgba(144, 164, 174, 0.8);
+    border-radius: 0;
+    cursor: pointer;
+    height: 40px;
+    width: 120px;
+    letter-spacing: .25px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: .3s;
+  }
 `;
 
 const AddReviewModal = ({ open, onClose }) => {
@@ -248,8 +289,8 @@ const AddReviewModal = ({ open, onClose }) => {
       <ModalForm>
         <Heading>
           <CloseBtn onClick={onClose}>x</CloseBtn>
-          <Title>Write a Review</Title>
-          <Subtitle>{products.currentItem.name}</Subtitle>
+          {/* <Title>Write a Review</Title> */}
+          <Title>{products.currentItem.name}</Title>
         </Heading>
         <form>
           <Label htmlFor="rating">Rating:</Label>
@@ -296,7 +337,7 @@ const AddReviewModal = ({ open, onClose }) => {
           <div style={{ fontSize: 'small' }}>For authentication reasons, you will not be emailed.</div>
 
           <Label className="button" />
-          <button onClick={handleSubmit} type="submit">{submitBtnText}</button>
+          <SubmitButton onClick={handleSubmit} type="submit">{submitBtnText}</SubmitButton>
 
         </form>
       </ModalForm>
