@@ -1,4 +1,4 @@
-# FrontEndCapstone
+# Ambsly
 
 Creating Feature Branches:
 https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow
