@@ -4,13 +4,8 @@ import styled from 'styled-components';
 import axios from 'axios';
 import StarRatings from 'react-star-ratings';
 import _ from 'underscore';
-import { ProductsContext } from '../../globalState.jsx';
-import BigContext from '../context/BigContext.js';
-
-const Container = styled.div`
-  /* display: flex; */
-  /* justify-content: center; */
-`;
+import { ProductsContext } from '../../globalState';
+import ReviewContext from '../context/ReviewContext';
 
 const Overlay = styled.div`
   position: fixed;
@@ -43,12 +38,6 @@ const ModalForm = styled.div`
   height: auto;
 `;
 
-// const BottomWrapper = styled.div`
-//   display: flex;
-//   /* justify-content: space-between; */
-//   /* margin-right: 100px; */
-// `;
-
 const Heading = styled.div`
   display: flex;
   flex-direction: column;
@@ -59,12 +48,6 @@ const Title = styled.div`
   font-weight: bold;
   margin-bottom: 5px;
 `;
-
-// const Subtitle = styled.div`
-//   display: block;
-//   font-size: 14px;
-//   margin-bottom: 8px;
-// `;
 
 const Label = styled.label`
   display: block;
@@ -167,7 +150,7 @@ const SubmitButton = styled.button`
 `;
 
 const AddReviewModal = ({ open, onClose }) => {
-  const { productMetaData, reviewSubmit, setReviewSubmit } = useContext(BigContext);
+  const { productMetaData, reviewSubmit, setReviewSubmit } = useContext(ReviewContext);
   const [products, setProducts] = useContext(ProductsContext);
   const charsObj = {};
   const charsArr = [];
@@ -178,7 +161,7 @@ const AddReviewModal = ({ open, onClose }) => {
       id: val.id,
     });
   });
-  // console.log('charsarr', charsArr);
+
   const [characteristics, setChars] = useState(charsObj);
   const [recommendedInput, setRecommendedInput] = useState(true);
   const [rating, setRating] = useState(0);
@@ -222,42 +205,23 @@ const AddReviewModal = ({ open, onClose }) => {
       ...prevState,
       rating: newRating,
     }));
-    console.log('input state', reviewInputs);
   };
 
   const handleSliderChange = (e) => {
-    // setSliderValue(Number(e.target.value));
     const { id } = e.target;
     const value = Number(e.target.value);
-    console.log('value of slider', value);
 
     setChars((prevState) => ({
       ...prevState,
       [id]: value,
     }));
-    console.log('chars', characteristics);
 
     setTimeout(() => {
       setReviewInputs((prev) => ({
         ...prev,
         characteristics,
       }));
-      console.log(reviewInputs);
     }, 1000);
-    // const keysArr = Object.keys(reviewInputs.characteristics);
-    // for (let i = 0; i < keysArr.length; i++) {
-    //   if (keysArr[i] === id) {
-    //     // let updatedPair = { [id]: sliderValue };
-    //     setChars((prevState) => ({
-    //       ...prevState,
-    //       [id]: sliderValue,
-    //     }));
-    //     setReviewInputs((prev) => ({
-    //       ...prev,
-    //       characteristics,
-    //     }));
-    //   }
-    // }
   };
 
   const submitBtnText = 'Submit';
@@ -267,10 +231,6 @@ const AddReviewModal = ({ open, onClose }) => {
     axios.post('/reviews', reviewInputs)
       .then(({ data }) => {
         if (data.name !== 'Error') {
-          // submitBtnText = 'Review Submitted!';
-          // setTimeout(() => {
-          //   onClose();
-          // }, 1500);
           onClose();
           setReviewSubmit(!reviewSubmit);
         } else {
@@ -278,18 +238,17 @@ const AddReviewModal = ({ open, onClose }) => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        throw new Error(err);
       });
   };
 
   if (!open) return null;
   return ReactDOM.createPortal(
-    <Container>
+    <div>
       <Overlay />
       <ModalForm>
         <Heading>
           <CloseBtn onClick={onClose}>x</CloseBtn>
-          {/* <Title>Write a Review</Title> */}
           <Title>{products.currentItem.name}</Title>
         </Heading>
         <form>
@@ -310,7 +269,7 @@ const AddReviewModal = ({ open, onClose }) => {
           <ReviewTitleInput type="text" id="summary" onChange={handleTextInputChange} placeholder="Example: Best purchase ever!" required />
 
           <Label htmlFor="body">Review (10 - 1000 characters):</Label>
-          <ReviewBody required minLength="10" maxLength="1000" id="body" onChange={handleTextInputChange} placeholder="Why did you like the product or not?" required />
+          <ReviewBody required minLength="10" maxLength="1000" id="body" onChange={handleTextInputChange} placeholder="Why did you like the product or not?" />
 
           <div style={{ marginTop: '20px' }}>Would you recommend this product to a friend?</div>
           <label htmlFor="yes">Yes</label>
@@ -341,7 +300,7 @@ const AddReviewModal = ({ open, onClose }) => {
 
         </form>
       </ModalForm>
-    </Container>,
+    </div>,
     document.getElementById('portal'),
   );
 };

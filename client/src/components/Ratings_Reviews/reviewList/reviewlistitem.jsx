@@ -28,15 +28,8 @@ const SecondLineWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const ThirdLineWrapper = styled.div`
-  /* display: flex;
-  justify-content: space-between; */
-`;
-
 const Recommended = styled.div`
   font: small Georgia, serif;
-  /* font-size: small;
-  font-family: Georgia; */
 `;
 
 const FourthLineWrapper = styled.div`
@@ -90,7 +83,7 @@ const ReviewListItem = ({ item }) => {
   const markHelpful = () => {
     if (helpfulBtnContents === `Yes  (${item.helpfulness})`) {
       axios.put(`/reviews/${item.review_id}/helpful`)
-        .then((result) => {
+        .then(() => {
           HelpfulBtn = styled.span`
             margin-left: 7px;
             font-size: small;
@@ -98,7 +91,7 @@ const ReviewListItem = ({ item }) => {
           setHelpfulContents('Thank you for your response.');
         })
         .catch((err) => {
-          console.log('err');
+          throw new Error(err);
         });
     }
   };
@@ -106,7 +99,7 @@ const ReviewListItem = ({ item }) => {
   const report = () => {
     if (reportBtnContents === 'Report') {
       axios.put(`/reviews/${item.review_id}/report`)
-        .then((result) => {
+        .then(() => {
           ReportBtn = styled.span`
             margin-left: 7px;
             font-size: small;
@@ -114,7 +107,7 @@ const ReviewListItem = ({ item }) => {
           setReportContents('Reported Successfully');
         })
         .catch((err) => {
-          console.log('err');
+          throw new Error(err);
         });
     }
   };
@@ -142,14 +135,14 @@ const ReviewListItem = ({ item }) => {
           <DateDisplay>{formatDate(item.date)}</DateDisplay>
         </SecondLineWrapper>
       </div>
-      <ThirdLineWrapper>
+      <div>
         <p>
           {item.body}
         </p>
         <Recommended>
           {item.recommend ? 'User Recommended ✓' : ''}
         </Recommended>
-      </ThirdLineWrapper>
+      </div>
       <FourthLineWrapper>
         <div>
           Was this review helpful?

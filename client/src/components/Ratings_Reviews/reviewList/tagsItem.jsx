@@ -1,6 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
-import BigContext from '../context/BigContext.js';
+import ReviewContext from '../context/ReviewContext';
 
 const Button = styled.button`
   margin-top: 8px;
@@ -18,7 +18,7 @@ const Button = styled.button`
 `;
 
 const TagItem = ({ item }) => {
-  const { ratingFilter, setRatingFilter } = useContext(BigContext);
+  const { ratingFilter, setRatingFilter } = useContext(ReviewContext);
 
   const handleClickFilter = (e) => {
     const filterNum = e.target.getAttribute('name');
@@ -30,7 +30,13 @@ const TagItem = ({ item }) => {
 
   return (
     <div>
-      <Button onClick={handleClickFilter}>Remove Filter: {item} star</Button>
+      <Button onClick={handleClickFilter}>
+        Remove Filter:
+        {' '}
+        {item}
+        {' '}
+        star
+      </Button>
     </div>
   );
 };

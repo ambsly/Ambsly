@@ -9,7 +9,6 @@ const Container = styled.div`
 `;
 
 const CharLabel = styled.label`
-  /* align-self: center; */
   margin-bottom: 3px;
 `;
 

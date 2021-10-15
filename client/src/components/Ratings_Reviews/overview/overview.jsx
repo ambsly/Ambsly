@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import StarRatings from 'react-star-ratings';
-import PropTypes from 'prop-types';
-import StarsBreakdown from './starsbreakdown.jsx';
-import CharacteristicsBreakdown from './characteristics.jsx';
+import StarsBreakdown from './starsbreakdown';
+import CharacteristicsBreakdown from './characteristics';
 
 const Container = styled.div`
   display: flex;
@@ -39,7 +38,7 @@ const averageRating = (ratings) => {
       totalRatingsCount += Number(ratings[n]);
       subtotal += n * Number(ratings[n]);
     }
-    n++;
+    n += 1;
   }
   return Math.round(subtotal / totalRatingsCount * 10) / 10;
 };

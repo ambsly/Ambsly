@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
-import BigContext from '../context/BigContext.js';
+import ReviewContext from '../context/ReviewContext';
 
 const StarList = styled.div`
   margin: 25px 0;
@@ -20,7 +20,6 @@ const Bar = styled.progress`
   appearance: none;
   width: 60%;
   align-self: center;
-  /* position: relative; */
   height: 5px;
   &::-webkit-progress-bar {
     background: rgb(238, 238, 238);
@@ -30,16 +29,9 @@ const Bar = styled.progress`
   }
 `;
 
-// click handler on each star
-// when hover, underline
-// set state in R&R to correspond with whatever number that was clicked
-// state should be an array of numbers
-// pass that array down to review list
-// set up a filter that takes in that array and filters reviews that correspond with nums in arr
-
 const StarsBreakdown = ({ ratings, totalRatings }) => {
   const [hover, setHover] = useState(false);
-  const { ratingFilter, setRatingFilter } = useContext(BigContext);
+  const { ratingFilter, setRatingFilter } = useContext(ReviewContext);
 
   const handleClickFilter = (e) => {
     const filterNum = e.target.getAttribute('name');
@@ -49,7 +41,7 @@ const StarsBreakdown = ({ ratings, totalRatings }) => {
       arr.splice(index, 1);
       setRatingFilter(arr);
     } else {
-      setRatingFilter((ratingFilter) => [...ratingFilter, filterNum]);
+      setRatingFilter(() => [...ratingFilter, filterNum]);
     }
   };
 

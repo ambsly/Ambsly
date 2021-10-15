@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import TagItem from './tagsItem.jsx';
+import TagItem from './tagsItem';
 
 const ListWrapper = styled.div`
   display: flex;

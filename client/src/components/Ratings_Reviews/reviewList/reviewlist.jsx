@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
-import ReviewListItem from './reviewlistitem.jsx';
-import AddReviewModal from './addReviewModal.jsx';
-import TagsList from './tagsList.jsx';
-import MetaContext from '../context/MetaContext.js';
-import BigContext from '../context/BigContext.js';
+import ReviewListItem from './reviewlistitem';
+import AddReviewModal from './addReviewModal';
+import TagsList from './tagsList';
+import MetaContext from '../context/MetaContext';
+import ReviewContext from '../context/ReviewContext';
 
 const Container = styled.div`
   display: flex;
@@ -19,8 +19,6 @@ const ReviewSorter = styled.div`
   margin-bottom: 12px;
 `;
 
-// set overflow props so that onclick it changes from hidden to auto
-// will need state that gets switched when 'more reviews' button gets clicked
 const List = styled.div`
   height: 579px;
   border-style: solid;
@@ -82,7 +80,7 @@ const ReviewList = ({ reviews }) => {
   const [modalOpened, setModal] = useState(false);
   const [moreReviewsClicked, setMoreReviews] = useState(false);
   const { sortType, setSortType } = useContext(MetaContext);
-  const { ratingFilter, setRatingFilter } = useContext(BigContext);
+  const { ratingFilter, setRatingFilter } = useContext(ReviewContext);
 
   let reviewList = reviews.results;
   if (ratingFilter.length !== 0) {
