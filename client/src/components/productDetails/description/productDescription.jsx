@@ -23,16 +23,13 @@ top: 65px;
 margin-left: 25px;
 `;
 
-const ProductDescription = ({ productData }) => {
-  const { slogan } = productData;
-  const { description } = productData;
-
-  return (
-    <Container>
-      <Slogan>{slogan}</Slogan>
-      <Description>{description}</Description>
-    </Container>
-  );
-};
+const ProductDescription = ({ slogan, description }) => (
+// const { slogan } = productData;
+// const { description } = productData;
+  <Container>
+    <Slogan>{slogan}</Slogan>
+    <Description>{description}</Description>
+  </Container>
+);
 
 export default ProductDescription;

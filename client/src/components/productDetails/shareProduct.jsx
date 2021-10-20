@@ -56,11 +56,14 @@ const ShareProduct = () => {
   const [expandStyle, setExpanded] = useState([false, { color: "rgba(144,164,174)" }]);
 
   const isExpanded = () => {
-    if (!expandStyle[0]) {
-      setExpanded([true, { color: "rgba(255,255,255)" }])
-    } else {
-      setExpanded([false, { color: "rgba(144,164,174)" }])
-    }
+    expandStyle[0] ?
+      setExpanded([false, { color: "rgba(144,164,174)" }]) : setExpanded([true, { color: "rgba(255,255,255)" }]);
+
+    // if (!expandStyle[0]) {
+    //   setExpanded([true, { color: "rgba(255,255,255)" }])
+    // } else {
+    //   setExpanded([false, { color: "rgba(144,164,174)" }])
+    // }
   }
 
   return (

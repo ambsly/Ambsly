@@ -34,11 +34,19 @@ const ProductDetails = () => {
       .then((results) => {
         const data = results.data.results;
         setStyles(data);
-        for (let i = 0; i < data.length; i += 1) {
-          if (data[i]['default?']) {
-            setCurrentStyle(data[i]);
+
+        data.forEach((datum) => {
+          if (datum['default?']) {
+            setCurrentStyle(datum);
           }
-        }
+        });
+
+        // - REFACTORED ABOVE
+        // for (let i = 0; i < data.length; i += 1) {
+        //   if (data[i]['default?']) {
+        //     setCurrentStyle(data[i]);
+        //   }
+        // }
       })
       .catch((error) => {
         console.log('Could not retrieve styles: ', error);
@@ -82,7 +90,8 @@ const ProductDetails = () => {
       </Container>
       <Container>
         <ProductDescription
-          productData={productData}
+          slogan={productData.slogan}
+          description={productData.description}
           currentStyle={currentStyle}
         />
       </Container>

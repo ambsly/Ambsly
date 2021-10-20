@@ -104,8 +104,10 @@ const ProductDisplay = ({ currentStyle, mainImageKey, changeImage }) => {
   const handleZoom = (e) => {
     const xPos = (e.clientX - e.target.x);
     const yPos = (e.clientY - e.target.y);
+
     const container = document.getElementById('gallery');
     container.style.overflow = 'hidden';
+
     let styles = {};
 
     if (!zoom && e.type !== 'mouseleave') {

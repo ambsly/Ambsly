@@ -63,13 +63,19 @@ const Header = () => {
   const [hovered, setHovered] = useState(false);
 
   const onHover = () => {
-    if (!hovered) {
+    hovered ? setTimeout(() => {
       setHovered(true);
-    } else {
-      setTimeout(() => {
-        setHovered(false);
-      }, 3000);
-    }
+    }, 3000) :
+    setHovered(true);
+
+    // - REFACTORED ABOVE
+    // if (!hovered) {
+    //   setHovered(true);
+    // } else {
+    //   setTimeout(() => {
+    //     setHovered(false);
+    //   }, 3000);
+    // }
   }
 
   const refreshPage = () => {
