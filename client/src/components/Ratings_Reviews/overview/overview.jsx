@@ -1,31 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
 import StarRatings from 'react-star-ratings';
 import StarsBreakdown from './starsbreakdown';
 import CharacteristicsBreakdown from './characteristics';
+import { OverviewContainer, RatingWrapper, Rating, Recommends } from './styles/review-styles-overview';
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 15px;
-`;
-
-const RatingWrapper = styled.div`
-  display: flex;
-`;
-
-const Rating = styled.div`
-  display: inline-block;
-  font-size: xx-large;
-  padding-right: 3px;
-`;
-
-const Recommends = styled.div`
-  font: small Georgia, serif;
-  padding-bottom: 25px;
-  margin-top: 15px;
-  border-bottom: 1px solid rgb(238, 238, 238);
-`;
+// heavy refactor needed
 
 let totalRatingsCount = 0;
 
@@ -69,7 +48,7 @@ export const Overview = ({ metaData }) => {
   }
 
   return (
-    <Container>
+    <OverviewContainer>
       <RatingWrapper>
         <Rating>
           {ratingStr}
@@ -88,7 +67,7 @@ export const Overview = ({ metaData }) => {
       </Recommends>
       <StarsBreakdown ratings={metaData.ratings} totalRatings={totalRatingsCount} />
       <CharacteristicsBreakdown characteristics={metaData.characteristics} />
-    </Container>
+    </OverviewContainer>
   );
 };
 

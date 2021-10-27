@@ -1,15 +1,15 @@
 import React from 'react';
 import _ from 'underscore';
-import styled from 'styled-components';
 import CharacteristicItem from './characteristicItem';
-
-const CharacteristicsList = styled.div`
-  margin-bottom: 20px;
-  border-top: 1px solid;
-  border-color: rgb(238, 238, 238);
-`;
+import { CharacteristicsList } from './styles/review-styles-overview';
 
 const CharacteristicsBreakdown = ({ characteristics }) => {
+  // refactor to use a map
+  // const characteristicItems = _.map(characteristics, (characteristic, index) => {
+  //   return (
+  //     <CharacteristicItem key={index} characteristic={characteristic} />
+  //   );
+  // });
   const charsArr = [];
   _.each(characteristics, (val, key) => {
     charsArr.push({ key, val: val.value, id: val.id });
