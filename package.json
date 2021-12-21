@@ -9,7 +9,7 @@
     "test": "jest",
     "testwatch": "jest --watchAll",
     "react-prod": "webpack --mode production",
-    "start-prod": "npm run react-prod & npm run start"
+    "start-prod": "npm run react-prod & node server/index.js"
   },
   "repository": {
     "type": "git",
@@ -25,7 +25,7 @@
   "dependencies": {
     "@babel/cli": "^7.14.8",
     "@babel/preset-react": "^7.14.5",
-    "axios": "^0.21.1",
+    "axios": "^0.21.4",
     "babel-jest": "^27.0.6",
     "express": "^4.17.1",
     "jest": "^27.0.6",

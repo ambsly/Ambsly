@@ -3,73 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import StarRatings from 'react-star-ratings';
 import { User } from '@styled-icons/boxicons-regular/User';
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border-style: solid;
-  border-width: 1px 0 1px 0;
-  border-color: rgb(238, 238, 238);
-  margin-bottom: -1px;
-  padding: 4px 16px 4px 16px;
-  width: 700px;
-  height: 280px;
-`;
-
-const FirstLineWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 12px 0 4px 0;
-`;
-
-const SecondLineWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const Recommended = styled.div`
-  font: small Georgia, serif;
-`;
-
-const FourthLineWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 16px;
-`;
-
-const UserWrapper = styled.div`
-  color: #195d92;
-`;
-
-const ReviewSummary = styled.div`
-  font-size: 20;
-  font-weight: bold;
-`;
-
-const DateDisplay = styled.div`
-  font-size: small;
-`;
-
-let HelpfulBtn = styled.button`
-  background-color: transparent;
-  border-style: none;
-  color: #195d92;
-  cursor: pointer;
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-let ReportBtn = styled.button`
-  color: #195d92;
-  background-color: transparent;
-  border-style: none;
-  cursor: pointer;
-  &:hover {
-    text-decoration: underline;
-  }
-`;
+import { ListItemContainer, FirstLineWrapper, SecondLineWrapper, FourthLineWrapper, ReviewSummary, DateDisplay, Recommended, UserWrapper, HelpfulBtn, ReportBtn } from './styles/reviewListStyles';
 
 const formatDate = (dateString) => {
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -113,7 +47,7 @@ const ReviewListItem = ({ item }) => {
   };
 
   return (
-    <Container>
+    <ListItemContainer>
       <div>
         <FirstLineWrapper>
           <StarRatings
@@ -154,7 +88,7 @@ const ReviewListItem = ({ item }) => {
           {reportBtnContents}
         </ReportBtn>
       </FourthLineWrapper>
-    </Container>
+    </ListItemContainer>
   );
 };
 

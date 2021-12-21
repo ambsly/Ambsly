@@ -4,8 +4,6 @@ import StarsBreakdown from './starsbreakdown';
 import CharacteristicsBreakdown from './characteristics';
 import { OverviewContainer, RatingWrapper, Rating, Recommends } from './styles/review-styles-overview';
 
-// heavy refactor needed
-
 let totalRatingsCount = 0;
 
 const averageRating = (ratings) => {
