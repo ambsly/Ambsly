@@ -2,11 +2,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
-import { Overview } from './overview/overview.jsx';
-import ReviewList from './reviewList/reviewlist.jsx';
-import MetaContext from './context/MetaContext.js';
-import BigContext from './context/BigContext.js';
-import { ProductsContext } from '../globalState.jsx';
+import { Overview } from './overview/overview';
+import ReviewList from './reviewList/reviewlist';
+import MetaContext from './context/MetaContext';
+import ReviewContext from './context/ReviewContext';
+import { ProductsContext } from '../globalState';
 
 const OuterContainer = styled.div`
   margin: auto;
@@ -65,12 +65,12 @@ const RatingsAndReviews = () => {
       <OuterContainer>
         <Header>Ratings and Reviews</Header>
         <Container>
-          <BigContext.Provider value={{ productData, productMetaData, ratingFilter, setRatingFilter, reviewSubmit, setReviewSubmit }}>
+          <ReviewContext.Provider value={{ productData, productMetaData, ratingFilter, setRatingFilter, reviewSubmit, setReviewSubmit }}>
             <Overview metaData={productMetaData} />
             <MetaContext.Provider value={{ sortType, setSortType }}>
               <ReviewList reviews={productData} />
             </MetaContext.Provider>
-          </BigContext.Provider>
+          </ReviewContext.Provider>
         </Container>
       </OuterContainer>
     );

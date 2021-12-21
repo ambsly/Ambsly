@@ -1,173 +1,17 @@
 import React, { useState, useContext } from 'react';
 import ReactDOM from 'react-dom';
-import styled from 'styled-components';
 import axios from 'axios';
 import StarRatings from 'react-star-ratings';
 import _ from 'underscore';
-import { ProductsContext } from '../../globalState.jsx';
-import BigContext from '../context/BigContext.js';
-
-const Container = styled.div`
-  /* display: flex; */
-  /* justify-content: center; */
-`;
-
-const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, .7);
-  z-Index: 1000;
-`;
-
-const ModalForm = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  position: fixed;
-  left: 50%;
-  top: 30%;
-  transform: translate(-50%, -30%);
-  z-Index: 1000;
-
-  background-color: white;
-  border: solid 2px black;
-  border-radius: 5px;
-  padding: 30px;
-  width: 720px;
-  min-width: 30%;
-  max-width: 80%;
-  min-height: 760px;
-  height: auto;
-`;
-
-// const BottomWrapper = styled.div`
-//   display: flex;
-//   /* justify-content: space-between; */
-//   /* margin-right: 100px; */
-// `;
-
-const Heading = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Title = styled.div`
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 5px;
-`;
-
-// const Subtitle = styled.div`
-//   display: block;
-//   font-size: 14px;
-//   margin-bottom: 8px;
-// `;
-
-const Label = styled.label`
-  display: block;
-  margin-top: 20px;
-`;
-
-const ReviewTitleInput = styled.input`
-  overflow: hidden;
-  text-align: left;
-  padding: 5px 5px 5px 10px;
-  margin: 8px 0 8px 0;
-  width: 400px;
-  font-size: 18px;
-  border: 1px solid rgba(144, 164, 174, 0.8);
-`;
-
-const Input = styled.input`
-  overflow: hidden;
-  text-align: left;
-  padding: 5px 5px 5px 10px;
-  margin: 8px 0 8px 0;
-  border: 1px solid rgba(144, 164, 174, 0.8);
-`;
-
-const SliderList = styled.div`
-  margin: 20px 0;
-`;
-
-const SliderItem = styled.div`
-  display: inline-block;
-  margin-right: 35px;
-`;
-
-const SliderInput = styled.input`
-  height: 2px;
-  width: 100%;
-  margin-bottom: 10px;
-`;
-
-const SliderLabel = styled.label`
-  display: block;
-`;
-
-const RadioInput = styled.input`
-  margin: 8px 25px 0px 6px;
-`;
-
-const ReviewBody = styled.textarea`
-  overflow: auto;
-  padding: 5px 5px 5px 10px;
-  margin: 8px 0 8px 0;
-  height: 80px;
-  width: 660px;
-  min-width: 70%;
-  border: 1px solid rgba(144, 164, 174, 0.8);
-`;
-
-const CloseBtn = styled.button`
-  width: 25px;
-  padding: 2px;
-  height: auto;
-  align-self: flex-end;
-  cursor: pointer;
-
-  background: #fff;
-  border: 1px solid rgba(144, 164, 174, 0.8);
-  &:hover {
-    transition: 0.4s;
-    border: 1px solid #0c2d47;
-    border-radius: 2px;
-  }
-`;
-
-const SubmitButton = styled.button`
-  cursor: pointer;
-  height: 40px;
-  width: 120px;
-
-  background: #fff;
-  border-color: #b2cfeb;
-  color: #0c2d47;
-  background-color: transparent !important;
-  border-bottom-width: 2px;
-  line-height: 2.6;
-  text-transform: uppercase;
-
-  &:hover {
-    appearance: none;
-    background: rgba(144, 164, 174, 0.8);
-    border: 1px solid rgba(144, 164, 174, 0.8);
-    border-radius: 0;
-    cursor: pointer;
-    height: 40px;
-    width: 120px;
-    letter-spacing: .25px;
-    text-align: center;
-    text-transform: uppercase;
-    transition: .3s;
-  }
-`;
+import { ProductsContext } from '../../globalState';
+import ReviewContext from '../context/ReviewContext';
+import {
+  Overlay, ModalForm, Heading, CloseBtn, Title, Label, ReviewTitleInput, ReviewBody, RadioInput,
+  SubmitButton, SliderList, SliderItem, SliderLabel, SliderInput, Input,
+} from './styles/reviewListStyles';
 
 const AddReviewModal = ({ open, onClose }) => {
-  const { productMetaData, reviewSubmit, setReviewSubmit } = useContext(BigContext);
+  const { productMetaData, reviewSubmit, setReviewSubmit } = useContext(ReviewContext);
   const [products, setProducts] = useContext(ProductsContext);
   const charsObj = {};
   const charsArr = [];
@@ -178,7 +22,7 @@ const AddReviewModal = ({ open, onClose }) => {
       id: val.id,
     });
   });
-  // console.log('charsarr', charsArr);
+
   const [characteristics, setChars] = useState(charsObj);
   const [recommendedInput, setRecommendedInput] = useState(true);
   const [rating, setRating] = useState(0);
@@ -222,42 +66,23 @@ const AddReviewModal = ({ open, onClose }) => {
       ...prevState,
       rating: newRating,
     }));
-    console.log('input state', reviewInputs);
   };
 
   const handleSliderChange = (e) => {
-    // setSliderValue(Number(e.target.value));
     const { id } = e.target;
     const value = Number(e.target.value);
-    console.log('value of slider', value);
 
     setChars((prevState) => ({
       ...prevState,
       [id]: value,
     }));
-    console.log('chars', characteristics);
 
     setTimeout(() => {
       setReviewInputs((prev) => ({
         ...prev,
         characteristics,
       }));
-      console.log(reviewInputs);
     }, 1000);
-    // const keysArr = Object.keys(reviewInputs.characteristics);
-    // for (let i = 0; i < keysArr.length; i++) {
-    //   if (keysArr[i] === id) {
-    //     // let updatedPair = { [id]: sliderValue };
-    //     setChars((prevState) => ({
-    //       ...prevState,
-    //       [id]: sliderValue,
-    //     }));
-    //     setReviewInputs((prev) => ({
-    //       ...prev,
-    //       characteristics,
-    //     }));
-    //   }
-    // }
   };
 
   const submitBtnText = 'Submit';
@@ -267,10 +92,6 @@ const AddReviewModal = ({ open, onClose }) => {
     axios.post('/reviews', reviewInputs)
       .then(({ data }) => {
         if (data.name !== 'Error') {
-          // submitBtnText = 'Review Submitted!';
-          // setTimeout(() => {
-          //   onClose();
-          // }, 1500);
           onClose();
           setReviewSubmit(!reviewSubmit);
         } else {
@@ -278,18 +99,17 @@ const AddReviewModal = ({ open, onClose }) => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        throw new Error(err);
       });
   };
 
   if (!open) return null;
   return ReactDOM.createPortal(
-    <Container>
+    <div>
       <Overlay />
       <ModalForm>
         <Heading>
           <CloseBtn onClick={onClose}>x</CloseBtn>
-          {/* <Title>Write a Review</Title> */}
           <Title>{products.currentItem.name}</Title>
         </Heading>
         <form>
@@ -310,7 +130,7 @@ const AddReviewModal = ({ open, onClose }) => {
           <ReviewTitleInput type="text" id="summary" onChange={handleTextInputChange} placeholder="Example: Best purchase ever!" required />
 
           <Label htmlFor="body">Review (10 - 1000 characters):</Label>
-          <ReviewBody required minLength="10" maxLength="1000" id="body" onChange={handleTextInputChange} placeholder="Why did you like the product or not?" required />
+          <ReviewBody required minLength="10" maxLength="1000" id="body" onChange={handleTextInputChange} placeholder="Why did you like the product or not?" />
 
           <div style={{ marginTop: '20px' }}>Would you recommend this product to a friend?</div>
           <label htmlFor="yes">Yes</label>
@@ -341,7 +161,7 @@ const AddReviewModal = ({ open, onClose }) => {
 
         </form>
       </ModalForm>
-    </Container>,
+    </div>,
     document.getElementById('portal'),
   );
 };

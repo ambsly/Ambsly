@@ -1,24 +1,9 @@
-import React, { useState, useContext } from 'react';
-import styled from 'styled-components';
-import BigContext from '../context/BigContext.js';
-
-const Button = styled.button`
-  margin-top: 8px;
-  margin-left: 5px;
-  cursor: pointer;
-
-  border: 1px solid rgba(144, 164, 174, 0.8);
-  border-radius: 3px;
-  background-color: transparent;
-  line-height: 22px;
-  &:hover {
-    transition: 0.4s;
-    border: 1px solid #0c2d47;
-  }
-`;
+import React, { useContext } from 'react';
+import ReviewContext from '../context/ReviewContext';
+import { TagButton } from './styles/reviewListStyles';
 
 const TagItem = ({ item }) => {
-  const { ratingFilter, setRatingFilter } = useContext(BigContext);
+  const { ratingFilter, setRatingFilter } = useContext(ReviewContext);
 
   const handleClickFilter = (e) => {
     const filterNum = e.target.getAttribute('name');
@@ -30,7 +15,13 @@ const TagItem = ({ item }) => {
 
   return (
     <div>
-      <Button onClick={handleClickFilter}>Remove Filter: {item} star</Button>
+      <TagButton onClick={handleClickFilter}>
+        Remove Filter:
+        {' '}
+        {item}
+        {' '}
+        star
+      </TagButton>
     </div>
   );
 };

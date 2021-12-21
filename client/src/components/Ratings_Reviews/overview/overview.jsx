@@ -1,32 +1,8 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 import StarRatings from 'react-star-ratings';
-import PropTypes from 'prop-types';
-import StarsBreakdown from './starsbreakdown.jsx';
-import CharacteristicsBreakdown from './characteristics.jsx';
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 15px;
-`;
-
-const RatingWrapper = styled.div`
-  display: flex;
-`;
-
-const Rating = styled.div`
-  display: inline-block;
-  font-size: xx-large;
-  padding-right: 3px;
-`;
-
-const Recommends = styled.div`
-  font: small Georgia, serif;
-  padding-bottom: 25px;
-  margin-top: 15px;
-  border-bottom: 1px solid rgb(238, 238, 238);
-`;
+import StarsBreakdown from './starsbreakdown';
+import CharacteristicsBreakdown from './characteristics';
+import { OverviewContainer, RatingWrapper, Rating, Recommends } from './styles/review-styles-overview';
 
 let totalRatingsCount = 0;
 
@@ -39,7 +15,7 @@ const averageRating = (ratings) => {
       totalRatingsCount += Number(ratings[n]);
       subtotal += n * Number(ratings[n]);
     }
-    n++;
+    n += 1;
   }
   return Math.round(subtotal / totalRatingsCount * 10) / 10;
 };
@@ -70,7 +46,7 @@ export const Overview = ({ metaData }) => {
   }
 
   return (
-    <Container>
+    <OverviewContainer>
       <RatingWrapper>
         <Rating>
           {ratingStr}
@@ -89,7 +65,7 @@ export const Overview = ({ metaData }) => {
       </Recommends>
       <StarsBreakdown ratings={metaData.ratings} totalRatings={totalRatingsCount} />
       <CharacteristicsBreakdown characteristics={metaData.characteristics} />
-    </Container>
+    </OverviewContainer>
   );
 };
 

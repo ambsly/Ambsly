@@ -1,18 +1,11 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import TagItem from './tagsItem.jsx';
-
-const ListWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  max-width: 435px;
-`;
+import React from 'react';
+import TagItem from './tagsItem';
+import { TagListWrapper } from './styles/reviewListStyles';
 
 const TagsList = ({ filterList }) => (
-  <ListWrapper>
+  <TagListWrapper>
     {filterList.map((item) => <TagItem item={item} />)}
-  </ListWrapper>
+  </TagListWrapper>
 );
 
 export default TagsList;

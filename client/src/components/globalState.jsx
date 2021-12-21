@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const initialProductState = {
   currentItem: {},
-  currentItemId: 25171,
+  currentItemId: 61576,
   relatedProducts: [],
 };
 
